@@ -1,17 +1,37 @@
 package sk.upjs.ics.android.big6;
 
+import android.app.LoaderManager;
+import android.content.Intent;
+import android.content.Loader;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 
 
-public class MainActivity extends ActionBarActivity {
+public class MainActivity extends ActionBarActivity implements LoaderManager.LoaderCallbacks<Object> {
+
+    private ListView big6ListView;
+
+    public static final int LOADER_ID = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        big6ListView = (ListView) findViewById(R.id.big6ListView);
+        String[] big6 = {"PUSHUP", "SQUAT", "PULLUPS", "LEG RAISE", "BRIDGE", "HANDSTAND PUSHUP"};
+        ArrayAdapter adapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, big6);
+        big6ListView.setAdapter(adapter);
+
+        getLoaderManager().initLoader(LOADER_ID, Bundle.EMPTY, this);
+
+
+        //service
+        RemindTrainingSchedule.schedule(this);
     }
 
 
@@ -35,5 +55,20 @@ public class MainActivity extends ActionBarActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public Loader<Object> onCreateLoader(int id, Bundle args) {
+        return null;
+    }
+
+    @Override
+    public void onLoadFinished(Loader<Object> loader, Object data) {
+
+    }
+
+    @Override
+    public void onLoaderReset(Loader<Object> loader) {
+
     }
 }
