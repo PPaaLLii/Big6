@@ -15,12 +15,8 @@ public class Database {
 
         public static final String DAY = "day";
 
-        public static final String ORDER = "order";
+        public static final String VALUES = "values";
 
         public static final String TYPE = "type";
-
-        public static final String STEP = "STEP";
-
-        public static final String ISTRAININGSET = "isTraining";
     }
 }

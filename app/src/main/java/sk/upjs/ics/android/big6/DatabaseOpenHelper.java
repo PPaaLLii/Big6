@@ -30,10 +30,8 @@ public class DatabaseOpenHelper extends SQLiteOpenHelper {
                 + "%s INTEGER,"
                 + "%s INTEGER,"
                 + "%s INTEGER,"
-                + "%s INTEGER,"
-                + "%s INTEGER,"
-                + "%s INTEGER,"
-                + "%s BOOLEAN"
+                + "%s TEXT,"
+                + "%s INTEGER"
                 + ")";
         String sql = String.format(sqlTemplate,
                 Database.Big6.TABLE_NAME,
@@ -41,10 +39,8 @@ public class DatabaseOpenHelper extends SQLiteOpenHelper {
                 Database.Big6.YEAR,
                 Database.Big6.MONTH,
                 Database.Big6.DAY,
-                Database.Big6.ORDER,
-                Database.Big6.TYPE,
-                Database.Big6.STEP,
-                Database.Big6.ISTRAININGSET);
+                Database.Big6.VALUES,
+                Database.Big6.TYPE);
 
         db.execSQL(sql);
 
@@ -56,10 +52,8 @@ public class DatabaseOpenHelper extends SQLiteOpenHelper {
         contentValues.put(Database.Big6.MONTH, calendar.get(Calendar.MONTH));
         System.out.println(calendar.get(Calendar.MONTH));
         contentValues.put(Database.Big6.DAY, calendar.get(Calendar.DAY_OF_MONTH));
-        contentValues.put(Database.Big6.ORDER, 0);
-        contentValues.put(Database.Big6.TYPE, "PUSHUP");
-        contentValues.put(Database.Big6.STEP, "2");
-        contentValues.put(Database.Big6.ISTRAININGSET, new Boolean(false));
+        contentValues.put(Database.Big6.VALUES, "10,2,10,2,-1,15,3,15,3,10,3");
+        contentValues.put(Database.Big6.TYPE, 0);
 
         db.insert(Database.Big6.TABLE_NAME, NO_NULL_COLUMN_HACK, contentValues);
     }

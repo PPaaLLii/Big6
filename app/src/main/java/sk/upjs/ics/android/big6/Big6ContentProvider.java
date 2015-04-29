@@ -8,7 +8,6 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
 import java.util.List;
-
 import sk.upjs.ics.android.util.Defaults;
 
 import static sk.upjs.ics.android.util.Defaults.ALL_COLUMNS;
@@ -29,30 +28,25 @@ public class Big6ContentProvider extends ContentProvider {
             .appendPath(Database.Big6.TABLE_NAME)
             .build();
 
-    private static final String MIME_TYPE_COLORED_DAYS = ContentResolver.CURSOR_ITEM_BASE_TYPE + "/vnd." + AUTHORITY + "." + Database.Big6.TABLE_NAME;
+    private static final String MIME_TYPE_TRAINING_HISTORY = ContentResolver.CURSOR_ITEM_BASE_TYPE + "/vnd." + AUTHORITY + "." + Database.Big6.TABLE_NAME;
 
-    private static final int WEEK_COUNT = 6;
-    private static final int DAY_COUNT = 7;
-
-    public static final int URI_MATCH_TRAINING = 0;
-    public static final int URI_MATCH_TRAININGS = 1;
+    public static final int URI_MATCH_TRAININGS = 0;
 
 
     private UriMatcher uriMatcher = new UriMatcher(UriMatcher.NO_MATCH);
 
-    private static final String[] COLUMN_NAMES = {
+    private static final String[] COLUMN_NAMES = new String[]{
             Database.Big6._ID,
             Database.Big6.YEAR,
             Database.Big6.MONTH,
             Database.Big6.DAY,
-            Database.Big6.TYPE,
-            Database.Big6.ISTRAININGSET
+            Database.Big6.VALUES,
+            Database.Big6.TYPE
     };
     private DatabaseOpenHelper databaseOpenHelper;
 
     @Override
     public boolean onCreate() {
-        uriMatcher.addURI(AUTHORITY, Database.Big6.TABLE_NAME + "/#/#/#", URI_MATCH_TRAINING);
         uriMatcher.addURI(AUTHORITY, Database.Big6.TABLE_NAME, URI_MATCH_TRAININGS);
 
         databaseOpenHelper = new DatabaseOpenHelper(this.getContext());
@@ -64,18 +58,10 @@ public class Big6ContentProvider extends ContentProvider {
     public Cursor query(Uri uri, String[] projection, String selection,
                         String[] selectionArgs, String sortOrder) {
         switch(uriMatcher.match(uri)) {
-            case URI_MATCH_TRAINING:
-                List<String> pathSegments = uri.getPathSegments();
-                int year = Integer.parseInt(pathSegments.get(0));
-                int month = Integer.parseInt(pathSegments.get(1));
-                int  day = Integer.parseInt(pathSegments.get(2));
-
-                Cursor cursor = getTrainingsCursor(year, month, day);
-                cursor.setNotificationUri(getContext().getContentResolver(), uri);
-
-                return cursor;
             case URI_MATCH_TRAININGS:
-                return getTrainingsCursor();
+                Cursor cursor = getTrainingsCursor();
+                cursor.setNotificationUri(getContext().getContentResolver(), uri);
+                return cursor;
             default:
                 return null;
         }
@@ -93,32 +79,6 @@ public class Big6ContentProvider extends ContentProvider {
         return cursor;
     }
 
-    private Cursor getTrainingsCursor(int year, int month, int day) {
-
-        SQLiteDatabase db = databaseOpenHelper.getReadableDatabase();
-        String where = Database.Big6.YEAR + "=" +year
-                +"AND" +Database.Big6.MONTH + "=" + month
-                +"AND" +Database.Big6.DAY + "=" + day;
-
-        Cursor cursor = db.query(Database.Big6.TABLE_NAME,
-                ALL_COLUMNS,
-                where,
-                NO_SELECTION_ARGS,
-                NO_GROUP_BY,
-                NO_HAVING,
-                NO_SORT_ORDER);
-
-        return cursor;
-    }
-
-    /*public Object[] toArray(int id, ColoredDay coloredDay) {
-        int year = coloredDay.getYear();
-        int month = coloredDay.getMonth();
-        int day = coloredDay.getDay();
-
-        return new Object[] { id, year, month, day, coloredDay.getColor()} ;
-    }*/
-
     @Override
     public int delete(Uri uri, String selection, String[] selectionArgs) {
         throw new UnsupportedOperationException("Not yet implemented");
@@ -126,30 +86,27 @@ public class Big6ContentProvider extends ContentProvider {
 
     @Override
     public String getType(Uri uri) {
-        return MIME_TYPE_COLORED_DAYS;
+        return MIME_TYPE_TRAINING_HISTORY;
     }
 
     @Override
     public Uri insert(Uri uri, ContentValues values) {
         switch(uriMatcher.match(uri)){
-            case URI_MATCH_TRAINING:
+            case URI_MATCH_TRAININGS:
                 List<String> segments = uri.getPathSegments();
                 int year = Integer.parseInt(segments.get(1));
                 int month = Integer.parseInt(segments.get(2));
                 int day = Integer.parseInt(segments.get(3));
-                int order = Integer.parseInt(segments.get(4));
+                String trainingvalues = segments.get(4);
                 int type = Integer.parseInt(segments.get(5));
-                Boolean isTrainingSet = Boolean.valueOf(segments.get(6));
 
                 ContentValues newContentValues = new ContentValues();
                 newContentValues.put(Database.Big6._ID, AUTOGENERATED_ID);
                 newContentValues.put(Database.Big6.YEAR, year);
                 newContentValues.put(Database.Big6.MONTH, month);
                 newContentValues.put(Database.Big6.DAY, day);
-                newContentValues.put(Database.Big6.ORDER, order);
+                newContentValues.put(Database.Big6.VALUES, trainingvalues);
                 newContentValues.put(Database.Big6.TYPE, type);
-                newContentValues.put(Database.Big6.ISTRAININGSET, isTrainingSet);
-
 
                 databaseOpenHelper.getWritableDatabase()
                         .insert(Database.Big6.TABLE_NAME, Defaults.NO_NULL_COLUMN_HACK, newContentValues);
