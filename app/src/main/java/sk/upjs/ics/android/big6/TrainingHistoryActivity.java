@@ -12,21 +12,25 @@ import android.view.MenuItem;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
-
 import java.util.ArrayList;
-
-import sk.upjs.ics.android.big6.provider.Provider;
 import sk.upjs.ics.android.big6.provider.TrainingsContentProvider;
 import sk.upjs.ics.android.util.Defaults;
+import static sk.upjs.ics.android.big6.provider.Provider.Big6.YEAR;
+import static sk.upjs.ics.android.big6.provider.Provider.Big6.MONTH;
+import static sk.upjs.ics.android.big6.provider.Provider.Big6.DAY;
+import static sk.upjs.ics.android.big6.provider.Provider.Big6.TRAINING;
+import static sk.upjs.ics.android.big6.provider.Provider.Big6.TYPE;
+
+
 
 
 public class TrainingHistoryActivity extends ActionBarActivity implements LoaderManager.LoaderCallbacks<Cursor>{
 
     private static final Bundle NO_BUNDLE = null;
     private ListView trainingHistoryListView;
-    private SimpleCursorAdapter adapter;
 
     public static final int LOADER_ID_TRAINING_HISTORY = 0;
+    private TrainingHistoryAdapter trainingHistoryAdapter;
 
 
     @Override
@@ -37,7 +41,7 @@ public class TrainingHistoryActivity extends ActionBarActivity implements Loader
         getLoaderManager().initLoader(LOADER_ID_TRAINING_HISTORY, NO_BUNDLE, this);
 
         trainingHistoryListView = (ListView) findViewById(R.id.trainingHistoryListView);
-        trainingHistoryListView.setAdapter(initializeAdapter());
+        //trainingHistoryListView.setAdapter(initializeAdapter());
     }
 
     private ListAdapter initializeAdapter() {
@@ -51,7 +55,7 @@ public class TrainingHistoryActivity extends ActionBarActivity implements Loader
         ArrayList<Training> trainings = new ArrayList<>();
         Training training = new Training("2015","10","15","blablablabla",0);
         trainings.add(training);
-        TrainingHistoryAdapter trainingHistoryAdapter = new TrainingHistoryAdapter(this, trainings);
+        trainingHistoryAdapter = new TrainingHistoryAdapter(this, trainings);
         return trainingHistoryAdapter;
     }
 
@@ -86,12 +90,26 @@ public class TrainingHistoryActivity extends ActionBarActivity implements Loader
 
     @Override
     public void onLoadFinished(Loader<Cursor> loader, Cursor cursor) {
-        //this.adapter.swapCursor(cursor);
+
+        ArrayList<Training> trainings = new ArrayList<>();
+
+        while(cursor.moveToNext()){
+            Training training = new Training();
+            training.setYear(cursor.getString(cursor.getColumnIndex(YEAR)));
+            training.setMonth(cursor.getString(cursor.getColumnIndex(MONTH)));
+            training.setDay(cursor.getString(cursor.getColumnIndex(DAY)));
+            training.setTraining(cursor.getString(cursor.getColumnIndex(TRAINING)));
+            training.setType(Integer.parseInt(cursor.getString(cursor.getColumnIndex(TYPE))));
+            trainings.add(training);
+        }
+        cursor.close();
+        trainingHistoryAdapter = new TrainingHistoryAdapter(this, trainings);
+        trainingHistoryListView.setAdapter(trainingHistoryAdapter);
         Log.w(getClass().getName(), "onLoadFinished!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
     }
 
     @Override
     public void onLoaderReset(Loader<Cursor> loader) {
-        this.adapter.swapCursor(Defaults.NO_CURSOR);
+        // do nothing
     }
 }

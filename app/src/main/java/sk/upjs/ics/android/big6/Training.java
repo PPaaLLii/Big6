@@ -10,6 +10,8 @@ public class Training {
     private String training;
     private int type;
 
+    public Training(){}
+
     public Training(String year, String month, String day, String training, int type) {
         Year = year;
         Month = month;
