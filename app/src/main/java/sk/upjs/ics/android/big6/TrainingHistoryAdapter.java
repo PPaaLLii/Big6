@@ -11,6 +11,8 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 import java.util.ArrayList;
 
+import sk.upjs.ics.android.util.Utils;
+
 /**
  * Created by Pavol on 4. 5. 2015.
  */
@@ -60,8 +62,8 @@ public class TrainingHistoryAdapter extends BaseAdapter{
         sb.append(training.getDay());
 
         dateView.setText(sb.toString());
-        typeView.setText(training.getType());
-        training.setTraining(training.getTraining());
+        typeView.setText(Utils.convertType(training.getType()));
+        trainingView.setText(training.getTraining());
 
         return rowView;
     }

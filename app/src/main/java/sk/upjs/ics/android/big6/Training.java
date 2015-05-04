@@ -10,6 +10,14 @@ public class Training {
     private String training;
     private int type;
 
+    public Training(String year, String month, String day, String training, int type) {
+        Year = year;
+        Month = month;
+        Day = day;
+        this.training = training;
+        this.type = type;
+    }
+
     public String getYear() {
         return Year;
     }

@@ -13,6 +13,8 @@ import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
 
+import java.util.ArrayList;
+
 import sk.upjs.ics.android.big6.provider.Provider;
 import sk.upjs.ics.android.big6.provider.TrainingsContentProvider;
 import sk.upjs.ics.android.util.Defaults;
@@ -39,11 +41,18 @@ public class TrainingHistoryActivity extends ActionBarActivity implements Loader
     }
 
     private ListAdapter initializeAdapter() {
+        /*
         String[] from = {Provider.Big6.TRAINING};
         //int[] to = {R.id.list_item};
         int[] to = {android.R.id.text1};
         this.adapter = new SimpleCursorAdapter(this, android.R.layout.simple_list_item_1, Defaults.NO_CURSOR, from, to, Defaults.NO_FLAGS);
         return this.adapter;
+        */
+        ArrayList<Training> trainings = new ArrayList<>();
+        Training training = new Training("2015","10","15","blablablabla",0);
+        trainings.add(training);
+        TrainingHistoryAdapter trainingHistoryAdapter = new TrainingHistoryAdapter(this, trainings);
+        return trainingHistoryAdapter;
     }
 
     @Override
@@ -77,7 +86,7 @@ public class TrainingHistoryActivity extends ActionBarActivity implements Loader
 
     @Override
     public void onLoadFinished(Loader<Cursor> loader, Cursor cursor) {
-        this.adapter.swapCursor(cursor);
+        //this.adapter.swapCursor(cursor);
         Log.w(getClass().getName(), "onLoadFinished!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
     }
 
