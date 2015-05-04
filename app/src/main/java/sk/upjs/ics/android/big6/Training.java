@@ -1,45 +1,52 @@
 package sk.upjs.ics.android.big6;
 
-import java.sql.Time;
-
 /**
- * Created by Pavol on 23. 4. 2015.
+ * Created by Pavol on 4. 5. 2015.
  */
 public class Training {
+    private String Year;
+    private String Month;
+    private String Day;
+    private String training;
+    private int type;
 
-    private Time time;
-
-    private String type;
-
-    private Boolean isTrainingSet;
-
-    public Training(Time time, String type, Boolean isTrainingSet) {
-        this.time = time;
-        this.type = type;
-        this.isTrainingSet = isTrainingSet;
+    public String getYear() {
+        return Year;
     }
 
-    public Time getTime() {
-        return time;
+    public void setYear(String year) {
+        Year = year;
     }
 
-    public void setTime(Time time) {
-        this.time = time;
+    public String getMonth() {
+        return Month;
     }
 
-    public String getType() {
+    public void setMonth(String month) {
+        Month = month;
+    }
+
+    public String getDay() {
+        return Day;
+    }
+
+    public void setDay(String day) {
+        Day = day;
+    }
+
+    public String getTraining() {
+        return training;
+    }
+
+    public void setTraining(String training) {
+        this.training = training;
+    }
+
+    public int getType() {
         return type;
     }
 
-    public void setType(String type) {
+    public void setType(int type) {
         this.type = type;
-    }
-
-    public Boolean IsTrainingSet() {
-        return isTrainingSet;
-    }
-
-    public void setTrainingSet(Boolean isTrainingSet) {
-        this.isTrainingSet = isTrainingSet;
     }
 }

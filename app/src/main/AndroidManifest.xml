@@ -17,7 +17,23 @@
             </intent-filter>
         </activity>
 
-        <service android:name=".RemindTrainingService"/>
+        <service android:name=".RemindTrainingService" />
+
+        <activity
+            android:name=".TrainingHistoryActivity"
+            android:label="@string/title_activity_training_history"
+            android:parentActivityName=".MainActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="sk.upjs.ics.android.big6.MainActivity" />
+        </activity>
+
+        <provider
+            android:name=".provider.TrainingsContentProvider"
+            android:authorities="sk.upjs.ics.android.big6.provider.TrainingsContentProvider"
+            android:enabled="true"
+            android:exported="false" >
+        </provider>
     </application>
 
 </manifest>

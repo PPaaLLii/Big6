@@ -1,8 +1,8 @@
-package sk.upjs.ics.android.big6;
+package sk.upjs.ics.android.big6.provider;
 
 import android.provider.BaseColumns;
 
-public class Database {
+public class Provider {
     public static class Big6 implements BaseColumns {
         /**
          * Table name for this content provider
@@ -15,7 +15,7 @@ public class Database {
 
         public static final String DAY = "day";
 
-        public static final String VALUES = "values";
+        public static final String TRAINING = "training";
 
         public static final String TYPE = "type";
     }
