@@ -22,16 +22,11 @@ public class MainActivity extends ActionBarActivity implements LoaderManager.Loa
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        big6ListView = (ListView) findViewById(R.id.big6ListView);
-        String[] big6 = {"PUSHUPS", "SQUAT", "PULLUPS", "LEG RAISE", "BRIDGE", "HANDSTAND PUSHUPS"};
-        ArrayAdapter adapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, big6);
-        big6ListView.setAdapter(adapter);
-
         getLoaderManager().initLoader(LOADER_ID, Bundle.EMPTY, this);
 
 
         //service
-        RemindTrainingSchedule.schedule(this);
+        //RemindTrainingSchedule.schedule(this);
     }
 
 

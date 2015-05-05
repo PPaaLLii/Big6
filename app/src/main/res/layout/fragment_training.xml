@@ -1,0 +1,32 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent" tools:context="sk.upjs.ics.android.big6.TrainingFragment"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/lastTrainingTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="LAST TRAINING"
+        android:gravity="center"/>
+
+    <TextView
+        android:id="@+id/lastTrainingWarmUpTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="WarmUp:"/>
+
+    <TextView
+        android:id="@+id/lastTrainingTrainingTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Training"/>
+
+    <TextView
+        android:id="@+id/trainingTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="TRAINING"
+        android:gravity="center"/>
+
+</LinearLayout>

@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 import sk.upjs.ics.android.util.Utils;
 
@@ -63,7 +64,24 @@ public class TrainingHistoryAdapter extends BaseAdapter{
 
         dateView.setText(sb.toString());
         typeView.setText(Utils.convertType(training.getType()));
-        trainingView.setText(training.getTraining());
+        String trainingString = training.getTraining();
+        String[] trainingParsed = trainingString.split("-1");
+
+        StringBuilder sb1 = new StringBuilder();
+        sb1.append("warm-up: ");
+        String[] warmUp = trainingParsed[0].split(",");
+        System.out.println(Arrays.toString(warmUp));
+        for(int i=0; i<warmUp.length; i++){
+            sb1.append(" " + warmUp[i]);
+        }
+        sb1.append("; Training: ");
+        String[] training1 = trainingParsed[1].split(",");
+        System.out.println(Arrays.toString(training1));
+        for(int i=0; i<training1.length; i++){
+            sb1.append(" " + training1[i]);
+        }
+
+        trainingView.setText(sb1.toString());
 
         return rowView;
     }

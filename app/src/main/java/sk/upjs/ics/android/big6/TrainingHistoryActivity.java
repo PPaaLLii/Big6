@@ -40,7 +40,7 @@ public class TrainingHistoryActivity extends ActionBarActivity implements Loader
 
         getLoaderManager().initLoader(LOADER_ID_TRAINING_HISTORY, NO_BUNDLE, this);
 
-        trainingHistoryListView = (ListView) findViewById(R.id.trainingHistoryListView);
+        trainingHistoryListView = (ListView) findViewById(R.id.trainingHistoryFragmentListView);
         //trainingHistoryListView.setAdapter(initializeAdapter());
     }
 
