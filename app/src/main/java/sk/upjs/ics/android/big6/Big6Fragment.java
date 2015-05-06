@@ -16,7 +16,6 @@ import android.widget.ListView;
 public class Big6Fragment extends ListFragment {
 
     private OnFragmentInteractionListener mListener;
-    private ListView big6ListView;
 
     public Big6Fragment() {
         // Required empty public constructor

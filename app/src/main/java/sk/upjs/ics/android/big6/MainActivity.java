@@ -31,7 +31,7 @@ public class MainActivity extends Activity implements Big6Fragment.OnFragmentInt
     }
 
     private boolean isBig6FragmentShown() {
-        return findViewById(R.id.big6ListView) != null;
+        return findViewById(R.id.trainingHistoryFragmentListView) == null && findViewById(R.id.trainingTextView) == null;
     }
 
     private void showBig6Pane() {
@@ -63,8 +63,10 @@ public class MainActivity extends Activity implements Big6Fragment.OnFragmentInt
         if(isSinglePane()) {
             if(isBig6FragmentShown()) {
                 big6ActionItem.setVisible(false);
+                trainingHistoryActionItem.setVisible(true);
             } else {
                 trainingHistoryActionItem.setVisible(false);
+                big6ActionItem.setVisible(true);
             }
         } else {
             big6ActionItem.setVisible(false);
