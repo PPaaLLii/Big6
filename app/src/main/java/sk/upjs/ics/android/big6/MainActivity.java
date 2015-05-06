@@ -1,34 +1,70 @@
 package sk.upjs.ics.android.big6;
 
-import android.app.LoaderManager;
+import android.app.Activity;
 import android.content.Intent;
-import android.content.Loader;
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.ArrayAdapter;
-import android.widget.ListView;
 
 
-public class MainActivity extends ActionBarActivity implements LoaderManager.LoaderCallbacks<Object> {
+public class MainActivity extends Activity {
 
-    private ListView big6ListView;
 
-    public static final int LOADER_ID = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        getLoaderManager().initLoader(LOADER_ID, Bundle.EMPTY, this);
-
+        if(savedInstanceState == null) {
+            if (isSinglePane()) {
+                showBig6Pane();
+            }
+        }
 
         //service
         //RemindTrainingSchedule.schedule(this);
     }
 
+    public boolean isSinglePane() {
+        return findViewById(R.id.singleFragmentLayout) != null;
+    }
+
+    private boolean isBig6FragmentShown() {
+        return findViewById(R.id.big6ListView) != null;
+    }
+
+    private void showBig6Pane() {
+        getFragmentManager()
+                .beginTransaction()
+                .replace(R.id.singleFragmentLayout, new Big6Fragment())
+                .commit();
+    }
+
+    private void showTrainingHistoryPane() {
+        getFragmentManager()
+                .beginTransaction()
+                .replace(R.id.singleFragmentLayout, new TrainingHistoryFragment())
+                .commit();
+    }
+
+    @Override
+    public boolean onPrepareOptionsMenu(Menu menu) {
+        MenuItem big6ActionItem = menu.findItem(R.id.big6Action);
+        MenuItem trainingHistoryActionItem = menu.findItem(R.id.trainingHistoryAction);
+
+        if(isSinglePane()) {
+            if(isBig6FragmentShown()) {
+                big6ActionItem.setVisible(false);
+            } else {
+                trainingHistoryActionItem.setVisible(false);
+            }
+        } else {
+            big6ActionItem.setVisible(false);
+            trainingHistoryActionItem.setVisible(false);
+        }
+        return true;
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -44,28 +80,18 @@ public class MainActivity extends ActionBarActivity implements LoaderManager.Loa
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.trainingHistoryAction) {
-            Intent intent = new Intent(this, TrainingHistoryActivity.class);
-            startActivity(intent);
-            return true;
+        switch(id) {
+            case R.id.big6Action:
+                showBig6Pane();
+                invalidateOptionsMenu();
+                return true;
+            case R.id.trainingHistoryAction:
+                showTrainingHistoryPane();
+                invalidateOptionsMenu();
+                return true;
         }
 
         return super.onOptionsItemSelected(item);
     }
 
-    @Override
-    public Loader<Object> onCreateLoader(int id, Bundle args) {
-        return null;
-    }
-
-    @Override
-    public void onLoadFinished(Loader<Object> loader, Object data) {
-
-    }
-
-    @Override
-    public void onLoaderReset(Loader<Object> loader) {
-
-    }
 }
