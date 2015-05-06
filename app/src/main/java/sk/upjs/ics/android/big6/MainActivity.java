@@ -1,13 +1,13 @@
 package sk.upjs.ics.android.big6;
 
 import android.app.Activity;
-import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
 
-public class MainActivity extends Activity {
+public class MainActivity extends Activity implements Big6Fragment.OnFragmentInteractionListener {
 
 
 
@@ -45,6 +45,13 @@ public class MainActivity extends Activity {
         getFragmentManager()
                 .beginTransaction()
                 .replace(R.id.singleFragmentLayout, new TrainingHistoryFragment())
+                .commit();
+    }
+
+    private void showTrainingPane(int id) {
+        getFragmentManager()
+                .beginTransaction()
+                .replace(R.id.singleFragmentLayout, TrainingFragment.newInstance(id))
                 .commit();
     }
 
@@ -94,4 +101,23 @@ public class MainActivity extends Activity {
         return super.onOptionsItemSelected(item);
     }
 
+    @Override
+    public void onFragmentInteraction(long id) {
+        // spusti TrainingFragment
+        Log.w(MainActivity.class.getName(), "before if");
+        if(isSinglePane()){
+            Log.w(MainActivity.class.getName(), "in if");
+            showTrainingPane((int) id);
+        }else{
+            Log.w(MainActivity.class.getName(), "else");
+            TrainingFragment trainingFragment = (TrainingFragment) getFragmentManager()
+                    .findFragmentById(R.id.trainingFragment);
+            if(trainingFragment == null) {
+                return;
+            }
+            trainingFragment.initializeView((int) id);
+
+        }
+
+    }
 }
