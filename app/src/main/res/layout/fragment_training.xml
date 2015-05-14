@@ -31,7 +31,84 @@
         android:id="@+id/trainingTextView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="TRAINING"
+        android:text="NEW TRAINING"
         android:gravity="center"/>
+
+    <TextView
+        android:id="@+id/newWarmupTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="WARMUP"
+        />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <Spinner
+            android:id="@+id/warmupFirstNumberSpinner"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            />
+
+        <EditText
+            android:id="@+id/warmupFirstEditText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <Spinner
+            android:id="@+id/warmupSecondStepSpinner"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            />
+
+        <EditText
+            android:id="@+id/warmupSecondEditText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <Spinner
+            android:id="@+id/warmupThirdStepSpinner"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            />
+
+        <EditText
+            android:id="@+id/warmupThirdEditText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+    </LinearLayout>
+
+
+    <TextView
+        android:id="@+id/newTrainingTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="TRAINING"
+        />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <EditText
+            android:id="@+id/firstSetEditText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <EditText
+            android:id="@+id/secondSetEditText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <EditText
+            android:id="@+id/thirdSetEditText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+    </LinearLayout>
 
 </LinearLayout>
