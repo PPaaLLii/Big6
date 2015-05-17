@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 
 
 public class MainActivity extends Activity implements Big6Fragment.OnFragmentInteractionListener {
@@ -121,5 +122,9 @@ public class MainActivity extends Activity implements Big6Fragment.OnFragmentInt
 
         }
 
+    }
+
+    public void submitButtonOnClick(View v){
+        //do nothing
     }
 }

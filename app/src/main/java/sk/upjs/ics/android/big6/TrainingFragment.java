@@ -6,6 +6,9 @@ import android.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Adapter;
+import android.widget.ArrayAdapter;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import sk.upjs.ics.android.util.Utils;
@@ -17,6 +20,10 @@ import sk.upjs.ics.android.util.Utils;
 public class TrainingFragment extends Fragment {
 
     public static final String ARG_TRAINING_TYPE = "TRAINING_TYPE";
+    private TextView trainingTextView;
+    private Spinner warmupFirstNumberSpinner;
+    private Spinner warmupSecondNumberSpinner;
+    private Spinner warmupThirdNumberSpinner;
 
     public TrainingFragment() {
         // Required empty public constructor
@@ -49,8 +56,21 @@ public class TrainingFragment extends Fragment {
         // Inflate the layout for this fragment
         View fragmentLayout = inflater.inflate(R.layout.fragment_training, container, false);
 
-        TextView trainingTextView = (TextView) fragmentLayout.findViewById(R.id.trainingTypeTextView);
+        trainingTextView = (TextView) fragmentLayout.findViewById(R.id.trainingTypeTextView);
         trainingTextView.setText(getTrainingType());
+
+        warmupFirstNumberSpinner = (Spinner) fragmentLayout.findViewById(R.id.warmupFirstStepSpinner);
+        warmupSecondNumberSpinner = (Spinner) fragmentLayout.findViewById(R.id.warmupSecondStepSpinner);
+        warmupThirdNumberSpinner = (Spinner) fragmentLayout.findViewById(R.id.warmupThirdStepSpinner);
+
+        //http://developer.android.com/guide/topics/ui/controls/spinner.html
+        ArrayAdapter<CharSequence> adapter
+                = ArrayAdapter.createFromResource(this.getActivity(), R.array.step_arrays, android.R.layout.simple_spinner_item);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+        warmupFirstNumberSpinner.setAdapter(adapter);
+        warmupSecondNumberSpinner.setAdapter(adapter);
+        warmupThirdNumberSpinner.setAdapter(adapter);
 
         return fragmentLayout;
     }
