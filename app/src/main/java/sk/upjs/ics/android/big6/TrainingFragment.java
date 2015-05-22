@@ -24,6 +24,7 @@ public class TrainingFragment extends Fragment {
     private Spinner warmupFirstNumberSpinner;
     private Spinner warmupSecondNumberSpinner;
     private Spinner warmupThirdNumberSpinner;
+    private int type = 0;
 
     public TrainingFragment() {
         // Required empty public constructor
@@ -40,13 +41,13 @@ public class TrainingFragment extends Fragment {
     }
 
 
-    private String getTrainingType() {
+    public String getTrainingType() {
         Bundle arguments = getArguments();
         if(arguments != null && arguments.containsKey(ARG_TRAINING_TYPE)) {
             return Utils.convertType(arguments.getInt(ARG_TRAINING_TYPE));
         }
-    return "PUSHUPS";
-}
+        return "PUSHUPS";
+    }
 
 
     @Override
@@ -64,6 +65,7 @@ public class TrainingFragment extends Fragment {
         warmupThirdNumberSpinner = (Spinner) fragmentLayout.findViewById(R.id.warmupThirdStepSpinner);
 
         //http://developer.android.com/guide/topics/ui/controls/spinner.html
+        //http://www.mkyong.com/android/android-spinner-drop-down-list-example/
         ArrayAdapter<CharSequence> adapter
                 = ArrayAdapter.createFromResource(this.getActivity(), R.array.step_arrays, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -71,6 +73,12 @@ public class TrainingFragment extends Fragment {
         warmupFirstNumberSpinner.setAdapter(adapter);
         warmupSecondNumberSpinner.setAdapter(adapter);
         warmupThirdNumberSpinner.setAdapter(adapter);
+
+        warmupFirstNumberSpinner.setSelection(0);
+        warmupSecondNumberSpinner.setSelection(0);
+        warmupThirdNumberSpinner.setSelection(0);
+
+
 
         return fragmentLayout;
     }

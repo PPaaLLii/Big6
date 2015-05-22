@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    //http://stackoverflow.com/questions/5298370/how-to-add-a-button-to-a-preferencescreen-android
+    <Preference android:title="Acts like a button"
+        android:key="@string/deleteDatabaseButton"
+        android:summary="This is a cool button"/>
+    <EditTextPreference android:key="login" android:title="Prihlasovacie meno" />
+    <CheckBoxPreference android:key="autoLogin" android:title="Automaticky prihlasit" android:defaultValue="true" />
+</PreferenceScreen>

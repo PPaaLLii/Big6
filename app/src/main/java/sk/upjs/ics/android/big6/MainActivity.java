@@ -1,16 +1,30 @@
 package sk.upjs.ics.android.big6;
 
 import android.app.Activity;
+import android.content.AsyncQueryHandler;
+import android.content.ContentResolver;
+import android.content.ContentValues;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.EditText;
+import android.widget.Spinner;
+import android.widget.Toast;
+
+import sk.upjs.ics.android.big6.provider.Provider;
+import sk.upjs.ics.android.big6.provider.TrainingsContentProvider;
+import sk.upjs.ics.android.util.Defaults;
 
 
 public class MainActivity extends Activity implements Big6Fragment.OnFragmentInteractionListener {
 
 
+    private int INSERT_NOTE_TOKEN = 0;
+    private long type;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -99,6 +113,9 @@ public class MainActivity extends Activity implements Big6Fragment.OnFragmentInt
                 showTrainingHistoryPane();
                 invalidateOptionsMenu();
                 return true;
+            case R.id.action_settings:
+                startActivityForResult(new Intent(this, SettingsActivity.class), 0);
+                return true;
         }
 
         return super.onOptionsItemSelected(item);
@@ -106,6 +123,7 @@ public class MainActivity extends Activity implements Big6Fragment.OnFragmentInt
 
     @Override
     public void onFragmentInteraction(long id) {
+        type = id;
         // spusti TrainingFragment
         Log.w(MainActivity.class.getName(), "before if");
         if(isSinglePane()){
@@ -125,6 +143,67 @@ public class MainActivity extends Activity implements Big6Fragment.OnFragmentInt
     }
 
     public void submitButtonOnClick(View v){
-        //do nothing
+        Spinner warmupFirstStepSpinner = (Spinner) findViewById(R.id.warmupFirstStepSpinner);
+        Spinner warmupSecondStepSpinner = (Spinner) findViewById(R.id.warmupSecondStepSpinner);
+        Spinner warmupThirdStepSpinner = (Spinner) findViewById(R.id.warmupThirdStepSpinner);
+
+        EditText warmupFirstEditText = (EditText) findViewById(R.id.warmupFirstEditText);
+        EditText warmupSecondEditText = (EditText) findViewById(R.id.warmupSecondEditText);
+        EditText warmupThirdEditText = (EditText) findViewById(R.id.warmupThirdEditText);
+
+        EditText firstSetEditText = (EditText) findViewById(R.id.firstSetEditText);
+        EditText secondSetEditText = (EditText) findViewById(R.id.secondSetEditText);
+        EditText thirdSetEditText = (EditText) findViewById(R.id.thirdSetEditText);
+
+        TrainingFragment trainingFragment = (TrainingFragment) getFragmentManager().findFragmentById(R.id.trainingFragment);
+
+        String trainingType = String.valueOf((int)type);
+
+        StringBuilder sb = new StringBuilder(); // "10,2,10,2,10,2,-1,20,3,20,3,20,3"
+        sb.append(warmupFirstEditText.getText())
+                .append(",")
+                .append(warmupFirstStepSpinner.getSelectedItemId())
+                .append(",")
+                .append(warmupSecondEditText.getText())
+                .append(",")
+                .append(warmupSecondStepSpinner.getSelectedItemId())
+                .append(",")
+                .append(warmupThirdEditText.getText())
+                .append(",")
+                .append(warmupThirdStepSpinner.getSelectedItemId())
+                .append(",")
+                .append(-1)
+                .append(",")
+                .append(firstSetEditText.getText())
+                .append(",")
+                .append(trainingType)
+                .append(",")
+                .append(secondSetEditText.getText())
+                .append(",")
+                .append(trainingType)
+                .append(",")
+                .append(thirdSetEditText.getText())
+                .append(",")
+                .append(trainingType);
+
+        insertIntoContentProvider(sb.toString(), Integer.parseInt(trainingType));
     }
+
+    private void insertIntoContentProvider(String training, int type) {
+        Uri uri = TrainingsContentProvider.CONTENT_URI;
+        ContentValues values = new ContentValues();
+        values.put(Provider.Big6.TRAINING, training);
+        values.put(Provider.Big6.TYPE, type);
+
+        AsyncQueryHandler insertHandler = new AsyncQueryHandler(getContentResolver()) {
+            @Override
+            protected void onInsertComplete(int token, Object cookie, Uri uri) {
+                Toast.makeText(MainActivity.this, "Training was saved!", Toast.LENGTH_SHORT)
+                        .show();
+            }
+        };
+
+        insertHandler.startInsert(INSERT_NOTE_TOKEN, Defaults.NO_COOKIE, uri, values);
+    }
+
 }
