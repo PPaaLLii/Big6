@@ -26,6 +26,9 @@ import static sk.upjs.ics.android.util.Defaults.NO_NULL_COLUMN_HACK;
 
 
 public class TrainingsContentProvider extends ContentProvider {
+
+    public static final String ALL_ROWS = null;
+
     public TrainingsContentProvider() {
     }
 
@@ -59,8 +62,19 @@ public class TrainingsContentProvider extends ContentProvider {
 
     @Override
     public int delete(Uri uri, String selection, String[] selectionArgs) {
-        // Implement this to handle requests to delete one or more rows.
-        throw new UnsupportedOperationException("Not yet implemented");
+        long id = ContentUris.parseId(uri);
+        if (id != -1l) {
+            int affectedRows = databaseHelper.getWritableDatabase()
+                .delete(Big6.TABLE_NAME, Big6._ID + " = " + id, Defaults.NO_SELECTION_ARGS);
+            getContext().getContentResolver().notifyChange(CONTENT_URI, NO_CONTENT_OBSERVER);
+            return affectedRows;
+        }
+        //else delete all items in table
+        // http://stackoverflow.com/questions/19183294/what-is-the-best-way-in-android-to-delete-all-rows-from-a-table
+        int affectedRows = databaseHelper.getWritableDatabase()
+                .delete(Big6.TABLE_NAME, ALL_ROWS, Defaults.NO_SELECTION_ARGS);
+        getContext().getContentResolver().notifyChange(CONTENT_URI, NO_CONTENT_OBSERVER);
+        return affectedRows;
     }
 
     @Override
