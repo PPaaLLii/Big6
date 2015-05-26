@@ -4,11 +4,11 @@
 
     <item android:id="@+id/trainingHistoryAction"
         android:title="History"
-        app:showAsAction="always" />
+        app:showAsAction="ifRoom" />
 
     <item android:id="@+id/big6Action"
         android:title="Back"
-        app:showAsAction="always" />
+        app:showAsAction="ifRoom" />
 
     <item android:id="@+id/action_settings" android:title="@string/action_settings"
         android:orderInCategory="100" app:showAsAction="always" />

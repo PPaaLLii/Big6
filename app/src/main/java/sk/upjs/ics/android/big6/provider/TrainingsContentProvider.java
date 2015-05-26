@@ -71,6 +71,7 @@ public class TrainingsContentProvider extends ContentProvider {
         }
         //else delete all items in table
         // http://stackoverflow.com/questions/19183294/what-is-the-best-way-in-android-to-delete-all-rows-from-a-table
+        // https://groups.google.com/forum/#!topic/android-developers/wK5gZ-VxcSg
         int affectedRows = databaseHelper.getWritableDatabase()
                 .delete(Big6.TABLE_NAME, ALL_ROWS, Defaults.NO_SELECTION_ARGS);
         getContext().getContentResolver().notifyChange(CONTENT_URI, NO_CONTENT_OBSERVER);

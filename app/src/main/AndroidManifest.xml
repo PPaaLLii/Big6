@@ -4,19 +4,12 @@
 
     <uses-sdk android:minSdkVersion="11" />
 
-    <android:uses-permission
-        android:name="android.permission.WRITE_EXTERNAL_STORAGE"
-        android:maxSdkVersion="18" />
-    <android:uses-permission android:name="android.permission.READ_PHONE_STATE" />
-    <android:uses-permission
-        android:name="android.permission.READ_EXTERNAL_STORAGE"
-        android:maxSdkVersion="18" />
-
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:theme="@android:style/Theme.Holo.Light.DarkActionBar" >
+
         <activity
             android:name=".MainActivity"
             android:label="@string/app_name" >
@@ -38,13 +31,6 @@
                 android:value="sk.upjs.ics.android.big6.MainActivity" />
         </activity>
 
-        <provider
-            android:name=".provider.TrainingsContentProvider"
-            android:authorities="sk.upjs.ics.android.big6.provider.TrainingsContentProvider"
-            android:enabled="true"
-            android:exported="false" >
-        </provider>
-
         <activity
             android:name=".SettingsActivity"
             android:label="@string/title_activity_settings"
@@ -53,6 +39,14 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="sk.upjs.ics.android.big6.MainActivity" />
         </activity>
+
+        <provider
+            android:name=".provider.TrainingsContentProvider"
+            android:authorities="sk.upjs.ics.android.big6.provider.TrainingsContentProvider"
+            android:enabled="true"
+            android:exported="false" >
+        </provider>
+
     </application>
 
 </manifest>
