@@ -4,12 +4,32 @@
 
     <uses-sdk android:minSdkVersion="11" />
 
+    <uses-feature
+        android:name="android.hardware.camera"
+        android:required="false" />
+    <uses-feature
+        android:name="android.hardware.camera.front"
+        android:required="false" />
+    <uses-feature
+        android:name="android.hardware.camera.autofocus"
+        android:required="false" />
+    <uses-feature
+        android:name="android.hardware.camera.flash"
+        android:required="false" />
+
+    <android:uses-permission
+        android:name="android.permission.WRITE_EXTERNAL_STORAGE"
+        android:maxSdkVersion="18" />
+    <android:uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <android:uses-permission
+        android:name="android.permission.READ_EXTERNAL_STORAGE"
+        android:maxSdkVersion="18" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:theme="@android:style/Theme.Holo.Light.DarkActionBar" >
-
         <activity
             android:name=".MainActivity"
             android:label="@string/app_name" >
@@ -19,18 +39,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-        <service android:name=".RemindTrainingService" />
-
-        <activity
-            android:name=".TrainingHistoryActivity"
-            android:label="@string/title_activity_training_history"
-            android:parentActivityName=".MainActivity" >
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="sk.upjs.ics.android.big6.MainActivity" />
-        </activity>
-
         <activity
             android:name=".SettingsActivity"
             android:label="@string/title_activity_settings"
@@ -40,6 +48,8 @@
                 android:value="sk.upjs.ics.android.big6.MainActivity" />
         </activity>
 
+        <service android:name=".RemindTrainingService" />
+
         <provider
             android:name=".provider.TrainingsContentProvider"
             android:authorities="sk.upjs.ics.android.big6.provider.TrainingsContentProvider"
@@ -47,6 +57,14 @@
             android:exported="false" >
         </provider>
 
+        <activity
+            android:name=".PhotoActivity"
+            android:label="@string/title_activity_photo"
+            android:parentActivityName=".MainActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="sk.upjs.ics.android.big6.MainActivity" />
+        </activity>
     </application>
 
 </manifest>

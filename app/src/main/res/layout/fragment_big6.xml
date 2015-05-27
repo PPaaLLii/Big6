@@ -5,8 +5,13 @@
     <ListView
         android:id="@+id/big6ListView"
         android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        >
-    </ListView>
+        android:layout_height="wrap_content"/>
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/PhotoButton"
+        android:text="Take Photo"
+        android:onClick="PhotoButtonOnClick"/>
 
 </FrameLayout>
