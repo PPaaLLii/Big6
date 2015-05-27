@@ -10,11 +10,12 @@
         <CheckBoxPreference android:title="Enable reminders"
             android:key="enableReminders"/>
         <sk.upjs.ics.android.big6.TimePreference
-            android:name="Default notification time"
+            android:name="Select Reminder Time"
             android:summary=""
             android:dialogLayout="@layout/time_preference"
-            android:title="Default notification time"
-            android:key="reminderTime" />
+            android:title="Select Reminder Time"
+            android:key="reminderTime"
+            android:dependency="enableReminders"/>
         <MultiSelectListPreference
             android:title="Select Days of the Week"
             android:dependency="enableReminders"
