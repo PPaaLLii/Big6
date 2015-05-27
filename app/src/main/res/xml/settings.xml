@@ -1,9 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
-    //http://stackoverflow.com/questions/5298370/how-to-add-a-button-to-a-preferencescreen-android
-    <Preference android:title="Delete database"
-        android:key="deleteDatabaseButton"
-        android:summary="This will delete all your training history"/>
-    <EditTextPreference android:key="login" android:title="Prihlasovacie meno" />
-    <CheckBoxPreference android:key="autoLogin" android:title="Automaticky prihlasit" android:defaultValue="true" />
+    <!--
+      http://stackoverflow.com/questions/5298370/how-to-add-a-button-to-a-preferencescreen-android
+      https://androidpartaker.wordpress.com/tag/checkboxpreference/
+      http://blog.350nice.com/wp/archives/240
+      http://stackoverflow.com/questions/11090304/multiselectlistpreference-example
+      -->
+    <PreferenceCategory android:title="Main">
+        <CheckBoxPreference android:title="Enable reminders"
+            android:key="enableReminders"/>
+        <MultiSelectListPreference
+            android:title="Select Days of the Week"
+            android:dependency="enableReminders"
+            android:entries="@array/weekDays"
+            android:entryValues="@array/weekDaysValues"/>
+    </PreferenceCategory>
+
+    <PreferenceCategory android:title="Advanced">
+        <Preference android:title="Delete database"
+            android:key="deleteDatabaseButton"
+            android:summary="This will delete all your training history"/>
+    </PreferenceCategory>
+
 </PreferenceScreen>
