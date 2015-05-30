@@ -131,13 +131,13 @@ public class MainActivity extends Activity implements Big6Fragment.OnFragmentInt
     @Override
     public void onFragmentInteraction(long id) {
         type = id;
-        // spusti TrainingFragment
-        Log.w(MainActivity.class.getName(), "before if");
+        // start TrainingFragment
+        //Log.w(MainActivity.class.getName(), "before if");
         if(isSinglePane()){
-            Log.w(MainActivity.class.getName(), "in if");
+            //Log.w(MainActivity.class.getName(), "in if");
             showTrainingPane((int) id);
         }else{
-            Log.w(MainActivity.class.getName(), "else");
+            //Log.w(MainActivity.class.getName(), "else");
             TrainingFragment trainingFragment = (TrainingFragment) getFragmentManager()
                     .findFragmentById(R.id.trainingFragment);
             if(trainingFragment == null) {
