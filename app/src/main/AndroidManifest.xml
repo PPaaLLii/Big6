@@ -50,8 +50,8 @@
         <service android:name=".RemindTrainingService" />
 
         <provider
-            android:name=".provider.TrainingsContentProvider"
-            android:authorities="sk.upjs.ics.android.big6.provider.TrainingsContentProvider"
+            android:name=".provider.Big6ContentProvider"
+            android:authorities="sk.upjs.ics.android.big6.provider.Big6ContentProvider"
             android:enabled="true"
             android:exported="false" >
         </provider>

@@ -15,13 +15,13 @@ import android.widget.ListView;
 
 import java.util.ArrayList;
 
-import sk.upjs.ics.android.big6.provider.TrainingsContentProvider;
+import sk.upjs.ics.android.big6.provider.Big6ContentProvider;
 
-import static sk.upjs.ics.android.big6.provider.Provider.Big6.DAY;
-import static sk.upjs.ics.android.big6.provider.Provider.Big6.MONTH;
-import static sk.upjs.ics.android.big6.provider.Provider.Big6.TRAINING;
-import static sk.upjs.ics.android.big6.provider.Provider.Big6.TYPE;
-import static sk.upjs.ics.android.big6.provider.Provider.Big6.YEAR;
+import static sk.upjs.ics.android.big6.provider.Big6Provider.TrainingHistory.DAY;
+import static sk.upjs.ics.android.big6.provider.Big6Provider.TrainingHistory.MONTH;
+import static sk.upjs.ics.android.big6.provider.Big6Provider.TrainingHistory.TRAINING;
+import static sk.upjs.ics.android.big6.provider.Big6Provider.TrainingHistory.TYPE;
+import static sk.upjs.ics.android.big6.provider.Big6Provider.TrainingHistory.YEAR;
 
 
 /**
@@ -54,7 +54,7 @@ public class TrainingHistoryFragment extends Fragment implements LoaderManager.L
     @Override
     public Loader<Cursor> onCreateLoader(int id, Bundle args) {
         CursorLoader loader = new CursorLoader(this.getActivity());
-        loader.setUri(TrainingsContentProvider.CONTENT_URI);
+        loader.setUri(Big6ContentProvider.CONTENT_URI);
         return loader;
     }
 

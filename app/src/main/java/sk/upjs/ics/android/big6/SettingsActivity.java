@@ -5,20 +5,13 @@ import android.content.AsyncQueryHandler;
 import android.content.ContentUris;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.SharedPreferences;
 import android.net.Uri;
 import android.preference.Preference;
 import android.preference.PreferenceActivity;
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.widget.Toast;
 
-import java.util.prefs.Preferences;
-
-import sk.upjs.ics.android.big6.R;
-import sk.upjs.ics.android.big6.provider.TrainingsContentProvider;
+import sk.upjs.ics.android.big6.provider.Big6ContentProvider;
 import sk.upjs.ics.android.util.Defaults;
 
 
@@ -68,7 +61,7 @@ public class SettingsActivity extends PreferenceActivity {
                         .show();
             }
         };
-        Uri selectedNoteUri = ContentUris.withAppendedId(TrainingsContentProvider.CONTENT_URI, ALL_IDS);
+        Uri selectedNoteUri = ContentUris.withAppendedId(Big6ContentProvider.CONTENT_URI, ALL_IDS);
         deleteHandler.startDelete(DELETE_NOTE_TOKEN, Defaults.NO_COOKIE, selectedNoteUri,
                 Defaults.NO_SELECTION, Defaults.NO_SELECTION_ARGS);
     }

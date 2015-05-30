@@ -3,19 +3,14 @@ package sk.upjs.ics.android.big6;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.ArrayAdapter;
-import android.widget.ImageView;
 import android.widget.ListView;
-
-import java.util.ArrayList;
-
 import de.ecotastic.android.camerautil.lib.CameraIntentHelperActivity;
 import de.ecotastic.android.camerautil.util.BitmapHelper;
 
 //http://stackoverflow.com/questions/459729/how-to-display-a-list-of-images-in-a-listview-in-android
 public class PhotoActivity extends CameraIntentHelperActivity {
 
-    private ListView imagesView;
+    private ListView imageView;
     private ImageAdapter imageAdapter;
 
     @Override
@@ -23,10 +18,10 @@ public class PhotoActivity extends CameraIntentHelperActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_photo);
 
-        imagesView = (ListView) findViewById(R.id.ImagesListView);
+        imageView = (ListView) findViewById(R.id.ImagesListView);
 
         imageAdapter = new ImageAdapter(this);
-        imagesView.setAdapter(imageAdapter);
+        imageView.setAdapter(imageAdapter);
     }
 
 

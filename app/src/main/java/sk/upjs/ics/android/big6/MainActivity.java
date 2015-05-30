@@ -2,7 +2,6 @@ package sk.upjs.ics.android.big6;
 
 import android.app.Activity;
 import android.content.AsyncQueryHandler;
-import android.content.ContentResolver;
 import android.content.ContentValues;
 import android.content.Intent;
 import android.net.Uri;
@@ -15,8 +14,8 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
-import sk.upjs.ics.android.big6.provider.Provider;
-import sk.upjs.ics.android.big6.provider.TrainingsContentProvider;
+import sk.upjs.ics.android.big6.provider.Big6Provider;
+import sk.upjs.ics.android.big6.provider.Big6ContentProvider;
 import sk.upjs.ics.android.util.Defaults;
 
 
@@ -198,10 +197,10 @@ public class MainActivity extends Activity implements Big6Fragment.OnFragmentInt
     }
 
     private void insertIntoContentProvider(String training, int type) {
-        Uri uri = TrainingsContentProvider.CONTENT_URI;
+        Uri uri = Big6ContentProvider.CONTENT_URI;
         ContentValues values = new ContentValues();
-        values.put(Provider.Big6.TRAINING, training);
-        values.put(Provider.Big6.TYPE, type);
+        values.put(Big6Provider.TrainingHistory.TRAINING, training);
+        values.put(Big6Provider.TrainingHistory.TYPE, type);
 
         AsyncQueryHandler insertHandler = new AsyncQueryHandler(getContentResolver()) {
             @Override
