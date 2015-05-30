@@ -55,26 +55,30 @@ public class TrainingHistoryFragment extends Fragment implements LoaderManager.L
     public Loader<Cursor> onCreateLoader(int id, Bundle args) {
         CursorLoader loader = new CursorLoader(this.getActivity());
         loader.setUri(Big6ContentProvider.TRAINING_HISTORY_CONTENT_URI);
+        Log.e(getClass().getName(), loader.getUri().toString());
         return loader;
     }
 
     @Override
     public void onLoadFinished(Loader<Cursor> loader, Cursor cursor) {
         ArrayList<Training> trainings = new ArrayList<>();
-
-        while(cursor.moveToNext()){
-            Training training = new Training();
-            training.setYear(cursor.getString(cursor.getColumnIndex(YEAR)));
-            training.setMonth(cursor.getString(cursor.getColumnIndex(MONTH)));
-            training.setDay(cursor.getString(cursor.getColumnIndex(DAY)));
-            training.setTraining(cursor.getString(cursor.getColumnIndex(TRAINING)));
-            training.setType(Integer.parseInt(cursor.getString(cursor.getColumnIndex(TYPE))));
-            trainings.add(training);
+        if(cursor == null){
+            Log.e(getClass().getName(), "Cursor je null!!!");
+        }else {
+            while (cursor.moveToNext()) {
+                Training training = new Training();
+                training.setYear(cursor.getString(cursor.getColumnIndex(YEAR)));
+                training.setMonth(cursor.getString(cursor.getColumnIndex(MONTH)));
+                training.setDay(cursor.getString(cursor.getColumnIndex(DAY)));
+                training.setTraining(cursor.getString(cursor.getColumnIndex(TRAINING)));
+                training.setType(Integer.parseInt(cursor.getString(cursor.getColumnIndex(TYPE))));
+                trainings.add(training);
+            }
+            cursor.close();
+            trainingHistoryAdapter = new TrainingHistoryAdapter(this.getActivity(), trainings);
+            trainingHistoryFragmentListView.setAdapter(trainingHistoryAdapter);
+            Log.w(getClass().getName(), "onLoadFinished!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
         }
-        cursor.close();
-        trainingHistoryAdapter = new TrainingHistoryAdapter(this.getActivity(), trainings);
-        trainingHistoryFragmentListView.setAdapter(trainingHistoryAdapter);
-        Log.w(getClass().getName(), "onLoadFinished!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
     }
 
     @Override

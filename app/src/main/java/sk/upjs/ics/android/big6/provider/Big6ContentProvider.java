@@ -26,7 +26,7 @@ public class Big6ContentProvider extends ContentProvider {
 
     public static final String ALL_ROWS = null;
 
-    public static final String AUTHORITY = "sk.upjs.ics.android.big6.Big6ContentProvider";
+    public static final String AUTHORITY = "sk.upjs.ics.android.big6.provider.Big6ContentProvider";
 
     public static final Uri TRAINING_HISTORY_CONTENT_URI = new Uri.Builder()
             .scheme(ContentResolver.SCHEME_CONTENT)
