@@ -59,7 +59,7 @@ public class PhotoActivity extends CameraIntentHelperActivity implements LoaderM
             imageAdapter.insert(photo, 0);
             imageAdapter.notifyDataSetChanged();
             insertIntoContentProvider(photoUri);
-            Log.w(getClass().getName(), photoUri.toString());
+            Log.w(getClass().getName(), "photo uri: " + photoUri.toString());
         }else{
             Log.w(getClass().getName(), "photo is null");
         }
@@ -111,7 +111,7 @@ public class PhotoActivity extends CameraIntentHelperActivity implements LoaderM
                 Log.w(getClass().getName(), "Uri in cursor: " + uri.toString());
             }
             cursor.close();
-            imageAdapter = new ImageAdapter(this);
+            //imageAdapter = new ImageAdapter(this);
 
             for(Uri uri: photos){
                 Bitmap photo = BitmapHelper.readBitmap(this, uri);
@@ -121,9 +121,12 @@ public class PhotoActivity extends CameraIntentHelperActivity implements LoaderM
                 }
             }
             imageAdapter.notifyDataSetChanged();
-            Log.w(getClass().getName(), String.valueOf(imageAdapter.getCount()));
 
-            Log.w(getClass().getName(), "onLoadFinished!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+            //imageView.invalidate();
+            //imageView.setAdapter(imageAdapter);
+            //Log.w(getClass().getName(), String.valueOf(imageAdapter.getCount()));
+
+            //Log.w(getClass().getName(), "onLoadFinished!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
         }
     }
 
