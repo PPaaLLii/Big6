@@ -61,7 +61,7 @@ public class SettingsActivity extends PreferenceActivity {
                         .show();
             }
         };
-        Uri selectedNoteUri = ContentUris.withAppendedId(Big6ContentProvider.CONTENT_URI, ALL_IDS);
+        Uri selectedNoteUri = ContentUris.withAppendedId(Big6ContentProvider.TRAINING_HISTORY_CONTENT_URI, ALL_IDS);
         deleteHandler.startDelete(DELETE_NOTE_TOKEN, Defaults.NO_COOKIE, selectedNoteUri,
                 Defaults.NO_SELECTION, Defaults.NO_SELECTION_ARGS);
     }

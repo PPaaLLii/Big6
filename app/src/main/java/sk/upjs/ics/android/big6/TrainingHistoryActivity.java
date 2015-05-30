@@ -84,7 +84,7 @@ public class TrainingHistoryActivity extends ActionBarActivity implements Loader
     @Override
     public Loader<Cursor> onCreateLoader(int id, Bundle args) {
         CursorLoader loader = new CursorLoader(this);
-        loader.setUri(Big6ContentProvider.CONTENT_URI);
+        loader.setUri(Big6ContentProvider.TRAINING_HISTORY_CONTENT_URI);
         return loader;
     }
 

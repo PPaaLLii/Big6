@@ -197,7 +197,7 @@ public class MainActivity extends Activity implements Big6Fragment.OnFragmentInt
     }
 
     private void insertIntoContentProvider(String training, int type) {
-        Uri uri = Big6ContentProvider.CONTENT_URI;
+        Uri uri = Big6ContentProvider.TRAINING_HISTORY_CONTENT_URI;
         ContentValues values = new ContentValues();
         values.put(Big6Provider.TrainingHistory.TRAINING, training);
         values.put(Big6Provider.TrainingHistory.TYPE, type);
