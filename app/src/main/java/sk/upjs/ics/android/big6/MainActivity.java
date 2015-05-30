@@ -74,11 +74,13 @@ public class MainActivity extends Activity implements Big6Fragment.OnFragmentInt
     public boolean onPrepareOptionsMenu(Menu menu) {
         MenuItem big6ActionItem = menu.findItem(R.id.big6Action);
         MenuItem trainingHistoryActionItem = menu.findItem(R.id.trainingHistoryAction);
+        MenuItem takePhotoItem = menu.findItem(R.id.takePhotoAction);
 
         if(isSinglePane()) {
             if(isBig6FragmentShown()) {
                 big6ActionItem.setVisible(false);
                 trainingHistoryActionItem.setVisible(true);
+                takePhotoItem.setVisible(true);
             } else {
                 trainingHistoryActionItem.setVisible(false);
                 big6ActionItem.setVisible(true);
@@ -86,6 +88,7 @@ public class MainActivity extends Activity implements Big6Fragment.OnFragmentInt
         } else {
             big6ActionItem.setVisible(false);
             trainingHistoryActionItem.setVisible(false);
+            takePhotoItem.setVisible(true);
         }
         return true;
     }
@@ -113,8 +116,13 @@ public class MainActivity extends Activity implements Big6Fragment.OnFragmentInt
                 showTrainingHistoryPane();
                 invalidateOptionsMenu();
                 return true;
+            case R.id.takePhotoAction:
+                startActivityForResult(new Intent(this, PhotoActivity.class), 0);
+                invalidateOptionsMenu();
+                return true;
             case R.id.action_settings:
                 startActivityForResult(new Intent(this, SettingsActivity.class), 0);
+                invalidateOptionsMenu();
                 return true;
         }
 

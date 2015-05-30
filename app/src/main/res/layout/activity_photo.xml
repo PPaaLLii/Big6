@@ -7,15 +7,17 @@
     tools:context="sk.upjs.ics.android.big6.PhotoActivity">
 
     <Button
+        android:id="@+id/shootButton"
         android:text="Shoot!"
         android:onClick="onShootButtonClick"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         />
 
-    <ImageView
-        android:id="@+id/thumbnailImageView"
+    <ListView
+        android:id="@+id/ImagesListView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true" />
+        android:layout_below="@id/shootButton"/>
+
 </RelativeLayout>
