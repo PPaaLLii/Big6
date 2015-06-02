@@ -1,6 +1,7 @@
 package sk.upjs.ics.android.big6;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
@@ -13,13 +14,16 @@ import de.ecotastic.android.camerautil.util.BitmapHelper;
 
 public class PhotoDetailActivity extends Activity {
 
+    private String uri;
+    private String description;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_photo_detail);
 
-        String uri =  (String) getIntent().getSerializableExtra("photo");
-        String description = (String) getIntent().getSerializableExtra("description");
+        uri =  (String) getIntent().getSerializableExtra("photo");
+        description = (String) getIntent().getSerializableExtra("description");
         String year = (String) getIntent().getSerializableExtra("year");
         String month = (String) getIntent().getSerializableExtra("month");
         String day = (String) getIntent().getSerializableExtra("day");
@@ -72,6 +76,11 @@ public class PhotoDetailActivity extends Activity {
     }
 
     private void share() {
-
+        Intent shareIntent = new Intent(Intent.ACTION_SEND);
+        shareIntent.setDataAndType(Uri.parse(uri), "image/*");
+        shareIntent.putExtra(Intent.EXTRA_TEXT, description);
+        if (shareIntent.resolveActivity(getPackageManager()) != null) {
+            startActivity(shareIntent);
+        }
     }
 }
