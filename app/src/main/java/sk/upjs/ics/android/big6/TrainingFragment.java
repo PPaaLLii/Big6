@@ -1,18 +1,15 @@
 package sk.upjs.ics.android.big6;
 
 
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Adapter;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 import android.widget.TextView;
-
-import sk.upjs.ics.android.util.Utils;
-
 
 /**
  * A simple {@link Fragment} subclass.
@@ -45,9 +42,12 @@ public class TrainingFragment extends Fragment {
     public String getTrainingType() {
         Bundle arguments = getArguments();
         if(arguments != null && arguments.containsKey(ARG_TRAINING_TYPE)) {
-            return Utils.convertType(arguments.getInt(ARG_TRAINING_TYPE));
+            Resources res = getResources();
+            String[] big6 = res.getStringArray(R.array.trainingTypes);
+            return big6[arguments.getInt(ARG_TRAINING_TYPE)];
         }
-        return "PUSHUPS";
+
+        return getString(R.string.pushups);
     }
 
 
@@ -88,6 +88,8 @@ public class TrainingFragment extends Fragment {
 
     public void initializeView(int id) {
         TextView trainingTextView = (TextView) getView().findViewById(R.id.trainingTypeTextView);
-        trainingTextView.setText(Utils.convertType(id));
+        Resources res = getResources();
+        String[] big6 = res.getStringArray(R.array.trainingTypes);
+        trainingTextView.setText(big6[id]);
     }
 }

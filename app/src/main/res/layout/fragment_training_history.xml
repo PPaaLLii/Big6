@@ -13,7 +13,7 @@
             android:id="@+id/trainingHistoryTextView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Training History"
+            android:text="@string/trainingHistory"
             android:paddingBottom="30dp"
             style="@android:style/TextAppearance.Large"
             />

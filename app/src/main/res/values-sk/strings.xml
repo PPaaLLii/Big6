@@ -1,2 +1,41 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+    <string name="app_name">Big 6</string>
+
+    <string name="action_settings">Nastavenia</string>
+    <string name="title_activity_training_history">Training History</string>
+
+    <string-array name="step_arrays">
+        <item>I</item>
+        <item>II</item>
+        <item>III</item>
+        <item>IV</item>
+        <item>V</item>
+        <item>VI</item>
+        <item>VII</item>
+        <item>VIII</item>
+        <item>IX</item>
+        <item>X</item>
+    </string-array>
+
+    <string-array name="trainingTypes">
+        <item>Kliky</item>
+        <item>Drepy</item>
+        <item>Zhyby</item>
+        <item>Zdvihy nôh</item>
+        <item>Mostíky</item>
+        <item>Kliky v stojke</item>
+    </string-array>
+
+    <string name="title_activity_photo">Odfoť si svaly!</string>
+    <string name="lastTraining">Minulý tréning</string>
+    <string name="warmUp">Rozcvička:</string>
+    <string name="training">Tréning:</string>
+    <string name="newTraining">Nový tréning</string>
+    <string name="submit">Odoslať</string>
+    <string name="trainingHistory">História tréningov</string>
+    <string name="history">História</string>
+    <string name="back">Späť</string>
+    <string name="takePhoto">Odfoť fotku</string>
+    <string name="pushups">Kliky</string>
+</resources>

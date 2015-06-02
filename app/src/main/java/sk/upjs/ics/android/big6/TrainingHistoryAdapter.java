@@ -4,6 +4,7 @@
 package sk.upjs.ics.android.big6;
 
 import android.content.Context;
+import android.content.res.Resources;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,8 +13,6 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-import sk.upjs.ics.android.util.Utils;
-
 /**
  * Created by Pavol on 4. 5. 2015.
  */
@@ -21,6 +20,7 @@ public class TrainingHistoryAdapter extends BaseAdapter{
 
     private ArrayList<Training> list;
     private Context context;
+    private Resources res;
 
     public TrainingHistoryAdapter(Context context, ArrayList<Training> list){
         this.list = list;
@@ -63,18 +63,25 @@ public class TrainingHistoryAdapter extends BaseAdapter{
         sb.append(training.getDay());
 
         dateView.setText(sb.toString());
-        typeView.setText(Utils.convertType(training.getType()));
+
+        res = context.getResources();
+        String[] big6 = res.getStringArray(R.array.trainingTypes);
+        typeView.setText(big6[training.getType()]);
+
         String trainingString = training.getTraining();
         String[] trainingParsed = trainingString.split("-1");
 
         StringBuilder sb1 = new StringBuilder();
-        sb1.append("warm-up: ");
+        sb1.append(context.getString(R.string.warmUp));
+
         String[] warmUp = trainingParsed[0].split(",");
         System.out.println(Arrays.toString(warmUp));
         for(int i=0; i<warmUp.length; i++){
             sb1.append(" " + warmUp[i]);
         }
-        sb1.append("; Training: ");
+        sb1.append(";  ");
+        sb1.append(context.getString(R.string.training));
+
         String[] training1 = trainingParsed[1].split(",");
         System.out.println(Arrays.toString(training1));
         for(int i=0; i<training1.length; i++){

@@ -17,6 +17,7 @@
         android:id="@+id/lastTrainingTextView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:textAllCaps="true"
         android:text="@string/lastTraining"
         android:gravity="center"/>
 
@@ -36,6 +37,7 @@
         android:id="@+id/trainingTextView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:textAllCaps="true"
         android:text="@string/newTraining"
         android:paddingTop="20dp"
         android:gravity="center"/>

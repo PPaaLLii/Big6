@@ -3,6 +3,7 @@ package sk.upjs.ics.android.big6;
 
 import android.app.Activity;
 import android.app.ListFragment;
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.app.Fragment;
 import android.view.View;
@@ -26,7 +27,9 @@ public class Big6Fragment extends ListFragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        String[] big6 = {"PUSHUPS", "SQUAT", "PULLUPS", "LEG RAISE", "BRIDGE", "HANDSTAND PUSHUPS"};
+        Resources res = getResources();
+        String[] big6 = res.getStringArray(R.array.trainingTypes);
+
         ArrayAdapter adapter = new ArrayAdapter(this.getActivity(), android.R.layout.simple_list_item_1, big6);
         setListAdapter(adapter);
     }
