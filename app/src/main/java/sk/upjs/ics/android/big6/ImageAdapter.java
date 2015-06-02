@@ -2,6 +2,7 @@ package sk.upjs.ics.android.big6;
 
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.net.Uri;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -9,6 +10,8 @@ import android.widget.GridView;
 import android.widget.ImageView;
 
 import java.util.ArrayList;
+
+import de.ecotastic.android.camerautil.util.BitmapHelper;
 
 /**
  * Created by Pavol on 30. 5. 2015.
@@ -18,7 +21,7 @@ import java.util.ArrayList;
 public class ImageAdapter extends BaseAdapter {
 
     private Context mContext;
-    private ArrayList<Bitmap> photos = new ArrayList<>();
+    private ArrayList<Photo> photos = new ArrayList<>();
 
     public ImageAdapter(Context c) {
         mContext = c;    }
@@ -27,11 +30,11 @@ public class ImageAdapter extends BaseAdapter {
         return photos.size();
     }
 
-    public void insert(Bitmap photo, int position){
+    public void insert(Photo photo, int position){
         photos.add(position, photo);
     }
 
-    public Object getItem(int position) {
+    public Photo getItem(int position) {
         return photos.get(position);
     }
 
@@ -48,7 +51,10 @@ public class ImageAdapter extends BaseAdapter {
         } else {
             imageView = (ImageView) convertView;
         }
-        imageView.setImageBitmap(photos.get(position));
+        Bitmap photo = BitmapHelper.readBitmap(mContext, Uri.parse(photos.get(position).getUri()));
+        if (photo != null){
+            imageView.setImageBitmap(photo);
+        }
         return imageView;
     }
 

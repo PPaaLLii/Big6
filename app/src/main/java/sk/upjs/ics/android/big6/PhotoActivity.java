@@ -4,17 +4,18 @@ import android.app.LoaderManager;
 import android.content.AsyncQueryHandler;
 import android.content.ContentValues;
 import android.content.CursorLoader;
+import android.content.Intent;
 import android.content.Loader;
 import android.database.Cursor;
-import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
+import java.util.Calendar;
 
-import java.util.ArrayList;
 import de.ecotastic.android.camerautil.lib.CameraIntentHelperActivity;
 import de.ecotastic.android.camerautil.util.BitmapHelper;
 import sk.upjs.ics.android.big6.provider.Big6ContentProvider;
@@ -28,6 +29,7 @@ public class PhotoActivity extends CameraIntentHelperActivity implements LoaderM
     public static final int LOADER_ID_PHOTO_URI = 1;
     public static final Bundle NO_BUNDLE = null;
     public static final int INSERT_PHOTO_TOKEN = 1;
+    public static final int REQUEST_CODE = 0;
     private ListView imageView;
     private ImageAdapter imageAdapter;
 
@@ -37,6 +39,18 @@ public class PhotoActivity extends CameraIntentHelperActivity implements LoaderM
         setContentView(R.layout.activity_photo);
 
         imageView = (ListView) findViewById(R.id.ImagesListView);
+        imageView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent intent = new Intent(PhotoActivity.this, PhotoDetailActivity.class);
+                intent.putExtra("photo", imageAdapter.getItem(position).getUri());
+                intent.putExtra("description", imageAdapter.getItem(position).getDescription());
+                intent.putExtra("year", imageAdapter.getItem(position).getYear());
+                intent.putExtra("month", imageAdapter.getItem(position).getMonth());
+                intent.putExtra("day", imageAdapter.getItem(position).getDay());
+                startActivityForResult(intent, REQUEST_CODE);
+            }
+        });
 
         imageAdapter = new ImageAdapter(this);
         imageView.setAdapter(imageAdapter);
@@ -52,16 +66,20 @@ public class PhotoActivity extends CameraIntentHelperActivity implements LoaderM
     @Override
     protected void onPhotoUriFound() {
         super.onPhotoUriFound();
-        Bitmap photo = BitmapHelper.readBitmap(this, this.photoUri);
-        if (photo != null) {
-            photo = BitmapHelper.shrinkBitmap(photo, 300, this.rotateXDegrees);
-            imageAdapter.insert(photo, 0);
-            imageAdapter.notifyDataSetChanged();
-            insertIntoContentProvider(photoUri);
-            Log.w(getClass().getName(), "photo uri: " + photoUri.toString());
-        }else{
-            Log.w(getClass().getName(), "photo is null");
-        }
+        Photo photo = new Photo();
+        Calendar cal = Calendar.getInstance();
+        photo.setYear(String.valueOf(cal.get(Calendar.YEAR)));
+        photo.setMonth(String.valueOf(cal.get(Calendar.MONTH) + 1));
+        photo.setDay(String.valueOf(cal.get(Calendar.DAY_OF_MONTH)));
+        photo.setUri(photoUri.toString());
+        photo.setDescription("");
+
+        //photo = BitmapHelper.shrinkBitmap(photo, 300, this.rotateXDegrees);
+        imageAdapter.insert(photo, 0);
+        imageAdapter.notifyDataSetChanged();
+        insertIntoContentProvider(photoUri);
+        Log.w(getClass().getName(), "photo uri: " + photoUri.toString());
+        //TODO: insert description
 
         //Delete photo in second location (if applicable)
         if (this.preDefinedCameraUri != null && !this.preDefinedCameraUri.equals(this.photoUri)) {
@@ -100,32 +118,20 @@ public class PhotoActivity extends CameraIntentHelperActivity implements LoaderM
 
     @Override
     public void onLoadFinished(Loader<Cursor> loader, Cursor cursor) {
-        ArrayList<Uri> photos = new ArrayList<>();
         if(cursor == null){
             Log.e(getClass().getName(), "Cursor je null!!!");
         }else {
             while (cursor.moveToNext()) {
-                Uri uri = Uri.parse(cursor.getString(cursor.getColumnIndex(PhotoUri.URI)));
-                photos.add(uri);
-                Log.w(getClass().getName(), "Uri in cursor: " + uri.toString());
+                Photo photo = new Photo();
+                photo.setUri(cursor.getString(cursor.getColumnIndex(PhotoUri.URI)));
+                photo.setDescription(cursor.getString(cursor.getColumnIndex(PhotoUri.DESCRIPTION)));
+                photo.setYear(cursor.getString(cursor.getColumnIndex(PhotoUri.YEAR)));
+                photo.setMonth(cursor.getString(cursor.getColumnIndex(PhotoUri.MONTH)));
+                photo.setDay(cursor.getString(cursor.getColumnIndex(PhotoUri.DAY)));
+                imageAdapter.insert(photo, 0);
             }
             cursor.close();
-            //imageAdapter = new ImageAdapter(this);
-
-            for(Uri uri: photos){
-                Bitmap photo = BitmapHelper.readBitmap(this, uri);
-                if (photo != null) {
-                    photo = BitmapHelper.shrinkBitmap(photo, 300, this.rotateXDegrees);
-                    imageAdapter.insert(photo, 0);
-                }
-            }
             imageAdapter.notifyDataSetChanged();
-
-            //imageView.invalidate();
-            //imageView.setAdapter(imageAdapter);
-            //Log.w(getClass().getName(), String.valueOf(imageAdapter.getCount()));
-
-            //Log.w(getClass().getName(), "onLoadFinished!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
         }
     }
 

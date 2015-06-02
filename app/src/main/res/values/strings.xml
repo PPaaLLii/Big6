@@ -39,4 +39,14 @@
     <string name="back">Back</string>
     <string name="takePhoto">Take Photo</string>
     <string name="pushups">Pushups</string>
+    <string name="title_activity_photo_detail">PhotoDetail</string>
+    <string name="action_share">Share</string>
+    <string name="action_delete">Delete</string>
+    <string name="main">Main</string>
+    <string name="enableReminders">Enable reminders</string>
+    <string name="selectReminderTime">Select Reminder Time</string>
+    <string name="selectDaysOfTheWeek">Select Days of the Week</string>
+    <string name="advanced">Advanced</string>
+    <string name="deleteDatabase">Delete database</string>
+    <string name="deleteAllHistoryWarning">This will delete all your training history</string>
 </resources>

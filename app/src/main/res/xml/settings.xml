@@ -6,27 +6,26 @@
       http://blog.350nice.com/wp/archives/240
       http://stackoverflow.com/questions/11090304/multiselectlistpreference-example
       -->
-    <PreferenceCategory android:title="Main">
-        <CheckBoxPreference android:title="Enable reminders"
+    <PreferenceCategory android:title="@string/main">
+        <CheckBoxPreference android:title="@string/enableReminders"
             android:key="enableReminders"/>
         <sk.upjs.ics.android.big6.TimePreference
-            android:name="Select Reminder Time"
-            android:summary=""
+            android:name="@string/selectReminderTime"
             android:dialogLayout="@layout/time_preference"
-            android:title="Select Reminder Time"
+            android:title="@string/selectReminderTime"
             android:key="reminderTime"
             android:dependency="enableReminders"/>
         <MultiSelectListPreference
-            android:title="Select Days of the Week"
+            android:title="@string/selectDaysOfTheWeek"
             android:dependency="enableReminders"
             android:entries="@array/weekDays"
             android:entryValues="@array/weekDaysValues"/>
     </PreferenceCategory>
 
-    <PreferenceCategory android:title="Advanced">
-        <Preference android:title="Delete database"
+    <PreferenceCategory android:title="@string/advanced">
+        <Preference android:title="@string/deleteDatabase"
             android:key="deleteDatabaseButton"
-            android:summary="This will delete all your training history"/>
+            android:summary="@string/deleteAllHistoryWarning"/>
     </PreferenceCategory>
 
 </PreferenceScreen>

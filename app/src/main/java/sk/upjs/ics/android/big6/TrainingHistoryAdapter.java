@@ -27,6 +27,8 @@ public class TrainingHistoryAdapter extends BaseAdapter{
         this.context = context;
     }
 
+    //TODO: reverse order?
+
     @Override
     public int getCount() {
         return list.size();
@@ -75,7 +77,6 @@ public class TrainingHistoryAdapter extends BaseAdapter{
         sb1.append(context.getString(R.string.warmUp));
 
         String[] warmUp = trainingParsed[0].split(",");
-        System.out.println(Arrays.toString(warmUp));
         for(int i=0; i<warmUp.length; i++){
             sb1.append(" " + warmUp[i]);
         }
@@ -83,7 +84,6 @@ public class TrainingHistoryAdapter extends BaseAdapter{
         sb1.append(context.getString(R.string.training));
 
         String[] training1 = trainingParsed[1].split(",");
-        //System.out.println(Arrays.toString(training1));
         for(int i=0; i<training1.length; i++){
             sb1.append(" " + training1[i]);
         }
