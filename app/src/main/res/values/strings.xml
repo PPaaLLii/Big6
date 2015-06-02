@@ -21,4 +21,9 @@
 <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="title_activity_photo">PhotoActivity</string>
+    <string name="lastTraining">LAST TRAINING</string>
+    <string name="warmUp">WarmUp:</string>
+    <string name="training">Training:</string>
+    <string name="newTraining">NEW TRAINING</string>
+    <string name="submit">SUBMIT</string>
 </resources>

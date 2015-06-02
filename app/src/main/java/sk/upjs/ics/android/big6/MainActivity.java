@@ -24,6 +24,18 @@ public class MainActivity extends Activity implements Big6Fragment.OnFragmentInt
 
     private int INSERT_NOTE_TOKEN = 0;
     private long type;
+    private Spinner warmupFirstStepSpinner;
+    private Spinner warmupSecondStepSpinner;
+    private Spinner warmupThirdStepSpinner;
+    private EditText warmupFirstEditText;
+    private EditText warmupSecondEditText;
+    private EditText warmupThirdEditText;
+    private EditText firstSetEditText;
+    private EditText secondSetEditText;
+    private EditText thirdSetEditText;
+    private TrainingFragment trainingFragment;
+    private Spinner trainingStepSpinner;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,6 +48,19 @@ public class MainActivity extends Activity implements Big6Fragment.OnFragmentInt
             }
         }
 
+        warmupFirstStepSpinner = (Spinner) findViewById(R.id.warmupFirstStepSpinner);
+        warmupSecondStepSpinner = (Spinner) findViewById(R.id.warmupSecondStepSpinner);
+        warmupThirdStepSpinner = (Spinner) findViewById(R.id.warmupThirdStepSpinner);
+
+        warmupFirstEditText = (EditText) findViewById(R.id.warmupFirstEditText);
+        warmupSecondEditText = (EditText) findViewById(R.id.warmupSecondEditText);
+        warmupThirdEditText = (EditText) findViewById(R.id.warmupThirdEditText);
+
+        firstSetEditText = (EditText) findViewById(R.id.firstSetEditText);
+        secondSetEditText = (EditText) findViewById(R.id.secondSetEditText);
+        thirdSetEditText = (EditText) findViewById(R.id.thirdSetEditText);
+
+        trainingStepSpinner = (Spinner) findViewById(R.id.trainingStepSpinner);
         //service
         //RemindTrainingSchedule.schedule(this);
     }
@@ -150,19 +175,8 @@ public class MainActivity extends Activity implements Big6Fragment.OnFragmentInt
     }
 
     public void submitButtonOnClick(View v){
-        Spinner warmupFirstStepSpinner = (Spinner) findViewById(R.id.warmupFirstStepSpinner);
-        Spinner warmupSecondStepSpinner = (Spinner) findViewById(R.id.warmupSecondStepSpinner);
-        Spinner warmupThirdStepSpinner = (Spinner) findViewById(R.id.warmupThirdStepSpinner);
 
-        EditText warmupFirstEditText = (EditText) findViewById(R.id.warmupFirstEditText);
-        EditText warmupSecondEditText = (EditText) findViewById(R.id.warmupSecondEditText);
-        EditText warmupThirdEditText = (EditText) findViewById(R.id.warmupThirdEditText);
-
-        EditText firstSetEditText = (EditText) findViewById(R.id.firstSetEditText);
-        EditText secondSetEditText = (EditText) findViewById(R.id.secondSetEditText);
-        EditText thirdSetEditText = (EditText) findViewById(R.id.thirdSetEditText);
-
-        TrainingFragment trainingFragment = (TrainingFragment) getFragmentManager().findFragmentById(R.id.trainingFragment);
+        //trainingFragment = (TrainingFragment) getFragmentManager().findFragmentById(R.id.trainingFragment);
 
         String trainingType = String.valueOf((int)type);
 
@@ -183,15 +197,15 @@ public class MainActivity extends Activity implements Big6Fragment.OnFragmentInt
                 .append(",")
                 .append(firstSetEditText.getText())
                 .append(",")
-                .append(trainingType)
+                .append(trainingStepSpinner.getSelectedItemId())
                 .append(",")
                 .append(secondSetEditText.getText())
                 .append(",")
-                .append(trainingType)
+                .append(trainingStepSpinner.getSelectedItemId())
                 .append(",")
                 .append(thirdSetEditText.getText())
                 .append(",")
-                .append(trainingType);
+                .append(trainingStepSpinner.getSelectedItemId());
 
         insertIntoContentProvider(sb.toString(), Integer.parseInt(trainingType));
     }
@@ -212,5 +226,6 @@ public class MainActivity extends Activity implements Big6Fragment.OnFragmentInt
 
         insertHandler.startInsert(INSERT_NOTE_TOKEN, Defaults.NO_COOKIE, uri, values);
     }
+
 
 }

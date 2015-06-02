@@ -85,4 +85,9 @@ public class TrainingHistoryAdapter extends BaseAdapter{
 
         return rowView;
     }
+
+    public void setAll(ArrayList<Training> trainings) {
+        list.clear();
+        list.addAll(trainings);
+    }
 }

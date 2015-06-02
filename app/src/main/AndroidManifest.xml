@@ -47,6 +47,15 @@
                 android:value="sk.upjs.ics.android.big6.MainActivity" />
         </activity>
 
+        <activity
+            android:name=".PhotoActivity"
+            android:label="@string/title_activity_photo"
+            android:parentActivityName=".MainActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="sk.upjs.ics.android.big6.MainActivity" />
+        </activity>
+
         <service android:name=".RemindTrainingService" />
 
         <provider
@@ -56,14 +65,6 @@
             android:exported="false" >
         </provider>
 
-        <activity
-            android:name=".PhotoActivity"
-            android:label="@string/title_activity_photo"
-            android:parentActivityName=".MainActivity" >
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="sk.upjs.ics.android.big6.MainActivity" />
-        </activity>
     </application>
 
 </manifest>

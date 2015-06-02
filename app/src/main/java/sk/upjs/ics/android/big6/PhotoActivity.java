@@ -55,7 +55,6 @@ public class PhotoActivity extends CameraIntentHelperActivity implements LoaderM
         Bitmap photo = BitmapHelper.readBitmap(this, this.photoUri);
         if (photo != null) {
             photo = BitmapHelper.shrinkBitmap(photo, 300, this.rotateXDegrees);
-            //TODO: redundant insert into adapter?
             imageAdapter.insert(photo, 0);
             imageAdapter.notifyDataSetChanged();
             insertIntoContentProvider(photoUri);

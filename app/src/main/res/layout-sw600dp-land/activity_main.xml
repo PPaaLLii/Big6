@@ -11,7 +11,7 @@
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:name="sk.upjs.ics.android.big6.Big6Fragment"
-        android:layout_weight="1"/>
+        android:layout_weight="0.6"/>
 
     <fragment
         android:id="@+id/trainingFragment"

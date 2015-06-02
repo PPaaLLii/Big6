@@ -24,6 +24,7 @@ public class TrainingFragment extends Fragment {
     private Spinner warmupFirstNumberSpinner;
     private Spinner warmupSecondNumberSpinner;
     private Spinner warmupThirdNumberSpinner;
+    private Spinner trainingStepSpinner;
     private int type = 0;
 
     public TrainingFragment() {
@@ -63,6 +64,7 @@ public class TrainingFragment extends Fragment {
         warmupFirstNumberSpinner = (Spinner) fragmentLayout.findViewById(R.id.warmupFirstStepSpinner);
         warmupSecondNumberSpinner = (Spinner) fragmentLayout.findViewById(R.id.warmupSecondStepSpinner);
         warmupThirdNumberSpinner = (Spinner) fragmentLayout.findViewById(R.id.warmupThirdStepSpinner);
+        trainingStepSpinner = (Spinner) fragmentLayout.findViewById(R.id.trainingStepSpinner);
 
         //http://developer.android.com/guide/topics/ui/controls/spinner.html
         //http://www.mkyong.com/android/android-spinner-drop-down-list-example/
@@ -73,11 +75,12 @@ public class TrainingFragment extends Fragment {
         warmupFirstNumberSpinner.setAdapter(adapter);
         warmupSecondNumberSpinner.setAdapter(adapter);
         warmupThirdNumberSpinner.setAdapter(adapter);
+        trainingStepSpinner.setAdapter(adapter);
 
         warmupFirstNumberSpinner.setSelection(0);
         warmupSecondNumberSpinner.setSelection(0);
         warmupThirdNumberSpinner.setSelection(0);
-
+        trainingStepSpinner.setSelection(0);
 
 
         return fragmentLayout;

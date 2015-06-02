@@ -60,7 +60,6 @@ public class Big6Fragment extends ListFragment {
     }
 
     public interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
         public void onFragmentInteraction(long id);
     }
 }

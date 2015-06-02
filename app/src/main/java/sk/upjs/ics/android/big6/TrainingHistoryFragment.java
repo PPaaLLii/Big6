@@ -47,6 +47,13 @@ public class TrainingHistoryFragment extends Fragment implements LoaderManager.L
         View fragmentLayout = inflater.inflate(R.layout.fragment_training_history, container, false);
         trainingHistoryFragmentListView = (ListView) fragmentLayout.findViewById(R.id.trainingHistoryFragmentListView);
         getLoaderManager().initLoader(LOADER_ID_TRAINING_HISTORY, NO_BUNDLE, this);
+
+        ArrayList<Training> trainings = new ArrayList<>();
+        trainings.add(new Training("2015", "2", "6", "10,2,10,2,-1,20,3,20,3,20,3", 1));
+
+        trainingHistoryAdapter = new TrainingHistoryAdapter(this.getActivity(), trainings);
+        trainingHistoryFragmentListView.setAdapter(trainingHistoryAdapter);
+
         return fragmentLayout;
     }
 
@@ -75,9 +82,12 @@ public class TrainingHistoryFragment extends Fragment implements LoaderManager.L
                 trainings.add(training);
             }
             cursor.close();
-            trainingHistoryAdapter = new TrainingHistoryAdapter(this.getActivity(), trainings);
-            trainingHistoryFragmentListView.setAdapter(trainingHistoryAdapter);
-            Log.w(getClass().getName(), "onLoadFinished!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+            trainingHistoryAdapter.setAll(trainings);
+            trainingHistoryAdapter.notifyDataSetChanged();
+            //trainingHistoryAdapter = new TrainingHistoryAdapter(this.getActivity(), trainings);
+            //trainingHistoryFragmentListView.setAdapter(trainingHistoryAdapter);
+
+            //Log.w(getClass().getName(), "onLoadFinished!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
         }
     }
 

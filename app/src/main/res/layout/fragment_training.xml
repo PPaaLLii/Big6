@@ -8,39 +8,44 @@
     <TextView
         android:id="@+id/trainingTypeTextView"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:paddingBottom="30dp"
+        style="@android:style/TextAppearance.Large"/>
 
     <TextView
         android:id="@+id/lastTrainingTextView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="LAST TRAINING"
+        android:text="@string/lastTraining"
         android:gravity="center"/>
 
     <TextView
         android:id="@+id/lastTrainingWarmUpTextView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="WarmUp:"/>
+        android:text="@string/warmUp"/>
 
     <TextView
         android:id="@+id/lastTrainingTrainingTextView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Training"/>
+        android:text="@string/training"/>
 
     <TextView
         android:id="@+id/trainingTextView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="NEW TRAINING"
+        android:text="@string/newTraining"
+        android:paddingTop="20dp"
         android:gravity="center"/>
 
     <TextView
         android:id="@+id/newWarmupTextView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="WARMUP"
+        android:textAllCaps="true"
+        android:text="@string/warmUp"
         />
 
     <LinearLayout
@@ -57,7 +62,9 @@
         <EditText
             android:id="@+id/warmupFirstEditText"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:hint="20"
+            />
 
         <Spinner
             android:id="@+id/warmupSecondStepSpinner"
@@ -68,7 +75,9 @@
         <EditText
             android:id="@+id/warmupSecondEditText"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:hint="20"
+            />
 
         <Spinner
             android:id="@+id/warmupThirdStepSpinner"
@@ -79,7 +88,9 @@
         <EditText
             android:id="@+id/warmupThirdEditText"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:hint="20"
+            />
 
     </LinearLayout>
 
@@ -88,7 +99,8 @@
         android:id="@+id/newTrainingTextView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="TRAINING"
+        android:textAllCaps="true"
+        android:text="@string/training"
         />
 
     <LinearLayout
@@ -96,20 +108,32 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal">
 
+        <Spinner
+            android:id="@+id/trainingStepSpinner"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            />
+
         <EditText
             android:id="@+id/firstSetEditText"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:hint="20"
+            />
 
         <EditText
             android:id="@+id/secondSetEditText"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:hint="20"
+            />
 
         <EditText
             android:id="@+id/thirdSetEditText"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:hint="20"
+            />
 
     </LinearLayout>
 
@@ -117,7 +141,8 @@
         android:id="@+id/submitButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="SUBMIT"
+        android:textAllCaps="true"
+        android:text="@string/submit"
         android:onClick="submitButtonOnClick"/>
 
 </LinearLayout>
