@@ -5,6 +5,8 @@
     android:paddingLeft="30dp"
     android:paddingRight="30dp">
 
+    <!-- http://stackoverflow.com/questions/4434588/is-there-a-way-to-style-a-textview-to-uppercase-all-of-its-letters -->
+
     <TextView
         android:id="@+id/trainingTypeTextView"
         android:layout_width="match_parent"

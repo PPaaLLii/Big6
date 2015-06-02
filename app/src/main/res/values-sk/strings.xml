@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
+    <!--  http://developer.android.com/guide/topics/resources/localization.html  -->
+
     <string name="app_name">Big 6</string>
 
     <string name="action_settings">Nastavenia</string>

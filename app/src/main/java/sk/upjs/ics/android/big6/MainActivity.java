@@ -33,7 +33,6 @@ public class MainActivity extends Activity implements Big6Fragment.OnFragmentInt
     private EditText firstSetEditText;
     private EditText secondSetEditText;
     private EditText thirdSetEditText;
-    private TrainingFragment trainingFragment;
     private Spinner trainingStepSpinner;
 
 
@@ -219,6 +218,11 @@ public class MainActivity extends Activity implements Big6Fragment.OnFragmentInt
         AsyncQueryHandler insertHandler = new AsyncQueryHandler(getContentResolver()) {
             @Override
             protected void onInsertComplete(int token, Object cookie, Uri uri) {
+                if(!isSinglePane()){
+                    TrainingHistoryFragment trainingHistoryFragment = (TrainingHistoryFragment) getFragmentManager()
+                            .findFragmentById(R.id.trainingHistoryFragment);
+                    trainingHistoryFragment.notifyAdapterDataSetChange();
+                }
                 Toast.makeText(MainActivity.this, "Training was saved!", Toast.LENGTH_SHORT)
                         .show();
             }

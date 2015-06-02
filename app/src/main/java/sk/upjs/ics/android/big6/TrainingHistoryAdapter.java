@@ -83,7 +83,7 @@ public class TrainingHistoryAdapter extends BaseAdapter{
         sb1.append(context.getString(R.string.training));
 
         String[] training1 = trainingParsed[1].split(",");
-        System.out.println(Arrays.toString(training1));
+        //System.out.println(Arrays.toString(training1));
         for(int i=0; i<training1.length; i++){
             sb1.append(" " + training1[i]);
         }

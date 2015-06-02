@@ -62,7 +62,7 @@ public class TrainingHistoryFragment extends Fragment implements LoaderManager.L
     public Loader<Cursor> onCreateLoader(int id, Bundle args) {
         CursorLoader loader = new CursorLoader(this.getActivity());
         loader.setUri(Big6ContentProvider.TRAINING_HISTORY_CONTENT_URI);
-        Log.e(getClass().getName(), loader.getUri().toString());
+        //Log.e(getClass().getName(), loader.getUri().toString());
         return loader;
     }
 
@@ -84,8 +84,6 @@ public class TrainingHistoryFragment extends Fragment implements LoaderManager.L
             cursor.close();
             trainingHistoryAdapter.setAll(trainings);
             trainingHistoryAdapter.notifyDataSetChanged();
-            //trainingHistoryAdapter = new TrainingHistoryAdapter(this.getActivity(), trainings);
-            //trainingHistoryFragmentListView.setAdapter(trainingHistoryAdapter);
 
             //Log.w(getClass().getName(), "onLoadFinished!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
         }
@@ -93,6 +91,11 @@ public class TrainingHistoryFragment extends Fragment implements LoaderManager.L
 
     @Override
     public void onLoaderReset(Loader<Cursor> loader) {
-        // do nothing
+        // do nothing TODO: really?
+    }
+
+    public void notifyAdapterDataSetChange() {
+        this.trainingHistoryAdapter.notifyDataSetChanged();
+        Log.w(getClass().getName(), "adapter notifyDataSetChanged");
     }
 }
