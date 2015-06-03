@@ -78,7 +78,7 @@ public class PhotoActivity extends CameraIntentHelperActivity implements LoaderM
         imageAdapter.insert(photo, 0);
         imageAdapter.notifyDataSetChanged();
         insertIntoContentProvider(photoUri);
-        Log.w(getClass().getName(), "photo uri: " + photoUri.toString());
+        //Log.w(getClass().getName(), "photo uri: " + photoUri.toString());
         //TODO: insert description
 
         //Delete photo in second location (if applicable)
@@ -95,7 +95,7 @@ public class PhotoActivity extends CameraIntentHelperActivity implements LoaderM
         Uri contentUri = Big6ContentProvider.PHOTO_URI_CONTENT_URI;
         ContentValues values = new ContentValues();
         values.put(PhotoUri.URI, uri.toString());
-        Log.w(getClass().getName(),"uri to store: "+ uri.toString());
+        //Log.w(getClass().getName(),"uri to store: "+ uri.toString());
         values.put(PhotoUri.DESCRIPTION, "");
 
         AsyncQueryHandler insertHandler = new AsyncQueryHandler(getContentResolver()) {
@@ -112,14 +112,14 @@ public class PhotoActivity extends CameraIntentHelperActivity implements LoaderM
     public Loader<Cursor> onCreateLoader(int id, Bundle args) {
         CursorLoader loader = new CursorLoader(this);
         loader.setUri(Big6ContentProvider.PHOTO_URI_CONTENT_URI);
-        Log.w(getClass().getName(), "Loader uri: " +loader.getUri().toString());
+        //Log.w(getClass().getName(), "Loader uri: " +loader.getUri().toString());
         return loader;
     }
 
     @Override
     public void onLoadFinished(Loader<Cursor> loader, Cursor cursor) {
         if(cursor == null){
-            Log.e(getClass().getName(), "Cursor je null!!!");
+            //Log.e(getClass().getName(), "Cursor je null!!!");
         }else {
             while (cursor.moveToNext()) {
                 Photo photo = new Photo();
@@ -137,6 +137,6 @@ public class PhotoActivity extends CameraIntentHelperActivity implements LoaderM
 
     @Override
     public void onLoaderReset(Loader<Cursor> loader) {
-        Log.w(getClass().getName(), "onLoadReset!");
+        //Log.w(getClass().getName(), "onLoadReset!");
     }
 }

@@ -30,6 +30,7 @@
         <item>Kliky v stojke</item>
     </string-array>
 
+    <string name="title_activity_settings">Nastavenia</string>
     <string name="title_activity_photo">Odfoť si svaly!</string>
     <string name="lastTraining">Minulý tréning</string>
     <string name="warmUp">Rozcvička:</string>
@@ -41,6 +42,7 @@
     <string name="back">Späť</string>
     <string name="takePhoto">Odfoť fotku</string>
     <string name="pushups">Kliky</string>
+    <string name="title_activity_photo_detail">Detail fotky</string>
     <string name="action_share">Zdieľať</string>
     <string name="action_delete">Vymazať</string>
     <string name="main">Hlavné</string>

@@ -215,6 +215,7 @@ public class MainActivity extends Activity implements Big6Fragment.OnFragmentInt
         values.put(Big6Provider.TrainingHistory.TRAINING, training);
         values.put(Big6Provider.TrainingHistory.TYPE, type);
 
+        //TODO: leak?
         AsyncQueryHandler insertHandler = new AsyncQueryHandler(getContentResolver()) {
             @Override
             protected void onInsertComplete(int token, Object cookie, Uri uri) {

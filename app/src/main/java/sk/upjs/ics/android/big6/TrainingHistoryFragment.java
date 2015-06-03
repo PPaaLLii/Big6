@@ -70,7 +70,7 @@ public class TrainingHistoryFragment extends Fragment implements LoaderManager.L
     public void onLoadFinished(Loader<Cursor> loader, Cursor cursor) {
         ArrayList<Training> trainings = new ArrayList<>();
         if(cursor == null){
-            Log.e(getClass().getName(), "Cursor je null!!!");
+            //Log.e(getClass().getName(), "Cursor je null!!!");
         }else {
             while (cursor.moveToNext()) {
                 Training training = new Training();
@@ -97,6 +97,6 @@ public class TrainingHistoryFragment extends Fragment implements LoaderManager.L
     public void notifyAdapterDataSetChange() {
         getLoaderManager().restartLoader(LOADER_ID_TRAINING_HISTORY, NO_BUNDLE, this);
         this.trainingHistoryAdapter.notifyDataSetChanged();
-        Log.w(getClass().getName(), "adapter notifyDataSetChanged");
+        //Log.w(getClass().getName(), "adapter notifyDataSetChanged");
     }
 }
