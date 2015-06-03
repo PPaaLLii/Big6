@@ -182,29 +182,29 @@ public class MainActivity extends Activity implements Big6Fragment.OnFragmentInt
         StringBuilder sb = new StringBuilder(); // "10,2,10,2,10,2,-1,20,3,20,3,20,3"
         sb.append(warmupFirstEditText.getText())
                 .append(",")
-                .append(warmupFirstStepSpinner.getSelectedItemId())
+                .append(warmupFirstStepSpinner.getSelectedItemId()+1)
                 .append(",")
                 .append(warmupSecondEditText.getText())
                 .append(",")
-                .append(warmupSecondStepSpinner.getSelectedItemId())
+                .append(warmupSecondStepSpinner.getSelectedItemId()+1)
                 .append(",")
                 .append(warmupThirdEditText.getText())
                 .append(",")
-                .append(warmupThirdStepSpinner.getSelectedItemId())
+                .append(warmupThirdStepSpinner.getSelectedItemId()+1)
                 .append(",")
-                .append(-1)
+                .append("-1")
                 .append(",")
                 .append(firstSetEditText.getText())
                 .append(",")
-                .append(trainingStepSpinner.getSelectedItemId())
+                .append(trainingStepSpinner.getSelectedItemId()+1)
                 .append(",")
                 .append(secondSetEditText.getText())
                 .append(",")
-                .append(trainingStepSpinner.getSelectedItemId())
+                .append(trainingStepSpinner.getSelectedItemId()+1)
                 .append(",")
                 .append(thirdSetEditText.getText())
                 .append(",")
-                .append(trainingStepSpinner.getSelectedItemId());
+                .append(trainingStepSpinner.getSelectedItemId()+1);
 
         insertIntoContentProvider(sb.toString(), Integer.parseInt(trainingType));
     }

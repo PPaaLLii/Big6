@@ -79,7 +79,7 @@ public class TrainingHistoryFragment extends Fragment implements LoaderManager.L
                 training.setDay(cursor.getString(cursor.getColumnIndex(DAY)));
                 training.setTraining(cursor.getString(cursor.getColumnIndex(TRAINING)));
                 training.setType(Integer.parseInt(cursor.getString(cursor.getColumnIndex(TYPE))));
-                trainings.add(training);
+                trainings.add(0, training);
             }
             cursor.close();
             trainingHistoryAdapter.setAll(trainings);
@@ -95,6 +95,7 @@ public class TrainingHistoryFragment extends Fragment implements LoaderManager.L
     }
 
     public void notifyAdapterDataSetChange() {
+        getLoaderManager().restartLoader(LOADER_ID_TRAINING_HISTORY, NO_BUNDLE, this);
         this.trainingHistoryAdapter.notifyDataSetChanged();
         Log.w(getClass().getName(), "adapter notifyDataSetChanged");
     }
