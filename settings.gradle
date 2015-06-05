@@ -1,4 +1,1 @@
-include 'AndroidCameraUtil', ':app', ':actionbarsherlock', ':actionbarsherlock-fest', ':actionbarsherlock-i18n'
-project(':actionbarsherlock').projectDir = new File('JakeWharton-ActionBarSherlock-5a15d92/actionbarsherlock')
-project(':actionbarsherlock-fest').projectDir = new File('JakeWharton-ActionBarSherlock-5a15d92/actionbarsherlock-fest')
-project(':actionbarsherlock-i18n').projectDir = new File('JakeWharton-ActionBarSherlock-5a15d92/actionbarsherlock-i18n')
+include 'AndroidCameraUtil', ':app'
