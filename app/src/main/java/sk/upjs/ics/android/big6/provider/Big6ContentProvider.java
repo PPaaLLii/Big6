@@ -113,7 +113,45 @@ public class Big6ContentProvider extends ContentProvider {
 
     @Override // only for Training History
     public int delete(Uri uri, String selection, String[] selectionArgs) {
-        long id = ContentUris.parseId(uri);
+
+        switch(uriMatcher.match(uri)){
+
+            case URI_MATCH_TRAININGS:
+
+                long id = ContentUris.parseId(uri);
+                if (id != -1l) {
+                    int affectedRows = databaseHelper.getWritableDatabase()
+                            .delete(TrainingHistory.TABLE_NAME, TrainingHistory._ID + " = " + id, Defaults.NO_SELECTION_ARGS);
+                    getContext().getContentResolver().notifyChange(TRAINING_HISTORY_CONTENT_URI, NO_CONTENT_OBSERVER);
+                    return affectedRows;
+                }
+                //else delete all items in table
+                // http://stackoverflow.com/questions/19183294/what-is-the-best-way-in-android-to-delete-all-rows-from-a-table
+                // https://groups.google.com/forum/#!topic/android-developers/wK5gZ-VxcSg
+                int affectedRows = databaseHelper.getWritableDatabase()
+                        .delete(TrainingHistory.TABLE_NAME, ALL_ROWS, Defaults.NO_SELECTION_ARGS);
+                getContext().getContentResolver().notifyChange(TRAINING_HISTORY_CONTENT_URI, NO_CONTENT_OBSERVER);
+                return affectedRows;
+
+            case URI_MATCH_PHOTO:
+
+                long id1 = ContentUris.parseId(uri);
+                if (id1 != -1l) {
+                    int affectedRows1 = databaseHelper.getWritableDatabase()
+                            .delete(PhotoUri.TABLE_NAME, PhotoUri._ID + " = " + id1, Defaults.NO_SELECTION_ARGS);
+                    getContext().getContentResolver().notifyChange(PHOTO_URI_CONTENT_URI, NO_CONTENT_OBSERVER);
+                    return affectedRows1;
+                }
+                //else delete all items in table
+                // http://stackoverflow.com/questions/19183294/what-is-the-best-way-in-android-to-delete-all-rows-from-a-table
+                // https://groups.google.com/forum/#!topic/android-developers/wK5gZ-VxcSg
+                int affectedRows1 = databaseHelper.getWritableDatabase()
+                        .delete(PhotoUri.TABLE_NAME, ALL_ROWS, Defaults.NO_SELECTION_ARGS);
+                getContext().getContentResolver().notifyChange(PHOTO_URI_CONTENT_URI, NO_CONTENT_OBSERVER);
+                return affectedRows1;
+        }
+        return 0;
+        /*long id = ContentUris.parseId(uri);
         if (id != -1l) {
             int affectedRows = databaseHelper.getWritableDatabase()
                 .delete(TrainingHistory.TABLE_NAME, TrainingHistory._ID + " = " + id, Defaults.NO_SELECTION_ARGS);
@@ -126,7 +164,7 @@ public class Big6ContentProvider extends ContentProvider {
         int affectedRows = databaseHelper.getWritableDatabase()
                 .delete(TrainingHistory.TABLE_NAME, ALL_ROWS, Defaults.NO_SELECTION_ARGS);
         getContext().getContentResolver().notifyChange(TRAINING_HISTORY_CONTENT_URI, NO_CONTENT_OBSERVER);
-        return affectedRows;
+        return affectedRows;*/
     }
 
     @Override

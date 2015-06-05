@@ -10,6 +10,7 @@ import android.content.Loader;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -27,8 +28,9 @@ import static sk.upjs.ics.android.big6.provider.Big6Provider.PhotoUri;
 
 //http://stackoverflow.com/questions/459729/how-to-display-a-list-of-images-in-a-listview-in-android
 //http://stackoverflow.com/questions/14785806/android-how-to-make-an-activity-return-results-to-the-activity-which-calls-it
+//http://developer.android.com/training/basics/intents/result.html
 
-public class PhotoActivity extends Activity implements LoaderManager.LoaderCallbacks<Cursor> {
+public class PhotoActivity extends ActionBarActivity implements LoaderManager.LoaderCallbacks<Cursor> {
 
     public static final int LOADER_ID_PHOTO_URI = 1;
     public static final Bundle NO_BUNDLE = null;

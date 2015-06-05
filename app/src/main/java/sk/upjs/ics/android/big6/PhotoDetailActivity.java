@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ImageView;
@@ -12,7 +13,7 @@ import android.widget.TextView;
 
 import de.ecotastic.android.camerautil.util.BitmapHelper;
 
-public class PhotoDetailActivity extends Activity {
+public class PhotoDetailActivity extends ActionBarActivity {
 
     private String uri;
     private String description;

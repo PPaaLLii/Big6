@@ -17,7 +17,8 @@ import sk.upjs.ics.android.util.Defaults;
 
 public class SettingsActivity extends PreferenceActivity {
 
-    public static final int DELETE_NOTE_TOKEN = 0;
+    public static final int DELETE_TRAINING_HISTORY_TOKEN = 0;
+    public static final int DELETE_PHOTOS_TOKEN = 1;
     public static final long ALL_IDS = -1l;
 
     @Override
@@ -50,6 +51,29 @@ public class SettingsActivity extends PreferenceActivity {
                 return true;
             }
         });
+
+        Preference myPref1 = (Preference) findPreference("deletePhotosButton");
+        myPref1.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+            public boolean onPreferenceClick(Preference preference) {
+                new AlertDialog.Builder(context)
+                        .setTitle("Warning!")
+                        .setMessage("This will delete all your Photos in this application! \n Photos won't be deleted from phone! \n Do you want to continue?")
+                        .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                deleteAllPhotos();
+                            }
+                        })
+                        .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                // if this button is clicked, just close
+                                // the dialog box and do nothing
+                                dialog.cancel();
+                            }
+                        })
+                        .show();
+                return true;
+            }
+        });
     }
 
     private void deleteAllHistory() {
@@ -61,8 +85,27 @@ public class SettingsActivity extends PreferenceActivity {
                         .show();
             }
         };
-        Uri selectedNoteUri = ContentUris.withAppendedId(Big6ContentProvider.TRAINING_HISTORY_CONTENT_URI, ALL_IDS);
-        deleteHandler.startDelete(DELETE_NOTE_TOKEN, Defaults.NO_COOKIE, selectedNoteUri,
+        Uri trainingsHistory = ContentUris.withAppendedId(Big6ContentProvider.TRAINING_HISTORY_CONTENT_URI, ALL_IDS);
+        deleteHandler.startDelete(DELETE_TRAINING_HISTORY_TOKEN, Defaults.NO_COOKIE, trainingsHistory,
                 Defaults.NO_SELECTION, Defaults.NO_SELECTION_ARGS);
+    }
+
+    private void deleteAllPhotos() {
+        //TODO leak?
+        AsyncQueryHandler deleteHandler = new AsyncQueryHandler(getContentResolver()) {
+            @Override
+            protected void onDeleteComplete(int token, Object cookie, int result) {
+                notifyPhotoActivityToClearAdapter();
+                Toast.makeText(SettingsActivity.this, "Photos was deleted!", Toast.LENGTH_SHORT)
+                        .show();
+            }
+        };
+        Uri photos = ContentUris.withAppendedId(Big6ContentProvider.PHOTO_URI_CONTENT_URI, ALL_IDS);
+        deleteHandler.startDelete(DELETE_PHOTOS_TOKEN, Defaults.NO_COOKIE, photos,
+                Defaults.NO_SELECTION, Defaults.NO_SELECTION_ARGS);
+    }
+
+    private void notifyPhotoActivityToClearAdapter() {
+        //TODO: Implement!
     }
 }

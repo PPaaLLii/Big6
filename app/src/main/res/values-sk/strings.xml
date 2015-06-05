@@ -58,5 +58,6 @@
     <string name="deleteAllPhotosWarning">Toto vymaže všetky fotky z aplikácie!</string>
     <string name="shoot">Odfoť!</string>
     <string name="deletePhotos">Vymazať fotky</string>
+    <string name="deletePhotosButton">deletePhotosButton</string>
 
 </resources>

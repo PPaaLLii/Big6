@@ -6,6 +6,7 @@ import android.content.ContentValues;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -19,7 +20,7 @@ import sk.upjs.ics.android.big6.provider.Big6ContentProvider;
 import sk.upjs.ics.android.util.Defaults;
 
 
-public class MainActivity extends Activity implements Big6Fragment.OnFragmentInteractionListener {
+public class MainActivity extends ActionBarActivity implements Big6Fragment.OnFragmentInteractionListener {
 
 
     private int INSERT_NOTE_TOKEN = 0;
@@ -184,7 +185,7 @@ public class MainActivity extends Activity implements Big6Fragment.OnFragmentInt
 
         String trainingType = String.valueOf((int)type);
 
-        StringBuilder sb = new StringBuilder(); // "10,2,10,2,10,2,-1,20,3,20,3,20,3"
+        StringBuilder sb = new StringBuilder(""); // "10,2,10,2,10,2,-1,20,3,20,3,20,3"
         sb.append(warmupFirstEditText.getText())
                 .append(",")
                 .append(warmupFirstStepSpinner.getSelectedItemId()+1)
