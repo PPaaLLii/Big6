@@ -49,19 +49,7 @@ public class MainActivity extends ActionBarActivity implements Big6Fragment.OnFr
             }
         //}
 
-        warmupFirstStepSpinner = (Spinner) findViewById(R.id.warmupFirstStepSpinner);
-        warmupSecondStepSpinner = (Spinner) findViewById(R.id.warmupSecondStepSpinner);
-        warmupThirdStepSpinner = (Spinner) findViewById(R.id.warmupThirdStepSpinner);
 
-        warmupFirstEditText = (EditText) findViewById(R.id.warmupFirstEditText);
-        warmupSecondEditText = (EditText) findViewById(R.id.warmupSecondEditText);
-        warmupThirdEditText = (EditText) findViewById(R.id.warmupThirdEditText);
-
-        firstSetEditText = (EditText) findViewById(R.id.firstSetEditText);
-        secondSetEditText = (EditText) findViewById(R.id.secondSetEditText);
-        thirdSetEditText = (EditText) findViewById(R.id.thirdSetEditText);
-
-        trainingStepSpinner = (Spinner) findViewById(R.id.trainingStepSpinner);
         //service
         //RemindTrainingSchedule.schedule(this);
     }
@@ -185,30 +173,47 @@ public class MainActivity extends ActionBarActivity implements Big6Fragment.OnFr
 
         String trainingType = String.valueOf((int)type);
 
+        warmupFirstStepSpinner = (Spinner) findViewById(R.id.warmupFirstStepSpinner);
+        warmupSecondStepSpinner = (Spinner) findViewById(R.id.warmupSecondStepSpinner);
+        warmupThirdStepSpinner = (Spinner) findViewById(R.id.warmupThirdStepSpinner);
+
+        warmupFirstEditText = (EditText) findViewById(R.id.warmupFirstEditText);
+        warmupSecondEditText = (EditText) findViewById(R.id.warmupSecondEditText);
+        warmupThirdEditText = (EditText) findViewById(R.id.warmupThirdEditText);
+
+        firstSetEditText = (EditText) findViewById(R.id.firstSetEditText);
+        secondSetEditText = (EditText) findViewById(R.id.secondSetEditText);
+        thirdSetEditText = (EditText) findViewById(R.id.thirdSetEditText);
+
+        trainingStepSpinner = (Spinner) findViewById(R.id.trainingStepSpinner);
+
         StringBuilder sb = new StringBuilder(""); // "10,2,10,2,10,2,-1,20,3,20,3,20,3"
-        sb.append(warmupFirstEditText.getText())
+        if(warmupFirstEditText == null){
+            Log.w(MainActivity.class.getName(), "warmupFirstEditText == null");
+        }
+        sb.append(warmupFirstEditText.getText().toString())
                 .append(",")
                 .append(warmupFirstStepSpinner.getSelectedItemId()+1)
                 .append(",")
-                .append(warmupSecondEditText.getText())
+                .append(warmupSecondEditText.getText().toString())
                 .append(",")
                 .append(warmupSecondStepSpinner.getSelectedItemId()+1)
                 .append(",")
-                .append(warmupThirdEditText.getText())
+                .append(warmupThirdEditText.getText().toString())
                 .append(",")
                 .append(warmupThirdStepSpinner.getSelectedItemId()+1)
                 .append(",")
                 .append("-1")
                 .append(",")
-                .append(firstSetEditText.getText())
+                .append(firstSetEditText.getText().toString())
                 .append(",")
                 .append(trainingStepSpinner.getSelectedItemId()+1)
                 .append(",")
-                .append(secondSetEditText.getText())
+                .append(secondSetEditText.getText().toString())
                 .append(",")
                 .append(trainingStepSpinner.getSelectedItemId()+1)
                 .append(",")
-                .append(thirdSetEditText.getText())
+                .append(thirdSetEditText.getText().toString())
                 .append(",")
                 .append(trainingStepSpinner.getSelectedItemId()+1);
 

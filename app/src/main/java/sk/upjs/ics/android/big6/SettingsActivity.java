@@ -9,6 +9,7 @@ import android.net.Uri;
 import android.preference.Preference;
 import android.preference.PreferenceActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Toast;
 
 import sk.upjs.ics.android.big6.provider.Big6ContentProvider;
@@ -85,7 +86,8 @@ public class SettingsActivity extends PreferenceActivity {
                         .show();
             }
         };
-        Uri trainingsHistory = ContentUris.withAppendedId(Big6ContentProvider.TRAINING_HISTORY_CONTENT_URI, ALL_IDS);
+        Uri trainingsHistory = Big6ContentProvider.TRAINING_HISTORY_CONTENT_URI;
+        Log.w(getClass().getName(), "uri: "+trainingsHistory.toString());
         deleteHandler.startDelete(DELETE_TRAINING_HISTORY_TOKEN, Defaults.NO_COOKIE, trainingsHistory,
                 Defaults.NO_SELECTION, Defaults.NO_SELECTION_ARGS);
     }
@@ -100,7 +102,8 @@ public class SettingsActivity extends PreferenceActivity {
                         .show();
             }
         };
-        Uri photos = ContentUris.withAppendedId(Big6ContentProvider.PHOTO_URI_CONTENT_URI, ALL_IDS);
+        Uri photos = Big6ContentProvider.PHOTO_URI_CONTENT_URI;
+        Log.w(getClass().getName(), "uri: "+photos.toString());
         deleteHandler.startDelete(DELETE_PHOTOS_TOKEN, Defaults.NO_COOKIE, photos,
                 Defaults.NO_SELECTION, Defaults.NO_SELECTION_ARGS);
     }
