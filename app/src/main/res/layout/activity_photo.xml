@@ -8,16 +8,18 @@
 
     <Button
         android:id="@+id/shootButton"
-        android:text="Shoot!"
+        android:text="@string/shoot"
         android:onClick="onShootButtonClick"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         />
 
-    <ListView
-        android:id="@+id/ImagesListView"
+    <GridView
+        android:id="@+id/ImagesGridView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/shootButton"/>
+        android:layout_below="@id/shootButton"
+        android:numColumns="auto_fit"
+        />
 
 </RelativeLayout>

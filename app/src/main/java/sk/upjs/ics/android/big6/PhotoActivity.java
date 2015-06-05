@@ -1,5 +1,6 @@
 package sk.upjs.ics.android.big6;
 
+import android.app.Activity;
 import android.app.LoaderManager;
 import android.content.AsyncQueryHandler;
 import android.content.ContentValues;
@@ -12,6 +13,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.GridView;
 import android.widget.ListView;
 import android.widget.Toast;
 import java.util.Calendar;
@@ -24,13 +26,16 @@ import sk.upjs.ics.android.util.Defaults;
 import static sk.upjs.ics.android.big6.provider.Big6Provider.PhotoUri;
 
 //http://stackoverflow.com/questions/459729/how-to-display-a-list-of-images-in-a-listview-in-android
-public class PhotoActivity extends CameraIntentHelperActivity implements LoaderManager.LoaderCallbacks<Cursor> {
+//http://stackoverflow.com/questions/14785806/android-how-to-make-an-activity-return-results-to-the-activity-which-calls-it
+
+public class PhotoActivity extends Activity implements LoaderManager.LoaderCallbacks<Cursor> {
 
     public static final int LOADER_ID_PHOTO_URI = 1;
     public static final Bundle NO_BUNDLE = null;
     public static final int INSERT_PHOTO_TOKEN = 1;
     public static final int REQUEST_CODE = 0;
-    private ListView imageView;
+    private static final int PICK_CONTACT_REQUEST = 0;
+    private GridView gridView;
     private ImageAdapter imageAdapter;
 
     @Override
@@ -38,8 +43,8 @@ public class PhotoActivity extends CameraIntentHelperActivity implements LoaderM
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_photo);
 
-        imageView = (ListView) findViewById(R.id.ImagesListView);
-        imageView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        gridView = (GridView) findViewById(R.id.ImagesGridView);
+        gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent intent = new Intent(PhotoActivity.this, PhotoDetailActivity.class);
@@ -53,7 +58,7 @@ public class PhotoActivity extends CameraIntentHelperActivity implements LoaderM
         });
 
         imageAdapter = new ImageAdapter(this);
-        imageView.setAdapter(imageAdapter);
+        gridView.setAdapter(imageAdapter);
 
         getLoaderManager().initLoader(LOADER_ID_PHOTO_URI, NO_BUNDLE, this);
     }
@@ -63,38 +68,15 @@ public class PhotoActivity extends CameraIntentHelperActivity implements LoaderM
         startCameraIntent();
     }
 
-    @Override
-    protected void onPhotoUriFound() {
-        super.onPhotoUriFound();
-        Photo photo = new Photo();
-        Calendar cal = Calendar.getInstance();
-        photo.setYear(String.valueOf(cal.get(Calendar.YEAR)));
-        photo.setMonth(String.valueOf(cal.get(Calendar.MONTH) + 1));
-        photo.setDay(String.valueOf(cal.get(Calendar.DAY_OF_MONTH)));
-        photo.setUri(photoUri.toString());
-        photo.setDescription("");
-
-        //photo = BitmapHelper.shrinkBitmap(photo, 300, this.rotateXDegrees);
-        imageAdapter.insert(photo, 0);
-        imageAdapter.notifyDataSetChanged();
-        insertIntoContentProvider(photoUri);
-        //Log.w(getClass().getName(), "photo uri: " + photoUri.toString());
-        //TODO: insert description
-
-        //Delete photo in second location (if applicable)
-        if (this.preDefinedCameraUri != null && !this.preDefinedCameraUri.equals(this.photoUri)) {
-            BitmapHelper.deleteImageWithUriIfExists(this.preDefinedCameraUri, this);
-        }
-        //Delete photo in third location (if applicable)
-        if (this.photoUriIn3rdLocation != null) {
-            BitmapHelper.deleteImageWithUriIfExists(this.photoUriIn3rdLocation, this);
-        }
+    private void startCameraIntent() {
+        Intent takePhoto = new Intent(PhotoActivity.this, TakePhotoActivity.class);
+        startActivityForResult(takePhoto, PICK_CONTACT_REQUEST);
     }
 
-    private void insertIntoContentProvider(Uri uri) {
+    private void insertIntoContentProvider(String uri) {
         Uri contentUri = Big6ContentProvider.PHOTO_URI_CONTENT_URI;
         ContentValues values = new ContentValues();
-        values.put(PhotoUri.URI, uri.toString());
+        values.put(PhotoUri.URI, uri);
         //Log.w(getClass().getName(),"uri to store: "+ uri.toString());
         values.put(PhotoUri.DESCRIPTION, "");
 
@@ -106,6 +88,23 @@ public class PhotoActivity extends CameraIntentHelperActivity implements LoaderM
         };
 
         insertHandler.startInsert(INSERT_PHOTO_TOKEN, Defaults.NO_COOKIE, contentUri, values);
+    }
+
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        switch(requestCode) {
+            case REQUEST_CODE:
+                if (resultCode == RESULT_OK) {
+                    Bundle res = data.getExtras();
+                    String uri = res.getString("param_result");
+                    Log.d(PhotoActivity.class.getName(), "result:"+uri);
+                    insertIntoContentProvider(uri);
+                    getLoaderManager().restartLoader(LOADER_ID_PHOTO_URI, NO_BUNDLE, this);
+                    //TODO: insert description
+                }else{
+                    Log.d(PhotoActivity.class.getName(), "ERROR!!!");
+                }
+                break;
+        }
     }
 
     @Override
@@ -121,6 +120,7 @@ public class PhotoActivity extends CameraIntentHelperActivity implements LoaderM
         if(cursor == null){
             //Log.e(getClass().getName(), "Cursor je null!!!");
         }else {
+            imageAdapter.clear();
             while (cursor.moveToNext()) {
                 Photo photo = new Photo();
                 photo.setUri(cursor.getString(cursor.getColumnIndex(PhotoUri.URI)));

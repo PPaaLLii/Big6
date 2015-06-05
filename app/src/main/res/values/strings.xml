@@ -27,7 +27,7 @@
     </string-array>
 
     <string name="title_activity_settings">Settings</string>
-    <string name="title_activity_photo">Take a picture of your muscles!</string>
+    <string name="title_activity_photo">Take a photo</string>
     <string name="lastTraining">Last Training</string>
     <string name="warmUp">WarmUp:</string>
     <string name="training">Training:</string>
@@ -50,4 +50,8 @@
     <string name="deleteAllHistoryWarning">This will delete all your training history</string>
     <string name="step">Step</string>
     <string name="repetitions">Rep.:</string>
+    <string name="title_activity_take_photo">TakePhotoActivity</string>
+    <string name="deleteAllPhotosWarning">This will delete all photos in this application!</string>
+    <string name="shoot">Shoot!</string>
+    <string name="deletePhotos">deletePhotos</string>
 </resources>

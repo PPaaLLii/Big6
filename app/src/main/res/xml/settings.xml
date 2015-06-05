@@ -26,6 +26,9 @@
         <Preference android:title="@string/deleteDatabase"
             android:key="deleteDatabaseButton"
             android:summary="@string/deleteAllHistoryWarning"/>
+        <Preference android:title="@string/deleteDatabase"
+            android:key="@string/deletePhotos"
+            android:summary="@string/deleteAllPhotosWarning"/>
     </PreferenceCategory>
 
 </PreferenceScreen>

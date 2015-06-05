@@ -31,7 +31,7 @@
     </string-array>
 
     <string name="title_activity_settings">Nastavenia</string>
-    <string name="title_activity_photo">Odfoť si svaly!</string>
+    <string name="title_activity_photo">Odfoť svaly</string>
     <string name="lastTraining">Minulý tréning</string>
     <string name="warmUp">Rozcvička:</string>
     <string name="training">Tréning:</string>
@@ -54,5 +54,9 @@
     <string name="deleteAllHistoryWarning">Toto vymaže celú históriu tréningov!</string>
     <string name="step">Stupeň:</string>
     <string name="repetitions">Počet:</string>
+    <string name="title_activity_take_photo">Sprav Fotku</string>
+    <string name="deleteAllPhotosWarning">Toto vymaže všetky fotky z aplikácie!</string>
+    <string name="shoot">Odfoť!</string>
+    <string name="deletePhotos">Vymazať fotky</string>
 
 </resources>
