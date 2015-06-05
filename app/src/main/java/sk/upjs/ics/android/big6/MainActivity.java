@@ -41,11 +41,12 @@ public class MainActivity extends Activity implements Big6Fragment.OnFragmentInt
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        if(savedInstanceState == null) {
+        //if(savedInstanceState == null) {
+            //Log.d(MainActivity.class.getName(), "savedInstanceState == null");
             if (isSinglePane()) {
                 showBig6Pane();
             }
-        }
+        //}
 
         warmupFirstStepSpinner = (Spinner) findViewById(R.id.warmupFirstStepSpinner);
         warmupSecondStepSpinner = (Spinner) findViewById(R.id.warmupSecondStepSpinner);
@@ -65,6 +66,9 @@ public class MainActivity extends Activity implements Big6Fragment.OnFragmentInt
     }
 
     public boolean isSinglePane() {
+        if(findViewById(R.id.singleFragmentLayout) != null)
+            Log.d(MainActivity.class.getName(), "is single pane!");
+        else Log.d(MainActivity.class.getName(), "is not single pane!");
         return findViewById(R.id.singleFragmentLayout) != null;
     }
 
@@ -73,6 +77,7 @@ public class MainActivity extends Activity implements Big6Fragment.OnFragmentInt
     }
 
     private void showBig6Pane() {
+        Log.d(MainActivity.class.getName(), "Showing big6 pane!");
         getFragmentManager()
                 .beginTransaction()
                 .replace(R.id.singleFragmentLayout, new Big6Fragment())

@@ -1,8 +1,12 @@
 <resources>
 
+    <color name="light_blue">#E6E6FF</color>
+
+    <!-- http://stackoverflow.com/questions/11779679/setting-android-theme-background-color -->
+
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
-        <!-- Customize your theme here. -->
+    <style name="AppTheme" parent="@android:style/Theme.Holo.Light.DarkActionBar">
+        <item name="android:windowBackground">@color/light_blue</item>
     </style>
 
 </resources>

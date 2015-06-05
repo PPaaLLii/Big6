@@ -52,5 +52,7 @@
     <string name="advanced">Pokročilé</string>
     <string name="deleteDatabase">Vymazať databázu</string>
     <string name="deleteAllHistoryWarning">Toto vymaže celú históriu tréningov!</string>
+    <string name="step">Stupeň:</string>
+    <string name="repetitions">Počet:</string>
 
 </resources>

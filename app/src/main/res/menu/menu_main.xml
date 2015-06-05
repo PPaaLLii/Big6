@@ -2,19 +2,30 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools" tools:context=".MainActivity">
 
+    <!--  https://www.google.com/design/icons/index.html  -->
+
     <item android:id="@+id/trainingHistoryAction"
         android:title="@string/history"
+        android:icon="@drawable/history"
+        android:orderInCategory="20"
         app:showAsAction="ifRoom" />
 
     <item android:id="@+id/big6Action"
         android:title="@string/back"
+        android:icon="@drawable/home"
+        android:orderInCategory="10"
         app:showAsAction="ifRoom" />
 
     <item android:id="@+id/takePhotoAction"
         android:title="@string/takePhoto"
+        android:icon="@drawable/camera"
+        android:orderInCategory="80"
         app:showAsAction="ifRoom" />
 
-    <item android:id="@+id/action_settings" android:title="@string/action_settings"
-        android:orderInCategory="100" app:showAsAction="always" />
+    <item android:id="@+id/action_settings"
+        android:title="@string/action_settings"
+        android:icon="@drawable/settings"
+        android:orderInCategory="100"
+        app:showAsAction="ifRoom" />
 
 </menu>

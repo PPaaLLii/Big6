@@ -52,58 +52,71 @@
         android:text="@string/warmUp"
         />
 
-    <LinearLayout
+    <TableLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:layout_height="wrap_content">
 
-        <Spinner
-            android:id="@+id/warmupFirstStepSpinner"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            />
+        <TableRow>
 
-        <EditText
-            android:id="@+id/warmupFirstEditText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:hint="20"
-            />
+            <TextView android:text="@string/step" />
 
-        <Spinner
-            android:id="@+id/warmupSecondStepSpinner"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            />
+            <Spinner
+                android:id="@+id/warmupFirstStepSpinner"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                />
 
-        <EditText
-            android:id="@+id/warmupSecondEditText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:hint="20"
-            />
+            <Spinner
+                android:id="@+id/warmupThirdStepSpinner"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                />
 
-        <Spinner
-            android:id="@+id/warmupThirdStepSpinner"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            />
+            <Spinner
+                android:id="@+id/warmupSecondStepSpinner"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                />
 
-        <EditText
-            android:id="@+id/warmupThirdEditText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:hint="20"
-            />
+        </TableRow>
 
-    </LinearLayout>
+        <TableRow>
 
+            <TextView android:text="@string/repetitions" />
+
+            <EditText
+                android:id="@+id/warmupFirstEditText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="20"
+                android:numeric="integer"
+                />
+
+            <EditText
+                android:id="@+id/warmupSecondEditText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="20"
+                android:numeric="integer"
+                />
+
+            <EditText
+                android:id="@+id/warmupThirdEditText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="20"
+                />
+
+        </TableRow>
+
+    </TableLayout>
 
     <TextView
         android:id="@+id/newTrainingTextView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textAllCaps="true"
+        android:paddingTop="20dp"
         android:text="@string/training"
         />
 
@@ -123,6 +136,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:hint="20"
+            android:numeric="integer"
             />
 
         <EditText
@@ -130,6 +144,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:hint="20"
+            android:numeric="integer"
             />
 
         <EditText
@@ -137,6 +152,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:hint="20"
+            android:numeric="integer"
             />
 
     </LinearLayout>

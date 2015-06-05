@@ -48,4 +48,6 @@
     <string name="advanced">Advanced</string>
     <string name="deleteDatabase">Delete database</string>
     <string name="deleteAllHistoryWarning">This will delete all your training history</string>
+    <string name="step">Step</string>
+    <string name="repetitions">Rep.:</string>
 </resources>
