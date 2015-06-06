@@ -18,8 +18,18 @@ public class Photo {
 
     private String day;
 
+    private String id;
+
     public String getUri() {
         return uri;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     public void setUri(String uri) {

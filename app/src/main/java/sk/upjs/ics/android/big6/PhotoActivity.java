@@ -86,6 +86,7 @@ public class PhotoActivity extends ActionBarActivity implements LoaderManager.Lo
         AsyncQueryHandler insertHandler = new AsyncQueryHandler(getContentResolver()) {
             @Override
             protected void onInsertComplete(int token, Object cookie, Uri uri) {
+                getLoaderManager().restartLoader(LOADER_ID_PHOTO_URI, NO_BUNDLE, PhotoActivity.this);
                 Toast.makeText(PhotoActivity.this, "Photo saved!", Toast.LENGTH_SHORT).show();
             }
         };
@@ -131,6 +132,7 @@ public class PhotoActivity extends ActionBarActivity implements LoaderManager.Lo
                 photo.setYear(cursor.getString(cursor.getColumnIndex(PhotoUri.YEAR)));
                 photo.setMonth(cursor.getString(cursor.getColumnIndex(PhotoUri.MONTH)));
                 photo.setDay(cursor.getString(cursor.getColumnIndex(PhotoUri.DAY)));
+                photo.setId(cursor.getString(cursor.getColumnIndex(PhotoUri._ID)));
                 imageAdapter.insert(photo, 0);
             }
             cursor.close();
@@ -141,5 +143,11 @@ public class PhotoActivity extends ActionBarActivity implements LoaderManager.Lo
     @Override
     public void onLoaderReset(Loader<Cursor> loader) {
         //Log.w(getClass().getName(), "onLoadReset!");
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        getLoaderManager().restartLoader(LOADER_ID_PHOTO_URI, NO_BUNDLE, this);
     }
 }

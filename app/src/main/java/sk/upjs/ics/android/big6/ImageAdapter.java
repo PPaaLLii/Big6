@@ -84,6 +84,7 @@ public class ImageAdapter extends BaseAdapter {
                     intent.putExtra("year", photo.getYear());
                     intent.putExtra("month", photo.getMonth());
                     intent.putExtra("day", photo.getDay());
+                    intent.putExtra("id", photo.getId());
                     activity.startActivityForResult(intent, REQUEST_CODE);
                 }
             });

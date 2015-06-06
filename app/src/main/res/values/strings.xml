@@ -53,6 +53,6 @@
     <string name="title_activity_take_photo">TakePhotoActivity</string>
     <string name="deleteAllPhotosWarning">This will delete all photos in this application!</string>
     <string name="shoot">Shoot!</string>
-    <string name="deletePhotos">deletePhotos</string>
+    <string name="deletePhotos">Delete photos</string>
     <string name="deletePhotosButton">deletePhotosButton</string>
 </resources>
