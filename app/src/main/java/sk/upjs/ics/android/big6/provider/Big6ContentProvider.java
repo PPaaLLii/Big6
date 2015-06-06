@@ -123,7 +123,7 @@ public class Big6ContentProvider extends ContentProvider {
         switch(uriMatcher.match(uri)){
 
             case URI_MATCH_TRAININGS_BY_ID:
-                Log.w(getClass().getName(), "MATCHT RAININGS BY ID");
+                //Log.w(getClass().getName(), "MATCHT RAININGS BY ID");
                 long id = ContentUris.parseId(uri);
                 int affectedRows = databaseHelper.getWritableDatabase()
                         .delete(TrainingHistory.TABLE_NAME, TrainingHistory._ID + " = " + id, Defaults.NO_SELECTION_ARGS);
@@ -134,14 +134,14 @@ public class Big6ContentProvider extends ContentProvider {
                 // http://stackoverflow.com/questions/19183294/what-is-the-best-way-in-android-to-delete-all-rows-from-a-table
                 // https://groups.google.com/forum/#!topic/android-developers/wK5gZ-VxcSg
             case URI_MATCH_TRAININGS:
-                Log.w(getClass().getName(), "MATCHT TRAININGS");
+                //Log.w(getClass().getName(), "MATCHT TRAININGS");
                 int affectedRows2 = databaseHelper.getWritableDatabase()
                         .delete(TrainingHistory.TABLE_NAME, ALL_ROWS, Defaults.NO_SELECTION_ARGS);
                 getContext().getContentResolver().notifyChange(TRAINING_HISTORY_CONTENT_URI, NO_CONTENT_OBSERVER);
                 return affectedRows2;
 
             case URI_MATCH_PHOTO_BY_ID:
-                Log.w(getClass().getName(), "MATCHT PHOTO BY ID");
+                //Log.w(getClass().getName(), "MATCHT PHOTO BY ID");
                 long id1 = ContentUris.parseId(uri);
                 int affectedRows3 = databaseHelper.getWritableDatabase()
                         .delete(PhotoUri.TABLE_NAME, PhotoUri._ID + " = " + id1, Defaults.NO_SELECTION_ARGS);
@@ -152,13 +152,13 @@ public class Big6ContentProvider extends ContentProvider {
                 // http://stackoverflow.com/questions/19183294/what-is-the-best-way-in-android-to-delete-all-rows-from-a-table
                 // https://groups.google.com/forum/#!topic/android-developers/wK5gZ-VxcSg
             case URI_MATCH_PHOTO:
-                Log.w(getClass().getName(), "MATCHT PHOTO");
+                //Log.w(getClass().getName(), "MATCHT PHOTO");
                 int affectedRows4 = databaseHelper.getWritableDatabase()
                         .delete(PhotoUri.TABLE_NAME, ALL_ROWS, Defaults.NO_SELECTION_ARGS);
                 getContext().getContentResolver().notifyChange(PHOTO_URI_CONTENT_URI, NO_CONTENT_OBSERVER);
                 return affectedRows4;
         }
-        Log.w(getClass().getName(), "NO MATCH!");
+        //Log.w(getClass().getName(), "NO MATCH!");
         return 0;
         /*long id = ContentUris.parseId(uri);
         if (id != -1l) {

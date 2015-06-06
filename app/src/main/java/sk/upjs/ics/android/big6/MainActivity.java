@@ -54,9 +54,9 @@ public class MainActivity extends ActionBarActivity implements Big6Fragment.OnFr
     }
 
     public boolean isSinglePane() {
-        if(findViewById(R.id.singleFragmentLayout) != null)
-            Log.d(MainActivity.class.getName(), "is single pane!");
-        else Log.d(MainActivity.class.getName(), "is not single pane!");
+        //if(findViewById(R.id.singleFragmentLayout) != null)
+            //Log.d(MainActivity.class.getName(), "is single pane!");
+        //else //Log.d(MainActivity.class.getName(), "is not single pane!");
         return findViewById(R.id.singleFragmentLayout) != null;
     }
 
@@ -72,24 +72,24 @@ public class MainActivity extends ActionBarActivity implements Big6Fragment.OnFr
     }
 
     private void showBig6Pane() {
-        Log.d(MainActivity.class.getName(), "Showing big6 pane!");
+        //Log.d(MainActivity.class.getName(), "Showing big6 pane!");
         getFragmentManager()
                 .beginTransaction()
-                .replace(R.id.singleFragmentLayout, new Big6Fragment())
+                .replace(R.id.singleFragmentLayout, new Big6Fragment(), "Big6Fragment")
                 .commit();
     }
 
     private void showTrainingHistoryPane() {
         getFragmentManager()
                 .beginTransaction()
-                .replace(R.id.singleFragmentLayout, new TrainingHistoryFragment())
+                .replace(R.id.singleFragmentLayout, new TrainingHistoryFragment(), "TrainingHistoryFragment")
                 .commit();
     }
 
     private void showTrainingPane(int id) {
         getFragmentManager()
                 .beginTransaction()
-                .replace(R.id.singleFragmentLayout, TrainingFragment.newInstance(id))
+                .replace(R.id.singleFragmentLayout, TrainingFragment.newInstance(id), "TrainingFragment")
                 .commit();
     }
 
@@ -99,7 +99,7 @@ public class MainActivity extends ActionBarActivity implements Big6Fragment.OnFr
         MenuItem trainingHistoryActionItem = menu.findItem(R.id.trainingHistoryAction);
         MenuItem takePhotoActionItem = menu.findItem(R.id.takePhotoAction);
         MenuItem settingsActionItem = menu.findItem(R.id.settingsAction);
-        Log.w(getClass().getName(), "onPrepareOptionsMenu!");
+        //Log.w(getClass().getName(), "onPrepareOptionsMenu!");
 
         if(isSinglePane()) {
             if(isBig6FragmentShown()) {
@@ -210,7 +210,7 @@ public class MainActivity extends ActionBarActivity implements Big6Fragment.OnFr
 
         StringBuilder sb = new StringBuilder(""); // "10,2,10,2,10,2,-1,20,3,20,3,20,3"
         if(warmupFirstEditText == null){
-            Log.w(MainActivity.class.getName(), "warmupFirstEditText == null");
+            //Log.w(MainActivity.class.getName(), "warmupFirstEditText == null");
         }
         sb.append(warmupFirstEditText.getText().toString())
                 .append(",")
@@ -268,4 +268,15 @@ public class MainActivity extends ActionBarActivity implements Big6Fragment.OnFr
         insertHandler.startInsert(INSERT_NOTE_TOKEN, Defaults.NO_COOKIE, uri, values);
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        //Log.w(getClass().getName(), "onResume");
+    }
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        //Log.w(getClass().getName(), "onRestart");
+    }
 }

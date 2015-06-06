@@ -100,12 +100,12 @@ public class PhotoActivity extends ActionBarActivity implements LoaderManager.Lo
                 if (resultCode == RESULT_OK) {
                     Bundle res = data.getExtras();
                     String uri = res.getString("param_result");
-                    Log.d(PhotoActivity.class.getName(), "result:"+uri);
+                    //Log.d(PhotoActivity.class.getName(), "result:"+uri);
                     insertIntoContentProvider(uri);
                     getLoaderManager().restartLoader(LOADER_ID_PHOTO_URI, NO_BUNDLE, this);
                     //TODO: insert description
                 }else{
-                    Log.d(PhotoActivity.class.getName(), "ERROR!!!");
+                    //Log.d(PhotoActivity.class.getName(), "ERROR!!!");
                 }
                 break;
         }

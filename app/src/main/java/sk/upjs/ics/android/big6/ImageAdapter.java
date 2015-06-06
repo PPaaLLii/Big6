@@ -77,7 +77,7 @@ public class ImageAdapter extends BaseAdapter {
             imageView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Log.w(getClass().getName(), "On photo click!");
+                    //Log.w(getClass().getName(), "On photo click!");
                     Intent intent = new Intent(mContext, PhotoDetailActivity.class);
                     intent.putExtra("photo", photo.getUri());
                     intent.putExtra("description", photo.getDescription());

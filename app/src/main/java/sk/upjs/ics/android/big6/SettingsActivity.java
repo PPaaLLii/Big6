@@ -87,7 +87,7 @@ public class SettingsActivity extends PreferenceActivity {
             }
         };
         Uri trainingsHistory = Big6ContentProvider.TRAINING_HISTORY_CONTENT_URI;
-        Log.w(getClass().getName(), "uri: "+trainingsHistory.toString());
+        //Log.w(getClass().getName(), "uri: "+trainingsHistory.toString());
         deleteHandler.startDelete(DELETE_TRAINING_HISTORY_TOKEN, Defaults.NO_COOKIE, trainingsHistory,
                 Defaults.NO_SELECTION, Defaults.NO_SELECTION_ARGS);
     }
@@ -103,7 +103,7 @@ public class SettingsActivity extends PreferenceActivity {
             }
         };
         Uri photos = Big6ContentProvider.PHOTO_URI_CONTENT_URI;
-        Log.w(getClass().getName(), "uri: "+photos.toString());
+        //Log.w(getClass().getName(), "uri: "+photos.toString());
         deleteHandler.startDelete(DELETE_PHOTOS_TOKEN, Defaults.NO_COOKIE, photos,
                 Defaults.NO_SELECTION, Defaults.NO_SELECTION_ARGS);
     }

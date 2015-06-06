@@ -92,7 +92,7 @@ public class PhotoDetailActivity extends ActionBarActivity {
             }
         };
         Uri photo = ContentUris.withAppendedId(Big6ContentProvider.PHOTO_URI_CONTENT_URI, Long.parseLong(id));
-        Log.w(getClass().getName(), "deleting uri: " + photo.toString());
+        //Log.w(getClass().getName(), "deleting uri: " + photo.toString());
         deleteHandler.startDelete(DELETE_PHOTO_TOKEN, Defaults.NO_COOKIE, photo,
                 Defaults.NO_SELECTION, Defaults.NO_SELECTION_ARGS);
         finish();
