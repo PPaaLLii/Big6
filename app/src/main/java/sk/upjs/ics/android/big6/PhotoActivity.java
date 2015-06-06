@@ -46,9 +46,10 @@ public class PhotoActivity extends ActionBarActivity implements LoaderManager.Lo
         setContentView(R.layout.activity_photo);
 
         gridView = (GridView) findViewById(R.id.ImagesGridView);
-        gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        /*gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Log.w(getClass().getName(), "On photo click!");
                 Intent intent = new Intent(PhotoActivity.this, PhotoDetailActivity.class);
                 intent.putExtra("photo", imageAdapter.getItem(position).getUri());
                 intent.putExtra("description", imageAdapter.getItem(position).getDescription());
@@ -57,9 +58,9 @@ public class PhotoActivity extends ActionBarActivity implements LoaderManager.Lo
                 intent.putExtra("day", imageAdapter.getItem(position).getDay());
                 startActivityForResult(intent, REQUEST_CODE);
             }
-        });
+        });*/
 
-        imageAdapter = new ImageAdapter(this);
+        imageAdapter = new ImageAdapter(this, this);
         gridView.setAdapter(imageAdapter);
 
         getLoaderManager().initLoader(LOADER_ID_PHOTO_URI, NO_BUNDLE, this);

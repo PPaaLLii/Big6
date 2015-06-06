@@ -1,12 +1,15 @@
 package sk.upjs.ics.android.big6;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.GridView;
 import android.widget.ImageView;
@@ -24,11 +27,15 @@ import de.ecotastic.android.camerautil.util.BitmapHelper;
 
 public class ImageAdapter extends BaseAdapter {
 
+    private static final int REQUEST_CODE = 0;
     private Context mContext;
     private ArrayList<Photo> photos = new ArrayList<>();
+    private Activity activity;
 
-    public ImageAdapter(Context c) {
-        mContext = c;    }
+    public ImageAdapter(Context c, Activity activity) {
+        mContext = c;
+        this.activity = activity;
+    }
 
     public int getCount() {
         return photos.size();
@@ -55,23 +62,31 @@ public class ImageAdapter extends BaseAdapter {
             grid = inflater.inflate(R.layout.photo_grid_item, parent, false);
             TextView dateTextView = (TextView) grid.findViewById(R.id.photoGridItemDate);
             ImageView imageView = (ImageView) grid.findViewById(R.id.photoGridItemImageView);
-            TextView descriptionTextView = (TextView) grid.findViewById(R.id.photoGridItemDate);
 
-            Photo photo = photos.get(position);
+            final Photo photo = photos.get(position);
 
             //TODO: stringBuilder implementation in photo class
-            String date = photo.getYear()+ "." +photo.getMonth()+ "." +photo.getDay();
+            String date = photo.getDay() + "." +photo.getMonth()+ "." + photo.getYear();
             //Log.w(ImageAdapter.class.getName(), "date: " + date);
-            dateTextView.setText("date");
+            dateTextView.setText(date);
 
             Bitmap photo1 = BitmapHelper.readBitmap(mContext, Uri.parse(photos.get(position).getUri()));
             if (photo != null){
                 imageView.setImageBitmap(photo1);
             }
-
-            if(photo.getDescription() != null) {
-                descriptionTextView.setText(photo.getDescription());
-            }
+            imageView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Log.w(getClass().getName(), "On photo click!");
+                    Intent intent = new Intent(mContext, PhotoDetailActivity.class);
+                    intent.putExtra("photo", photo.getUri());
+                    intent.putExtra("description", photo.getDescription());
+                    intent.putExtra("year", photo.getYear());
+                    intent.putExtra("month", photo.getMonth());
+                    intent.putExtra("day", photo.getDay());
+                    activity.startActivityForResult(intent, REQUEST_CODE);
+                }
+            });
 
         } else {
             grid = (View) convertView;

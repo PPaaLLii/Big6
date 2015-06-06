@@ -239,6 +239,10 @@ public class MainActivity extends ActionBarActivity implements Big6Fragment.OnFr
                 .append(trainingStepSpinner.getSelectedItemId()+1);
 
         insertIntoContentProvider(sb.toString(), Integer.parseInt(trainingType));
+
+        if(isSinglePane()){
+            showBig6Pane();
+        }
     }
 
     private void insertIntoContentProvider(String training, int type) {
