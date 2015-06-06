@@ -1,6 +1,5 @@
 package sk.upjs.ics.android.big6;
 
-import android.app.Activity;
 import android.content.AsyncQueryHandler;
 import android.content.ContentValues;
 import android.content.Intent;
@@ -64,6 +63,13 @@ public class MainActivity extends ActionBarActivity implements Big6Fragment.OnFr
     private boolean isBig6FragmentShown() {
         return findViewById(R.id.trainingHistoryFragmentListView) == null && findViewById(R.id.trainingTextView) == null;
     }
+    private boolean isTrainingHistoryFragmentShown() {
+        return findViewById(R.id.trainingHistoryFragmentListView) != null;
+    }
+
+    private boolean isTrainingFragmentShown() {
+        return findViewById(R.id.trainingTextView) != null;
+    }
 
     private void showBig6Pane() {
         Log.d(MainActivity.class.getName(), "Showing big6 pane!");
@@ -91,21 +97,35 @@ public class MainActivity extends ActionBarActivity implements Big6Fragment.OnFr
     public boolean onPrepareOptionsMenu(Menu menu) {
         MenuItem big6ActionItem = menu.findItem(R.id.big6Action);
         MenuItem trainingHistoryActionItem = menu.findItem(R.id.trainingHistoryAction);
-        MenuItem takePhotoItem = menu.findItem(R.id.takePhotoAction);
+        MenuItem takePhotoActionItem = menu.findItem(R.id.takePhotoAction);
+        MenuItem settingsActionItem = menu.findItem(R.id.settingsAction);
+        Log.w(getClass().getName(), "onPrepareOptionsMenu!");
 
         if(isSinglePane()) {
             if(isBig6FragmentShown()) {
                 big6ActionItem.setVisible(false);
                 trainingHistoryActionItem.setVisible(true);
-                takePhotoItem.setVisible(true);
-            } else {
-                trainingHistoryActionItem.setVisible(false);
+                takePhotoActionItem.setVisible(true);
+                settingsActionItem.setVisible(true);
+
+            }
+            if(isTrainingFragmentShown()){
                 big6ActionItem.setVisible(true);
+                trainingHistoryActionItem.setVisible(false);
+                takePhotoActionItem.setVisible(false);
+                settingsActionItem.setVisible(false);
+            }
+            if(isTrainingHistoryFragmentShown()){
+                big6ActionItem.setVisible(true);
+                trainingHistoryActionItem.setVisible(false);
+                takePhotoActionItem.setVisible(false);
+                settingsActionItem.setVisible(false);
             }
         } else {
             big6ActionItem.setVisible(false);
             trainingHistoryActionItem.setVisible(false);
-            takePhotoItem.setVisible(true);
+            takePhotoActionItem.setVisible(true);
+            settingsActionItem.setVisible(true);
         }
         return true;
     }
@@ -137,7 +157,7 @@ public class MainActivity extends ActionBarActivity implements Big6Fragment.OnFr
                 startActivityForResult(new Intent(this, PhotoActivity.class), 0);
                 invalidateOptionsMenu();
                 return true;
-            case R.id.action_settings:
+            case R.id.settingsAction:
                 startActivityForResult(new Intent(this, SettingsActivity.class), 0);
                 invalidateOptionsMenu();
                 return true;
@@ -154,6 +174,7 @@ public class MainActivity extends ActionBarActivity implements Big6Fragment.OnFr
         if(isSinglePane()){
             //Log.w(MainActivity.class.getName(), "in if");
             showTrainingPane((int) id);
+            invalidateOptionsMenu();
         }else{
             //Log.w(MainActivity.class.getName(), "else");
             TrainingFragment trainingFragment = (TrainingFragment) getFragmentManager()
@@ -242,6 +263,5 @@ public class MainActivity extends ActionBarActivity implements Big6Fragment.OnFr
 
         insertHandler.startInsert(INSERT_NOTE_TOKEN, Defaults.NO_COOKIE, uri, values);
     }
-
 
 }

@@ -3,10 +3,16 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="sk.upjs.ics.android.big6.PhotoDetailActivity">
 
-    <item android:id="@+id/action_share" android:title="@string/action_share"
-        android:orderInCategory="100" app:showAsAction="always" />
+    <item android:id="@+id/action_share"
+        android:title="@string/action_share"
+        android:orderInCategory="100"
+        android:icon="@drawable/share"
+        app:showAsAction="always" />
 
-    <item android:id="@+id/action_delete" android:title="@string/action_delete"
-        android:orderInCategory="100" app:showAsAction="always" />
+    <item android:id="@+id/action_delete"
+        android:title="@string/action_delete"
+        android:orderInCategory="100"
+        android:icon="@drawable/delete"
+        app:showAsAction="always" />
 
 </menu>

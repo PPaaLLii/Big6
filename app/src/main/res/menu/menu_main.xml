@@ -22,7 +22,7 @@
         android:orderInCategory="80"
         app:showAsAction="ifRoom" />
 
-    <item android:id="@+id/action_settings"
+    <item android:id="@+id/settingsAction"
         android:title="@string/action_settings"
         android:icon="@drawable/settings"
         android:orderInCategory="100"

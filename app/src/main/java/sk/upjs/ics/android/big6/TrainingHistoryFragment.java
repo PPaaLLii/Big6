@@ -1,6 +1,7 @@
 package sk.upjs.ics.android.big6;
 
 
+import android.app.Activity;
 import android.app.LoaderManager;
 import android.content.CursorLoader;
 import android.content.Loader;
@@ -98,5 +99,11 @@ public class TrainingHistoryFragment extends Fragment implements LoaderManager.L
         getLoaderManager().restartLoader(LOADER_ID_TRAINING_HISTORY, NO_BUNDLE, this);
         this.trainingHistoryAdapter.notifyDataSetChanged();
         //Log.w(getClass().getName(), "adapter notifyDataSetChanged");
+    }
+
+    @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+        activity.invalidateOptionsMenu();
     }
 }

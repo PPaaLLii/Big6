@@ -43,6 +43,7 @@ public class Big6Fragment extends ListFragment {
             throw new ClassCastException(activity.toString()
                     + " must implement OnFragmentInteractionListener");
         }
+        activity.invalidateOptionsMenu();
     }
 
     @Override

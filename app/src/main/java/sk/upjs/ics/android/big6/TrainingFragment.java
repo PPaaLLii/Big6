@@ -1,6 +1,7 @@
 package sk.upjs.ics.android.big6;
 
 
+import android.app.Activity;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.app.Fragment;
@@ -91,5 +92,11 @@ public class TrainingFragment extends Fragment {
         Resources res = getResources();
         String[] big6 = res.getStringArray(R.array.trainingTypes);
         trainingTextView.setText(big6[id]);
+    }
+
+    @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+        activity.invalidateOptionsMenu();
     }
 }
