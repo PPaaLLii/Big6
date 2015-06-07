@@ -3,13 +3,17 @@ package sk.upjs.ics.android.big6;
 import android.content.AsyncQueryHandler;
 import android.content.ContentValues;
 import android.content.Intent;
+import android.media.AudioManager;
+import android.media.SoundPool;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
@@ -20,7 +24,7 @@ import sk.upjs.ics.android.util.Defaults;
 
 
 public class MainActivity extends ActionBarActivity implements Big6Fragment.OnFragmentInteractionListener {
-
+//http://www.truiton.com/2014/11/bound-service-example-android/
 
     private int INSERT_NOTE_TOKEN = 0;
     private long type;
@@ -34,29 +38,77 @@ public class MainActivity extends ActionBarActivity implements Big6Fragment.OnFr
     private EditText secondSetEditText;
     private EditText thirdSetEditText;
     private Spinner trainingStepSpinner;
-
+    private SoundPool soundPool;
+    private int soundID;
+    boolean loaded = false;
+    private Ticker ticker;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        //if(savedInstanceState == null) {
-            //Log.d(MainActivity.class.getName(), "savedInstanceState == null");
-            if (isSinglePane()) {
+        if(savedInstanceState != null) {
+
+            if(isSinglePane()) {
+                String tag = (String) savedInstanceState.get("tag");
+                if(tag != null) {
+                    switch (tag) {
+                        case "Big6Fragment":
+                            Big6Fragment big6Fragment = (Big6Fragment) getFragmentManager().findFragmentByTag("Big6Fragment");
+
+                            getFragmentManager()
+                                    .beginTransaction()
+                                    .replace(R.id.singleFragmentLayout, big6Fragment, "Big6Fragment")
+                                    .commit();
+                            break;
+
+                        case "TrainingFragment":
+                            TrainingFragment trainingFragment = (TrainingFragment) getFragmentManager().findFragmentByTag("TrainingFragment");
+
+                            getFragmentManager()
+                                    .beginTransaction()
+                                    .replace(R.id.singleFragmentLayout, trainingFragment, "TrainingFragment")
+                                    .commit();
+                            break;
+
+                        case "TrainingHistoryFragment":
+                            TrainingHistoryFragment trainingHistoryFragment = (TrainingHistoryFragment) getFragmentManager().findFragmentByTag("TrainingHistoryFragment");
+
+                            getFragmentManager()
+                                    .beginTransaction()
+                                    .replace(R.id.singleFragmentLayout, trainingHistoryFragment, "TrainingHistoryFragment")
+                                    .commit();
+                            break;
+                    }
+                }else{
+                    showBig6Pane();
+                }
+            }
+        }else{
+            if(isSinglePane()){
                 showBig6Pane();
             }
-        //}
+        }
 
-
+        this.setVolumeControlStream(AudioManager.STREAM_MUSIC);
+        soundPool = new SoundPool(10, AudioManager.STREAM_MUSIC, 0);
+        soundPool.setOnLoadCompleteListener(new SoundPool.OnLoadCompleteListener() {
+            @Override
+            public void onLoadComplete(SoundPool soundPool, int sampleId,
+                                       int status) {
+                loaded = true;
+            }
+        });
+        soundID = soundPool.load(this, R.raw.electronic_chime, 1);
         //service
         //RemindTrainingSchedule.schedule(this);
     }
 
     public boolean isSinglePane() {
-        //if(findViewById(R.id.singleFragmentLayout) != null)
-            //Log.d(MainActivity.class.getName(), "is single pane!");
-        //else //Log.d(MainActivity.class.getName(), "is not single pane!");
+        if(findViewById(R.id.singleFragmentLayout) != null)
+            Log.d(MainActivity.class.getName(), "is single pane!");
+        else Log.d(MainActivity.class.getName(), "is not single pane!");
         return findViewById(R.id.singleFragmentLayout) != null;
     }
 
@@ -236,7 +288,7 @@ public class MainActivity extends ActionBarActivity implements Big6Fragment.OnFr
                 .append(",")
                 .append(thirdSetEditText.getText().toString())
                 .append(",")
-                .append(trainingStepSpinner.getSelectedItemId()+1);
+                .append(trainingStepSpinner.getSelectedItemId() + 1);
 
         insertIntoContentProvider(sb.toString(), Integer.parseInt(trainingType));
 
@@ -278,5 +330,90 @@ public class MainActivity extends ActionBarActivity implements Big6Fragment.OnFr
     protected void onRestart() {
         super.onRestart();
         //Log.w(getClass().getName(), "onRestart");
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        if(ticker != null){
+            ticker.cancel(true);
+        }
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+
+        if(isSinglePane()) {
+            if (isBig6FragmentShown()) {
+                outState.putString("tag", "Big6Fragment");
+                return;
+            }
+            if (isTrainingFragmentShown()) {
+                outState.putString("tag", "TrainingFragment");
+                return;
+            }
+            if (isTrainingHistoryFragmentShown()) {
+                outState.putString("tag", "TrainingHistoryFragment");
+                return;
+            }
+        }
+    }
+
+    public void playButtonOnClick(View view){
+        Button playButton = (Button) findViewById(R.id.playButton);
+        if (playButton.getText().toString().equals("Play")){
+            Log.d(getClass().getName(), "Button Play Pressed");
+            playButton.setText("Stop");
+            ticker = new Ticker();
+            ticker.execute("");
+        }else{
+            playButton.setText("Play");
+            Log.d(getClass().getName(), "Button Stop Pressed");
+            ticker.cancel(true);
+        }
+    }
+
+    private class Ticker extends AsyncTask<String, String, Boolean> {
+
+        @Override
+        protected Boolean doInBackground(String... params) {
+            AudioManager audioManager = (AudioManager) getSystemService(AUDIO_SERVICE);
+            float actualVolume = (float) audioManager
+                    .getStreamVolume(AudioManager.STREAM_MUSIC);
+            float maxVolume = (float) audioManager
+                    .getStreamMaxVolume(AudioManager.STREAM_MUSIC);
+            float volume = actualVolume / maxVolume;
+            // Is the sound loaded already?
+            if (loaded) {
+                while(!isCancelled()) {
+                    soundPool.play(soundID, volume, volume, 1, 0, 1f);
+                    //Log.e("Test", "Played sound");
+                    try {
+                        Thread.sleep(1000);
+                    } catch (InterruptedException e) {
+                        //do nothing
+                    }
+                }
+            }
+            return true;
+        }
+
+        @Override
+        protected void onPostExecute(Boolean success) {
+            String message;
+            if(success) {
+                message = "Success!";
+            } else {
+                message = "Error!";
+            }
+            Toast.makeText(MainActivity.this, message, Toast.LENGTH_SHORT)
+                    .show();
+        }
     }
 }

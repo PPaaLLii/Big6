@@ -103,11 +103,25 @@ public class PhotoDetailActivity extends ActionBarActivity {
     }
 
     private void share() {
+
         Intent shareIntent = new Intent(Intent.ACTION_SEND);
-        shareIntent.setDataAndType(Uri.parse(uri), "image/*");
-        shareIntent.putExtra(Intent.EXTRA_TEXT, description);
+        shareIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_WHEN_TASK_RESET);
+        shareIntent.setType("image/*");
+
+        // For a file in shared storage.  For data in private storage, use a ContentProvider.
+        Uri uri = Uri.parse(this.uri);
+        shareIntent.putExtra(Intent.EXTRA_STREAM, uri);
+        shareIntent.putExtra(Intent.EXTRA_TEXT, this.description);
         if (shareIntent.resolveActivity(getPackageManager()) != null) {
             startActivity(shareIntent);
         }
     }
+
+    /*Intent shareIntent = new Intent(Intent.ACTION_SEND);
+        shareIntent.setDataAndType(Uri.parse(uri), "image/jpeg");
+        shareIntent.putExtra(Intent.EXTRA_TEXT, "blablabla");
+        if (shareIntent.resolveActivity(getPackageManager()) != null) {
+            startActivity(shareIntent);
+        }
+    }*/
 }

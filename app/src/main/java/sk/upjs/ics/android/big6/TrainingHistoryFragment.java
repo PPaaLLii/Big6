@@ -105,5 +105,6 @@ public class TrainingHistoryFragment extends Fragment implements LoaderManager.L
     public void onAttach(Activity activity) {
         super.onAttach(activity);
         activity.invalidateOptionsMenu();
+        getLoaderManager().restartLoader(LOADER_ID_TRAINING_HISTORY, NO_BUNDLE, this);
     }
 }
