@@ -101,8 +101,6 @@ public class MainActivity extends ActionBarActivity implements Big6Fragment.OnFr
             }
         });
         soundID = soundPool.load(this, R.raw.electronic_chime, 1);
-        //service
-        //RemindTrainingSchedule.schedule(this);
     }
 
     public boolean isSinglePane() {
@@ -342,6 +340,10 @@ public class MainActivity extends ActionBarActivity implements Big6Fragment.OnFr
         super.onPause();
         if(ticker != null){
             ticker.cancel(true);
+        }
+        Button playButton = (Button) findViewById(R.id.playButton);
+        if(playButton != null){
+            playButton.setText("Play");
         }
     }
 

@@ -60,8 +60,8 @@ public class RemindTrainingService extends IntentService {
                 );
 
         Notification notification = new Notification.Builder(this)
-                .setContentTitle("Big6")
-                .setContentText("Bezim")
+                .setContentTitle("Train!")
+                .setContentText("You should train now!")
                 .setContentIntent(resultPendingIntent)
                 .setTicker("Big6")
                 .setAutoCancel(true)

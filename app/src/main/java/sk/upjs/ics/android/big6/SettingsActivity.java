@@ -2,9 +2,10 @@ package sk.upjs.ics.android.big6;
 
 import android.app.AlertDialog;
 import android.content.AsyncQueryHandler;
-import android.content.ContentUris;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.preference.Preference;
 import android.preference.PreferenceActivity;
@@ -12,11 +13,16 @@ import android.os.Bundle;
 import android.util.Log;
 import android.widget.Toast;
 
+import java.util.Calendar;
+import java.util.Set;
+
 import sk.upjs.ics.android.big6.provider.Big6ContentProvider;
 import sk.upjs.ics.android.util.Defaults;
 
 
-public class SettingsActivity extends PreferenceActivity {
+public class SettingsActivity extends PreferenceActivity implements SharedPreferences.OnSharedPreferenceChangeListener {
+
+    //http://stackoverflow.com/questions/13596250/how-to-listen-for-preference-changes-within-a-preferencefragment
 
     public static final int DELETE_TRAINING_HISTORY_TOKEN = 0;
     public static final int DELETE_PHOTOS_TOKEN = 1;
@@ -110,5 +116,55 @@ public class SettingsActivity extends PreferenceActivity {
 
     private void notifyPhotoActivityToClearAdapter() {
         //TODO: Implement!
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        getPreferenceManager().getSharedPreferences().registerOnSharedPreferenceChangeListener(this);
+    }
+
+    @Override
+    protected void onPause() {
+        getPreferenceManager().getSharedPreferences().unregisterOnSharedPreferenceChangeListener(this);
+        super.onPause();
+    }
+
+    @Override
+    public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
+        if(sharedPreferences != null) {
+            switch (key) {
+                case "reminderTime.hour":
+                    Log.e(getClass().getName(), "reminderTime changed");
+                    schedule();
+                    break;
+                case "reminderTime.minute":
+                    Log.e(getClass().getName(), "reminderTime changed");
+                    schedule();
+                    break;
+                case "selectedDays":
+                    schedule();
+                    break;
+            }
+        }
+    }
+
+    private void schedule() {
+        SharedPreferences sharedPreferences = getPreferenceManager().getSharedPreferences();
+        Set<String> days = sharedPreferences.getStringSet("selectedDays", null);
+        if (days != null) {
+            boolean[] alarmsForDays = new boolean[7];
+            for (String day : days) {
+                if (!day.equals("7")){ //older indexing: Monday=1, Sunday=7 new:Monday=0, Sunday=6
+                    alarmsForDays[Integer.parseInt(day)] = true;
+                }
+            }
+
+
+            int hour = sharedPreferences.getInt("reminderTime.hour", 0);
+            int minute = sharedPreferences.getInt("reminderTime.minute", 0);
+
+            RemindTrainingSchedule.schedule(this,hour, minute, alarmsForDays);
+        }
     }
 }

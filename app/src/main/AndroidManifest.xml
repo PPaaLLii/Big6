@@ -75,7 +75,7 @@
         </activity>
 
         <service android:name=".RemindTrainingService"
-            android:enabled="false"
+            android:enabled="true"
             android:exported="false"/>
 
         <provider

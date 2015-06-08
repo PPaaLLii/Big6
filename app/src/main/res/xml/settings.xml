@@ -18,6 +18,7 @@
         <MultiSelectListPreference
             android:title="@string/selectDaysOfTheWeek"
             android:dependency="enableReminders"
+            android:key="selectedDays"
             android:entries="@array/weekDays"
             android:entryValues="@array/weekDaysValues"/>
     </PreferenceCategory>
