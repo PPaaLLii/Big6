@@ -14,7 +14,8 @@
             android:dialogLayout="@layout/time_preference"
             android:title="@string/selectReminderTime"
             android:key="reminderTime"
-            android:dependency="enableReminders"/>
+            android:dependency="enableReminders"
+            android:defaultValue="false"/>
         <MultiSelectListPreference
             android:title="@string/selectDaysOfTheWeek"
             android:dependency="enableReminders"

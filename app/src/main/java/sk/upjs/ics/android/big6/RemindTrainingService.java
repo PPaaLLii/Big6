@@ -8,7 +8,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
 
-import java.util.List;
 
 /**
  * Created by Pavol on 28. 4. 2015.

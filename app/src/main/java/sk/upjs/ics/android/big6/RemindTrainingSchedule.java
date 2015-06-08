@@ -6,11 +6,13 @@ import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.SystemClock;
 import android.util.Log;
 
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -23,17 +25,37 @@ public class RemindTrainingSchedule {
     private static PendingIntent[] pendingIntent = new PendingIntent[7];
     private static Context context;
 
-    public static void schedule(Context context, int hour, int minute, boolean[] days) {
+    public static void schedule(Context context, SharedPreferences sharedPreferences) {
 
         //http://stackoverflow.com/questions/4562757/alarmmanager-android-every-day
         //http://stackoverflow.com/questions/15677669/how-to-set-one-time-alarm-in-android
+
+        boolean isEnabled = sharedPreferences.getBoolean("enableReminders", false);
+        if (!isEnabled){
+            unSchedule(context);
+            return;
+        }
+
+        boolean[] alarmsForDays = new boolean[7];
+
+        Set<String> days = sharedPreferences.getStringSet("selectedDays", null);
+        if (days != null) {
+            for (String day : days) {
+                if (!day.equals("7")) { //older indexing: Monday=1, Sunday=7 new:Monday=0, Sunday=6
+                    alarmsForDays[Integer.parseInt(day)] = true;
+                }
+            }
+        }
+
+        int hour = sharedPreferences.getInt("reminderTime.hour", 0);
+        int minute = sharedPreferences.getInt("reminderTime.minute", 0);
 
         AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
         unSchedule(context);
 
         Log.i("", "scheduling!!! "+ hour);
-        for(int i=0; i<days.length; i++){
-            if(days[i]){
+        for(int i=0; i<alarmsForDays.length; i++){
+            if(alarmsForDays[i]){
                 Calendar calendar = Calendar.getInstance();
                 //Log.d("TIME: ", String.valueOf(calendar.getTime().toString()));
                 int dayOfTheWeekToday = calendar.get(Calendar.DAY_OF_WEEK);
@@ -58,17 +80,10 @@ public class RemindTrainingSchedule {
                 alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, millis, weekMillis, pendingIntent[i]);
             }
         }
-
-        /*AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
-
-        Intent intent = new Intent(context, RemindTrainingService.class);
-        PendingIntent pendingIntent = PendingIntent.getService(context, SERVICE_REQUEST_CODE, intent, NO_FLAGS);
-
-        alarmManager.setInexactRepeating(AlarmManager.ELAPSED_REALTIME, SystemClock.elapsedRealtime(), 7 * 10000, pendingIntent);*/
     }
 
     public static void unSchedule(Context context){
-        Log.i("" , "unscheduling old alarms!!!");
+        Log.i("" , "unScheduling old alarms!!!");
         AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
         for (int i=0; i<pendingIntent.length; i++){
             if(pendingIntent[i] != null){

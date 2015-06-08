@@ -8,6 +8,7 @@ import android.media.SoundPool;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
 import android.view.Menu;
@@ -24,6 +25,7 @@ import sk.upjs.ics.android.util.Defaults;
 
 
 public class MainActivity extends ActionBarActivity implements Big6Fragment.OnFragmentInteractionListener {
+    private static final boolean DO_NOT_READ_AGAIN = false;
 //http://www.truiton.com/2014/11/bound-service-example-android/
 
     private int INSERT_NOTE_TOKEN = 0;
@@ -47,6 +49,8 @@ public class MainActivity extends ActionBarActivity implements Big6Fragment.OnFr
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        PreferenceManager.setDefaultValues(this, R.xml.settings, DO_NOT_READ_AGAIN);
 
         if(savedInstanceState != null) {
 
@@ -91,6 +95,7 @@ public class MainActivity extends ActionBarActivity implements Big6Fragment.OnFr
             }
         }
 
+        //loading ticker sound
         this.setVolumeControlStream(AudioManager.STREAM_MUSIC);
         soundPool = new SoundPool(10, AudioManager.STREAM_MUSIC, 0);
         soundPool.setOnLoadCompleteListener(new SoundPool.OnLoadCompleteListener() {
