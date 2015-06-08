@@ -148,6 +148,6 @@ public class SettingsActivityOld extends PreferenceActivity implements SharedPre
 
     private void schedule() {
         SharedPreferences sharedPreferences = getPreferenceManager().getSharedPreferences();
-        RemindTrainingSchedule.schedule(this, sharedPreferences);
+        RemindTrainingSchedule.schedule(this);
     }
 }

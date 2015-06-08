@@ -8,6 +8,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.SystemClock;
+import android.preference.PreferenceManager;
 import android.util.Log;
 
 import java.util.Calendar;
@@ -25,10 +26,12 @@ public class RemindTrainingSchedule {
     private static PendingIntent[] pendingIntent = new PendingIntent[7];
     private static Context context;
 
-    public static void schedule(Context context, SharedPreferences sharedPreferences) {
+    public static void schedule(Context context) {
 
         //http://stackoverflow.com/questions/4562757/alarmmanager-android-every-day
         //http://stackoverflow.com/questions/15677669/how-to-set-one-time-alarm-in-android
+
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
 
         boolean isEnabled = sharedPreferences.getBoolean("enableReminders", false);
         if (!isEnabled){
@@ -53,7 +56,7 @@ public class RemindTrainingSchedule {
         AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
         unSchedule(context);
 
-        Log.i("", "scheduling!!! "+ hour);
+        Log.i("", "scheduling!!! ");
         for(int i=0; i<alarmsForDays.length; i++){
             if(alarmsForDays[i]){
                 Calendar calendar = Calendar.getInstance();
@@ -63,7 +66,7 @@ public class RemindTrainingSchedule {
                 if(diff < 0){
                     diff+=7;
                 }
-                Log.d("diff: ", String.valueOf(diff));
+                //Log.d("diff: ", String.valueOf(diff));
                 calendar.add(Calendar.DATE, diff);
                 calendar.set(Calendar.MINUTE, minute);
                 calendar.set(Calendar.HOUR_OF_DAY, hour);

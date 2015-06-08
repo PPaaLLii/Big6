@@ -32,9 +32,54 @@ public class SettingsFragment extends PreferenceFragment implements SharedPrefer
 
     private void initializeSummaries() {
         SharedPreferences sharedPreferences = getPreferenceManager().getSharedPreferences();
-        for(String key : sharedPreferences.getAll().keySet()) {
-            onSharedPreferenceChanged(sharedPreferences, key);
-        }
+        //for(String key : sharedPreferences.getAll().keySet()) {
+            //onSharedPreferenceChanged(sharedPreferences, key);
+        //}
+
+        findPreference("deleteDatabaseButton").setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+            public boolean onPreferenceClick(Preference preference) {
+                new AlertDialog.Builder(getActivity())
+                        .setTitle("Warning!")
+                        .setMessage("This will delete all your Training History! \n Do you want to continue?")
+                        .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                deleteAllHistory();
+                            }
+                        })
+                        .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                // if this button is clicked, just close
+                                // the dialog box and do nothing
+                                dialog.cancel();
+                            }
+                        })
+                        .show();
+                return true;
+            }
+        });
+
+        findPreference("deletePhotosButton").setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+            public boolean onPreferenceClick(Preference preference) {
+                new AlertDialog.Builder(getActivity())
+                        .setTitle("Warning!")
+                        .setMessage("This will delete all your Photos in this application! \n Photos won't be deleted from phone! \n Do you want to continue?")
+                        .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                deleteAllPhotos();
+                            }
+                        })
+                        .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                // if this button is clicked, just close
+                                // the dialog box and do nothing
+                                dialog.cancel();
+                            }
+                        })
+                        .show();
+                return true;
+            }
+        });
+
     }
 
     @Override
@@ -53,75 +98,30 @@ public class SettingsFragment extends PreferenceFragment implements SharedPrefer
     @Override
     public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
         if("deleteDatabaseButton".equals(key)) {
-            findPreference(key).setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
-                public boolean onPreferenceClick(Preference preference) {
-                    new AlertDialog.Builder(getActivity())
-                            .setTitle("Warning!")
-                            .setMessage("This will delete all your Training History! \n Do you want to continue?")
-                            .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-                                public void onClick(DialogInterface dialog, int id) {
-                                    deleteAllHistory();
-                                }
-                            })
-                            .setNegativeButton("No", new DialogInterface.OnClickListener() {
-                                public void onClick(DialogInterface dialog, int id) {
-                                    // if this button is clicked, just close
-                                    // the dialog box and do nothing
-                                    dialog.cancel();
-                                }
-                            })
-                            .show();
-                    return true;
-                }
-            });
+
         }
 
         if("deletePhotosButton".equals(key)) {
-            findPreference(key).setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
-                public boolean onPreferenceClick(Preference preference) {
-                    new AlertDialog.Builder(getActivity())
-                            .setTitle("Warning!")
-                            .setMessage("This will delete all your Photos in this application! \n Photos won't be deleted from phone! \n Do you want to continue?")
-                            .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-                                public void onClick(DialogInterface dialog, int id) {
-                                    deleteAllPhotos();
-                                }
-                            })
-                            .setNegativeButton("No", new DialogInterface.OnClickListener() {
-                                public void onClick(DialogInterface dialog, int id) {
-                                    // if this button is clicked, just close
-                                    // the dialog box and do nothing
-                                    dialog.cancel();
-                                }
-                            })
-                            .show();
-                    return true;
-                }
-            });
+
         }
 
         if(sharedPreferences != null) {
             switch (key) {
                 case "reminderTime.hour":
                     Log.e(getClass().getName(), "reminderTime changed");
-                    schedule();
+                    RemindTrainingSchedule.schedule(getActivity());
                     break;
                 case "reminderTime.minute":
                     Log.e(getClass().getName(), "reminderTime changed");
-                    schedule();
+                    RemindTrainingSchedule.schedule(getActivity());
                     break;
                 case "selectedDays":
-                    schedule();
+                    RemindTrainingSchedule.schedule(getActivity());
                     break;
                 case "enableReminders":
-                    schedule();
+                    RemindTrainingSchedule.schedule(getActivity());
             }
         }
-    }
-
-    private void schedule() {
-        SharedPreferences sharedPreferences = getPreferenceManager().getSharedPreferences();
-        RemindTrainingSchedule.schedule(getActivity(), sharedPreferences);
     }
 
     private void deleteAllHistory() {

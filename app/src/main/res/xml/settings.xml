@@ -21,7 +21,8 @@
             android:dependency="enableReminders"
             android:key="selectedDays"
             android:entries="@array/weekDays"
-            android:entryValues="@array/weekDaysValues"/>
+            android:entryValues="@array/weekDaysValues"
+            android:defaultValue="@array/empty_array"/>
     </PreferenceCategory>
 
     <PreferenceCategory android:title="@string/advanced">

@@ -44,7 +44,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".SettingsActivityOld"
+            android:name=".SettingsActivity"
             android:label="@string/title_activity_settings"
             android:parentActivityName=".MainActivity"
             android:theme="@style/AppTheme" >
