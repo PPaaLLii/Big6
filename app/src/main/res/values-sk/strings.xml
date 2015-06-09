@@ -59,5 +59,6 @@
     <string name="shoot">Odfoť!</string>
     <string name="deletePhotos">Vymazať fotky</string>
     <string name="deletePhotosButton">deletePhotosButton</string>
+    <string name="big6">Veľká šestka</string>
 
 </resources>

@@ -1,19 +1,30 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
-    android:layout_height="match_parent" tools:context="sk.upjs.ics.android.big6.Big6Fragment"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="sk.upjs.ics.android.big6.Big6Fragment"
     android:paddingLeft="30dp"
     android:paddingRight="30dp">
 
-    <ListView
-        android:id="@+id/big6ListView"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"/>
-
-    <Button
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/PhotoButton"
-        android:text="Take Photo"
-        android:onClick="PhotoButtonOnClick"/>
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/big6TextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/big6"
+            android:paddingBottom="30dp"
+            style="@android:style/TextAppearance.Large"/>
+
+        <ListView
+            android:id="@+id/big6ListView"
+            android:layout_below="@+id/big6TextView"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            />
+
+    </RelativeLayout>
 
 </FrameLayout>

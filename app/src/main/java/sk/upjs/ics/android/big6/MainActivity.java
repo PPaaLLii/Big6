@@ -314,6 +314,9 @@ public class MainActivity extends ActionBarActivity implements Big6Fragment.OnFr
                     TrainingHistoryFragment trainingHistoryFragment = (TrainingHistoryFragment) getFragmentManager()
                             .findFragmentById(R.id.trainingHistoryFragment);
                     trainingHistoryFragment.notifyAdapterDataSetChange();
+                    TrainingFragment trainingFragment = (TrainingFragment) getFragmentManager()
+                            .findFragmentById(R.id.trainingFragment);
+                    trainingFragment.notifiDataSetChange();
                 }
                 Toast.makeText(MainActivity.this, "Training was saved!", Toast.LENGTH_SHORT)
                         .show();

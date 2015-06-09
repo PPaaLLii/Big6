@@ -6,6 +6,7 @@ import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Vibrator;
 import android.util.Log;
 
 
@@ -71,5 +72,9 @@ public class RemindTrainingService extends IntentService {
                 = (NotificationManager) getSystemService(
                 Context.NOTIFICATION_SERVICE);
         notificationManager.notify("Big6", 0, notification);
+
+        //http://stackoverflow.com/questions/13950338/how-to-make-an-android-device-vibrate
+        Vibrator v = (Vibrator) this.getSystemService(Context.VIBRATOR_SERVICE);
+        v.vibrate(500);
     }
 }

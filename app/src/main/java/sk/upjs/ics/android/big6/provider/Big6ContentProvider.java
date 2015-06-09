@@ -81,7 +81,7 @@ public class Big6ContentProvider extends ContentProvider {
 
         switch(uriMatcher.match(uri)) {
             case URI_MATCH_TRAININGS:
-                Cursor cursor = getTrainingsCursor();
+                Cursor cursor = getTrainingsCursor(projection, selection, selectionArgs, sortOrder);
                 cursor.setNotificationUri(getContext().getContentResolver(), uri);
                 return cursor;
             case URI_MATCH_PHOTO:
@@ -105,15 +105,15 @@ public class Big6ContentProvider extends ContentProvider {
         return cursor;
     }
 
-    private Cursor getTrainingsCursor(){
+    private Cursor getTrainingsCursor(String[] projection, String selection,String[] selectionArgs, String sortOrder ){
         SQLiteDatabase db = databaseHelper.getReadableDatabase();
         Cursor cursor = db.query(Big6Provider.TrainingHistory.TABLE_NAME,
-                ALL_COLUMNS,
-                NO_SELECTION,
-                NO_SELECTION_ARGS,
+                projection,
+                selection,
+                selectionArgs,
                 NO_GROUP_BY,
                 NO_HAVING,
-                NO_SORT_ORDER);
+                sortOrder);
         return cursor;
     }
 
