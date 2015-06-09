@@ -56,4 +56,10 @@
     <string name="deletePhotos">Delete photos</string>
     <string name="deletePhotosButton">deletePhotosButton</string>
     <string name="big6">Big 6</string>
+    <string name="warning">Warning!</string>
+    <string name="deleteHistoryWarning">This will delete all your Training History! \n Do you want to continue?</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+    <string name="deletePhotosWarning">This will delete all your Photos in this application!  \\n Photos won\'t be deleted from phone!  \\n Do you want to continue?</string>
+    <string name="noTrainingsFound">No previous training found</string>
 </resources>

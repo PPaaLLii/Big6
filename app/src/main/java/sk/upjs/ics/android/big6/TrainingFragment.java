@@ -19,10 +19,8 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import java.util.Arrays;
-import java.util.Date;
 
 import sk.upjs.ics.android.big6.provider.Big6ContentProvider;
-import sk.upjs.ics.android.big6.provider.Big6Provider;
 import sk.upjs.ics.android.util.Defaults;
 
 import static sk.upjs.ics.android.big6.provider.Big6Provider.TrainingHistory.TYPE;
@@ -58,7 +56,6 @@ public class TrainingFragment extends Fragment implements LoaderManager.LoaderCa
 
         TrainingFragment fragment = new TrainingFragment();
         fragment.setArguments(arguments);
-
         return fragment;
     }
 
@@ -74,6 +71,14 @@ public class TrainingFragment extends Fragment implements LoaderManager.LoaderCa
         return getString(R.string.pushups);
     }
 
+    private int getIntTrainingType() {
+        Bundle arguments = getArguments();
+        if(arguments != null && arguments.containsKey(ARG_TRAINING_TYPE)) {
+            return arguments.getInt(ARG_TRAINING_TYPE);
+        }
+        return 0;
+    }
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -87,6 +92,8 @@ public class TrainingFragment extends Fragment implements LoaderManager.LoaderCa
 
         trainingTextView = (TextView) fragmentLayout.findViewById(R.id.trainingTypeTextView);
         trainingTextView.setText(getTrainingType());
+        this.type = getIntTrainingType();
+        Log.d("OnCreateView type setup", String.valueOf(getIntTrainingType()));
 
         warmupFirstNumberSpinner = (Spinner) fragmentLayout.findViewById(R.id.warmupFirstStepSpinner);
         warmupSecondNumberSpinner = (Spinner) fragmentLayout.findViewById(R.id.warmupSecondStepSpinner);
@@ -110,7 +117,7 @@ public class TrainingFragment extends Fragment implements LoaderManager.LoaderCa
         trainingStepSpinner.setSelection(0);
 
         getLoaderManager().initLoader(LAST_TRAINING_LOADER, NO_BUNDLE, this);
-
+        getLoaderManager().restartLoader(LAST_TRAINING_LOADER, NO_BUNDLE, this);
         return fragmentLayout;
     }
 
@@ -127,6 +134,8 @@ public class TrainingFragment extends Fragment implements LoaderManager.LoaderCa
     public void onAttach(Activity activity) {
         super.onAttach(activity);
         activity.invalidateOptionsMenu();
+        Log.d("", "onAttach");
+        notifyDataSetChange();
     }
 
     @Override
@@ -152,6 +161,7 @@ public class TrainingFragment extends Fragment implements LoaderManager.LoaderCa
                 sortOrder);
 
         Log.e(getClass().getName(), loader.getSelection() + " " + Arrays.toString(loader.getSelectionArgs()) + " " + loader.getSortOrder());
+        //Log.e(getClass().getName(), "loader created");
         return loader;
     }
 
@@ -164,20 +174,23 @@ public class TrainingFragment extends Fragment implements LoaderManager.LoaderCa
             String training = "";
             while(cursor.moveToNext()) {
                 training = cursor.getString(cursor.getColumnIndex(TRAINING));
-                Log.w(getClass().getName(), "--------------------" + training + "--------------------");
+                //Log.w(getClass().getName(), "--------------------" + training + "--------------------");
             }
             cursor.close();
 
             if(!training.equals("")) {
+                Log.e(getClass().getName(), training);
                 String[] lastTraining = training.split("-1");
-                lastTrainingWarmUpTextView.setText(lastTraining[0]);
+                lastTrainingWarmUpTextView.setText(lastTraining[0].substring(0, lastTraining[0].length()-1));
                 lastTrainingTrainingTextView.setText(lastTraining[1].substring(1));
             }else{
-                lastTrainingWarmUpTextView.setText("No previous training found");
-                lastTrainingTrainingTextView.setText("No previous training found");
+                Log.e(getClass().getName(), "no training found");
+                String noTrainingsFound = getResources().getString(R.string.noTrainingsFound);
+                lastTrainingWarmUpTextView.setText(noTrainingsFound);
+                lastTrainingTrainingTextView.setText(noTrainingsFound);
             }
 
-            Log.w(getClass().getName(), "onLoadFinished!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+            //Log.w(getClass().getName(), "onLoadFinished!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
         }
     }
 
@@ -186,7 +199,7 @@ public class TrainingFragment extends Fragment implements LoaderManager.LoaderCa
             // do nothing TODO: really?
     }
 
-    public void notifiDataSetChange() {
+    public void notifyDataSetChange() {
         getLoaderManager().restartLoader(LAST_TRAINING_LOADER, NO_BUNDLE, this);
     }
 }

@@ -60,5 +60,11 @@
     <string name="deletePhotos">Vymazať fotky</string>
     <string name="deletePhotosButton">deletePhotosButton</string>
     <string name="big6">Veľká šestka</string>
+    <string name="warning">Varovanie!</string>
+    <string name="deleteHistoryWarning">Toto vymaže celú históriu tréningov! \n Chcete pokračovať?</string>
+    <string name="yes">Áno</string>
+    <string name="no">Nie</string>
+    <string name="deletePhotosWarning">Toto vymaže všetky fotky v tejto aplikácii! \n Fotky nebudú vymazané zo zariadenia! \n Chcete pokračovať?</string>
+    <string name="noTrainingsFound">Nenašli sa treningy</string>
 
 </resources>

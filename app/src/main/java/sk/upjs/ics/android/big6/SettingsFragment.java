@@ -35,18 +35,24 @@ public class SettingsFragment extends PreferenceFragment implements SharedPrefer
         //for(String key : sharedPreferences.getAll().keySet()) {
             //onSharedPreferenceChanged(sharedPreferences, key);
         //}
+        final String warning = getResources().getString(R.string.warning);
+        final String deleteHistoryWarning = getResources().getString(R.string.deleteHistoryWarning);
+        final String yes = getResources().getString(R.string.yes);
+        final String no = getResources().getString(R.string.no);
+
+        final String deletePhotosWarning = getResources().getString(R.string.deletePhotosWarning);
 
         findPreference("deleteDatabaseButton").setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
             public boolean onPreferenceClick(Preference preference) {
                 new AlertDialog.Builder(getActivity())
-                        .setTitle("Warning!")
-                        .setMessage("This will delete all your Training History! \n Do you want to continue?")
-                        .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                        .setTitle(warning)
+                        .setMessage(deleteHistoryWarning)
+                        .setPositiveButton(yes, new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int id) {
                                 deleteAllHistory();
                             }
                         })
-                        .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                        .setNegativeButton(no, new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int id) {
                                 // if this button is clicked, just close
                                 // the dialog box and do nothing
@@ -61,14 +67,14 @@ public class SettingsFragment extends PreferenceFragment implements SharedPrefer
         findPreference("deletePhotosButton").setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
             public boolean onPreferenceClick(Preference preference) {
                 new AlertDialog.Builder(getActivity())
-                        .setTitle("Warning!")
-                        .setMessage("This will delete all your Photos in this application! \n Photos won't be deleted from phone! \n Do you want to continue?")
-                        .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                        .setTitle(warning)
+                        .setMessage(deletePhotosWarning)
+                        .setPositiveButton(yes, new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int id) {
                                 deleteAllPhotos();
                             }
                         })
-                        .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                        .setNegativeButton(no, new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int id) {
                                 // if this button is clicked, just close
                                 // the dialog box and do nothing
@@ -108,11 +114,11 @@ public class SettingsFragment extends PreferenceFragment implements SharedPrefer
         if(sharedPreferences != null) {
             switch (key) {
                 case "reminderTime.hour":
-                    Log.e(getClass().getName(), "reminderTime changed");
+                    //Log.e(getClass().getName(), "reminderTime changed");
                     RemindTrainingSchedule.schedule(getActivity());
                     break;
                 case "reminderTime.minute":
-                    Log.e(getClass().getName(), "reminderTime changed");
+                    //Log.e(getClass().getName(), "reminderTime changed");
                     RemindTrainingSchedule.schedule(getActivity());
                     break;
                 case "selectedDays":
