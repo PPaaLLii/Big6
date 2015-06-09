@@ -28,19 +28,19 @@ public class RemindTrainingService extends IntentService {
     public void onCreate() {
         super.onCreate();
 
-        Log.i(getClass().getName(), "RemainTrainingService created");
+        //Log.i(getClass().getName(), "RemainTrainingService created");
     }
 
     @Override
     protected void onHandleIntent(Intent intent) {
-        Log.i(getClass().getName(), "setting reminders...");
+        //Log.i(getClass().getName(), "setting reminders...");
         triggerNotification();
     }
 
     @Override
     public void onDestroy() {
 
-        Log.i(getClass().getName(), "RemainTrainingService destroyed");
+        //Log.i(getClass().getName(), "RemainTrainingService destroyed");
 
         super.onDestroy();
     }

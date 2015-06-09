@@ -93,7 +93,7 @@ public class TrainingFragment extends Fragment implements LoaderManager.LoaderCa
         trainingTextView = (TextView) fragmentLayout.findViewById(R.id.trainingTypeTextView);
         trainingTextView.setText(getTrainingType());
         this.type = getIntTrainingType();
-        Log.d("OnCreateView type setup", String.valueOf(getIntTrainingType()));
+        //Log.d("OnCreateView type setup", String.valueOf(getIntTrainingType()));
 
         warmupFirstNumberSpinner = (Spinner) fragmentLayout.findViewById(R.id.warmupFirstStepSpinner);
         warmupSecondNumberSpinner = (Spinner) fragmentLayout.findViewById(R.id.warmupSecondStepSpinner);
@@ -134,7 +134,7 @@ public class TrainingFragment extends Fragment implements LoaderManager.LoaderCa
     public void onAttach(Activity activity) {
         super.onAttach(activity);
         activity.invalidateOptionsMenu();
-        Log.d("", "onAttach");
+        //Log.d("", "onAttach");
         notifyDataSetChange();
     }
 
@@ -160,7 +160,7 @@ public class TrainingFragment extends Fragment implements LoaderManager.LoaderCa
                 selectionArgs,
                 sortOrder);
 
-        Log.e(getClass().getName(), loader.getSelection() + " " + Arrays.toString(loader.getSelectionArgs()) + " " + loader.getSortOrder());
+        //Log.e(getClass().getName(), loader.getSelection() + " " + Arrays.toString(loader.getSelectionArgs()) + " " + loader.getSortOrder());
         //Log.e(getClass().getName(), "loader created");
         return loader;
     }
@@ -169,7 +169,7 @@ public class TrainingFragment extends Fragment implements LoaderManager.LoaderCa
     public void onLoadFinished(Loader<Cursor> loader, Cursor cursor) {
 
         if(cursor == null){
-            Log.e(getClass().getName(), "Cursor je null!!!");
+            //Log.e(getClass().getName(), "Cursor je null!!!");
         }else {
             String training = "";
             while(cursor.moveToNext()) {
@@ -179,12 +179,12 @@ public class TrainingFragment extends Fragment implements LoaderManager.LoaderCa
             cursor.close();
 
             if(!training.equals("")) {
-                Log.e(getClass().getName(), training);
+                //Log.e(getClass().getName(), training);
                 String[] lastTraining = training.split("-1");
                 lastTrainingWarmUpTextView.setText(lastTraining[0].substring(0, lastTraining[0].length()-1));
                 lastTrainingTrainingTextView.setText(lastTraining[1].substring(1));
             }else{
-                Log.e(getClass().getName(), "no training found");
+                //Log.e(getClass().getName(), "no training found");
                 String noTrainingsFound = getResources().getString(R.string.noTrainingsFound);
                 lastTrainingWarmUpTextView.setText(noTrainingsFound);
                 lastTrainingTrainingTextView.setText(noTrainingsFound);

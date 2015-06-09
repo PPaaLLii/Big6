@@ -56,11 +56,11 @@ public class RemindTrainingSchedule {
         AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
         unSchedule(context);
 
-        Log.i("", "scheduling!!! ");
+        //Log.i("", "scheduling!!! ");
         for(int i=0; i<alarmsForDays.length; i++){
             if(alarmsForDays[i]){
                 Calendar calendar = Calendar.getInstance();
-                Log.d("TIME: ", String.valueOf(calendar.getTime().toString()));
+                //Log.d("TIME: ", String.valueOf(calendar.getTime().toString()));
                 int dayOfTheWeekToday = calendar.get(Calendar.DAY_OF_WEEK);
                 int diff = (getWantedDayOfTheWeek(i) - dayOfTheWeekToday);
                 if(diff < 0){
@@ -74,7 +74,7 @@ public class RemindTrainingSchedule {
                 calendar.set(Calendar.MILLISECOND, 0);
 
                 Date date = calendar.getTime();
-                Log.d("callendar time", date.toString());
+                //Log.d("callendar time", date.toString());
                 Long millis = calendar.getTimeInMillis();
                 Intent intent = new Intent(context, RemindTrainingService.class);
                 pendingIntent[i] = PendingIntent.getService(context, SERVICE_REQUEST_CODE, intent, NO_FLAGS);
@@ -86,7 +86,7 @@ public class RemindTrainingSchedule {
     }
 
     public static void unSchedule(Context context){
-        Log.i("" , "unScheduling old alarms!!!");
+        //Log.i("" , "unScheduling old alarms!!!");
         AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
         for (int i=0; i<pendingIntent.length; i++){
             if(pendingIntent[i] != null){

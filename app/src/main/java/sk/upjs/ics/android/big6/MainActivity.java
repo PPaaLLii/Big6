@@ -109,9 +109,9 @@ public class MainActivity extends ActionBarActivity implements Big6Fragment.OnFr
     }
 
     public boolean isSinglePane() {
-        if(findViewById(R.id.singleFragmentLayout) != null)
-            Log.d(MainActivity.class.getName(), "is single pane!");
-        else Log.d(MainActivity.class.getName(), "is not single pane!");
+        //if(findViewById(R.id.singleFragmentLayout) != null)
+            //Log.d(MainActivity.class.getName(), "is single pane!");
+        //else //Log.d(MainActivity.class.getName(), "is not single pane!");
         return findViewById(R.id.singleFragmentLayout) != null;
     }
 
@@ -378,13 +378,13 @@ public class MainActivity extends ActionBarActivity implements Big6Fragment.OnFr
     public void playButtonOnClick(View view){
         Button playButton = (Button) findViewById(R.id.playButton);
         if (playButton.getText().toString().equals("Play")){
-            Log.d(getClass().getName(), "Button Play Pressed");
+            //Log.d(getClass().getName(), "Button Play Pressed");
             playButton.setText("Stop");
             ticker = new Ticker();
             ticker.execute("");
         }else{
             playButton.setText("Play");
-            Log.d(getClass().getName(), "Button Stop Pressed");
+            //Log.d(getClass().getName(), "Button Stop Pressed");
             ticker.cancel(true);
         }
     }
