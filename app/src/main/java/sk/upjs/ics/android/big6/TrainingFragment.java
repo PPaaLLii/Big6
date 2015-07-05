@@ -181,8 +181,36 @@ public class TrainingFragment extends Fragment implements LoaderManager.LoaderCa
             if(!training.equals("")) {
                 //Log.e(getClass().getName(), training);
                 String[] lastTraining = training.split("-1");
-                lastTrainingWarmUpTextView.setText(lastTraining[0].substring(0, lastTraining[0].length()-1));
-                lastTrainingTrainingTextView.setText(lastTraining[1].substring(1));
+
+                StringBuilder sb = new StringBuilder();
+
+                String[] warmUp;
+                if(lastTraining.length==0){
+                    warmUp = new String[0];
+                }else{
+                    warmUp = lastTraining[0].split(",");
+                }
+
+                for(int i=0; i<warmUp.length; i++){
+                    sb.append(" " + warmUp[i]);
+                }
+
+                lastTrainingWarmUpTextView.setText(sb.toString());
+
+                StringBuilder sb1 = new StringBuilder();
+                String[] training1;
+                if(lastTraining.length==0){
+                    training1=new String[0];
+                }else{
+                    training1 = lastTraining[1].split(",");
+                }
+
+                for(int i=0; i<training1.length; i++){
+                    sb1.append(" " + training1[i]);
+                }
+
+                lastTrainingTrainingTextView.setText(sb1.toString());
+
             }else{
                 //Log.e(getClass().getName(), "no training found");
                 String noTrainingsFound = getResources().getString(R.string.noTrainingsFound);

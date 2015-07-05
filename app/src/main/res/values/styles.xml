@@ -2,11 +2,12 @@
 
     <color name="light_blue">#E6E6FF</color>
 
+    <color name="blue">#CCE0FF</color>
     <!-- http://stackoverflow.com/questions/11779679/setting-android-theme-background-color -->
 
     <!-- Base application theme. -->
     <style name="AppTheme" parent="@style/Theme.AppCompat.Light.DarkActionBar">
-        <item name="android:windowBackground">@color/light_blue</item>
+        <item name="android:windowBackground">@color/blue</item>
     </style>
 
 </resources>

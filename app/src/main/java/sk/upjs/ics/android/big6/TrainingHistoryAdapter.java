@@ -76,14 +76,27 @@ public class TrainingHistoryAdapter extends BaseAdapter{
         StringBuilder sb1 = new StringBuilder();
         sb1.append(context.getString(R.string.warmUp));
 
-        String[] warmUp = trainingParsed[0].split(",");
+        String[] warmUp;
+        if(trainingParsed.length==0){
+            warmUp = new String[0];
+        }else{
+            warmUp = trainingParsed[0].split(",");
+        }
+
         for(int i=0; i<warmUp.length; i++){
             sb1.append(" " + warmUp[i]);
         }
-        sb1.append(";  ");
+        sb1.append("\n");
         sb1.append(context.getString(R.string.training));
+        sb1.append(" ");
 
-        String[] training1 = trainingParsed[1].split(",");
+        String[] training1;
+        if(trainingParsed.length==0){
+            training1=new String[0];
+        }else{
+            training1 = trainingParsed[1].split(",");
+        }
+
         for(int i=0; i<training1.length; i++){
             sb1.append(" " + training1[i]);
         }

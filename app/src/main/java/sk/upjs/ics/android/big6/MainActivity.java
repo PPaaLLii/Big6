@@ -267,31 +267,51 @@ public class MainActivity extends ActionBarActivity implements Big6Fragment.OnFr
         if(warmupFirstEditText == null){
             //Log.w(MainActivity.class.getName(), "warmupFirstEditText == null");
         }
-        sb.append(warmupFirstEditText.getText().toString())
-                .append(",")
-                .append(warmupFirstStepSpinner.getSelectedItemId()+1)
-                .append(",")
-                .append(warmupSecondEditText.getText().toString())
-                .append(",")
-                .append(warmupSecondStepSpinner.getSelectedItemId()+1)
-                .append(",")
-                .append(warmupThirdEditText.getText().toString())
-                .append(",")
-                .append(warmupThirdStepSpinner.getSelectedItemId()+1)
-                .append(",")
-                .append("-1")
-                .append(",")
-                .append(firstSetEditText.getText().toString())
-                .append(",")
-                .append(trainingStepSpinner.getSelectedItemId()+1)
-                .append(",")
-                .append(secondSetEditText.getText().toString())
-                .append(",")
-                .append(trainingStepSpinner.getSelectedItemId()+1)
-                .append(",")
-                .append(thirdSetEditText.getText().toString())
-                .append(",")
-                .append(trainingStepSpinner.getSelectedItemId() + 1);
+        if (!warmupFirstEditText.getText().toString().equals("")){
+            sb.append(warmupFirstEditText.getText().toString());
+            sb.append(",");
+            //sb.append(warmupFirstStepSpinner.getSelectedItemId()+1);
+            sb.append(warmupFirstStepSpinner.getSelectedItem().toString());
+            System.out.println(warmupFirstStepSpinner.getSelectedItem());
+            sb.append(",");
+        }
+
+        if(!warmupSecondEditText.getText().toString().equals("")){
+            sb.append(warmupSecondEditText.getText().toString());
+            sb.append(",");
+            sb.append(warmupSecondStepSpinner.getSelectedItem().toString());
+            sb.append(",");
+        }
+
+        if(!warmupThirdEditText.getText().toString().equals("")){
+            sb.append(warmupThirdEditText.getText().toString());
+            sb.append(",");
+            sb.append(warmupThirdStepSpinner.getSelectedItem().toString());
+            sb.append(",");
+        }
+
+        sb.append("-1");
+
+        if(!firstSetEditText.getText().toString().equals("")){
+            sb.append(firstSetEditText.getText().toString());
+            sb.append(",");
+            sb.append(trainingStepSpinner.getSelectedItem().toString());
+            sb.append(",");
+        }
+
+        if(!secondSetEditText.getText().toString().equals("")){
+            sb.append(secondSetEditText.getText().toString());
+            sb.append(",");
+            sb.append(trainingStepSpinner.getSelectedItem().toString());
+            sb.append(",");
+        }
+
+        if(!thirdSetEditText.getText().toString().equals("")){
+            sb.append(thirdSetEditText.getText().toString());
+            sb.append(",");
+            sb.append(trainingStepSpinner.getSelectedItem().toString());
+        }
+
 
         insertIntoContentProvider(sb.toString(), Integer.parseInt(trainingType));
 

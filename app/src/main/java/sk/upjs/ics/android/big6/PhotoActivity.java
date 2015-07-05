@@ -106,6 +106,8 @@ public class PhotoActivity extends ActionBarActivity implements LoaderManager.Lo
                     //TODO: insert description
                 }else{
                     //Log.d(PhotoActivity.class.getName(), "ERROR!!!");
+                    //Toast.makeText(this, "Sorry, there was a problem. Please try again!", Toast.LENGTH_SHORT).show();
+                    //getLoaderManager().restartLoader(LOADER_ID_PHOTO_URI, NO_BUNDLE, this);
                 }
                 break;
         }

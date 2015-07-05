@@ -5,6 +5,7 @@ import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 
 import de.ecotastic.android.camerautil.lib.CameraIntentHelperActivity;
 import de.ecotastic.android.camerautil.util.BitmapHelper;
@@ -15,7 +16,6 @@ public class TakePhotoActivity extends CameraIntentHelperActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         startCameraIntent();
     }
 
@@ -32,6 +32,13 @@ public class TakePhotoActivity extends CameraIntentHelperActivity {
             BitmapHelper.deleteImageWithUriIfExists(this.photoUriIn3rdLocation, this);
         }
         finishWithResult(photoUri.toString());
+    }
+
+    @Override
+    protected void onPhotoUriNotFound() {
+        super.onPhotoUriNotFound();
+        setResult(RESULT_CANCELED);
+        finish();
     }
 
     private void finishWithResult(String uri)

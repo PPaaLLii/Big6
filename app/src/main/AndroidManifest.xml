@@ -73,7 +73,7 @@
         </activity>
         <activity
             android:name=".TakePhotoActivity"
-            android:label="@string/title_activity_take_photo" >
+            android:label="@string/title_activity_take_photo">
         </activity>
 
         <receiver android:name=".BootCompletedIntentReceiver">

@@ -5,16 +5,16 @@
     <string name="title_activity_training_history">Training History</string>
 
     <string-array name="step_arrays">
-        <item>I</item>
-        <item>II</item>
-        <item>III</item>
-        <item>IV</item>
-        <item>V</item>
-        <item>VI</item>
-        <item>VII</item>
+        <item>I   </item>
+        <item>II  </item>
+        <item>III </item>
+        <item>IV  </item>
+        <item>V   </item>
+        <item>VI  </item>
+        <item>VII </item>
         <item>VIII</item>
-        <item>IX</item>
-        <item>X</item>
+        <item>IX  </item>
+        <item>X   </item>
     </string-array>
 
     <string-array name="trainingTypes">
