@@ -8,7 +8,7 @@ android {
         applicationId "sk.upjs.ics.android.big6"
         minSdkVersion 14
         targetSdkVersion 22
-        versionCode 4
+        versionCode 5
         versionName "0.0.1"
     }
     buildTypes {
@@ -16,7 +16,7 @@ android {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             debug {
-                debuggable true
+                debuggable false
             }
         }
     }
